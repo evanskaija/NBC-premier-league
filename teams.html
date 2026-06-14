@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams Directory | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --surface-glass: rgba(255, 255, 255, 0.03);
+            --surface-glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        .teams-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header-v2 {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .section-header-v2 h1 {
+            font-size: 3.5rem;
+            font-weight: 950;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header-v2 p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .search-filter-belt {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary);
+        }
+
+        .search-input-v2 {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            width: 350px;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .section-separator {
+            border-top: 1px solid var(--border-color);
+            margin: 60px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-separator span {
+            background: var(--bg-main);
+            padding: 0 20px;
+            font-weight: 950;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-top: -11px;
+        }
+
+        /* Featured Team Card */
+        .featured-team-card {
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.15), rgba(0, 8, 20, 0.95)), url('images/stadium.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 30px;
+            border: 1px solid var(--primary-glow);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 180, 216, 0.1);
+        }
+
+        .featured-team-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .featured-crest-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .featured-crest-box img {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+        }
+
+        .featured-details {
+            z-index: 1;
+        }
+
+        .featured-details h2 {
+            font-size: 4rem;
+            font-weight: 950;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .stats-grid-featured {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .f-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .f-stat-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .f-stat-item div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .f-stat-item span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .f-stat-item strong {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .form-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.win { background: #22c55e; }
+
+        /* Competition Pills */
+        .comp-pills-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .comp-pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .comp-pill:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            background: rgba(0, 180, 216, 0.05);
+        }
+
+        /* Club Cards Grid */
+        .clubs-grid-v3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .club-card-v3 {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .club-card-v3:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            background: linear-gradient(to bottom, var(--bg-card), var(--bg-hover));
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .club-card-v3 img {
+            height: 80px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+
+        .club-card-v3 h3 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .club-card-v3 .rank {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .view-team-link {
+            font-weight: 950;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            transition: color 0.3s;
+        }
+
+        .club-card-v3:hover .view-team-link {
+            color: var(--primary);
+        }
+
+        @media (max-width: 900px) {
+            .featured-team-card { grid-template-columns: 1fr; text-align: center; padding: 30px; }
+            .featured-crest-box { width: fit-content; margin: 0 auto; }
+            .featured-details h2 { font-size: 2.5rem; }
+            .stats-grid-featured { grid-template-columns: 1fr; }
+            .search-input-v2 { width: 100%; }
+        }
+
+        /* Power Rankings Styles */
+        .ranking-list-v2 {
+            background: var(--bg-card);
+            border-radius: 25px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .ranking-item-v2 {
+            display: flex;
+            align-items: center;
+            padding: 20px 30px;
+            gap: 25px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s;
+        }
+
+        .ranking-item-v2:last-child { border-bottom: none; }
+
+        .ranking-item-v2:hover { background: rgba(255,255,255,0.02); }
+
+        .r-num {
+            font-size: 1.8rem;
+            font-weight: 950;
+            color: var(--text-muted);
+            width: 40px;
+        }
+
+        .r-name {
+            font-size: 1.2rem;
+            font-weight: 900;
+            flex: 1;
+        }
+
+        /* Team of the Month card */
+        .tom-card {
+            background: linear-gradient(135deg, var(--bg-hover), #000);
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        /* Form Guide Visual */
+        .form-guide-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface-glass);
+            padding: 15px 25px;
+            border-radius: 15px;
+        }
+
+        /* Small Stats */
+        .stat-box-mini {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .stat-box-mini h4 { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 900; }
+        .stat-box-mini .top-club { font-weight: 950; font-size: 1.2rem; color: var(--primary); }
+
+        /* Transfer Row */
+        .transfer-ticker {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .transfer-item {
+            background: var(--surface-glass);
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Star Players Grid */
+        .stars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .star-item {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .star-item span { display: block; margin-top: 10px; font-weight: 900; }
+        .star-item small { color: var(--primary); font-weight: 800; font-size: 0.7rem; text-transform: uppercase; }
+
+    </style>
+</head>
+<body>
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown active">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html" class="active">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <main class="teams-container">
+        
+        <!-- TEAMS HEADER -->
+        <div class="section-header-v2">
+            <h1>Teams</h1>
+            <p>Discover every club competing in Tanzanian football.</p>
+            
+            <div class="search-filter-belt">
+                <input type="text" class="search-input-v2" placeholder="🔍 Search Team...">
+                <select class="filter-select">
+                    <option>[ All Competitions ▼ ]</option>
+                    <option>NBC Premier League</option>
+                    <option>Championship League</option>
+                </select>
+                <select class="filter-select">
+                    <option>[ All Regions ▼ ]</option>
+                    <option>Dar es Salaam</option>
+                    <option>Mwanza</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>⭐ Featured Team</span></div>
+
+        <!-- FEATURED TEAM -->
+        <a href="team-details.html?id=yanga" class="featured-team-card reveal-element" style="text-decoration:none; color:inherit; display: grid;">
+            <div class="featured-crest-box">
+                <img src="images/yanga.jpg" alt="Yanga SC">
+            </div>
+            <div class="featured-details">
+                <h2>YANGA SC</h2>
+                <div class="stats-grid-featured">
+                    <div class="f-stat-item">
+                        <i class="fa-solid fa-trophy"></i>
+                        <div><span>Position</span><strong>1st Place</strong></div>
+                    </div>
+                    <div class="f-stat-item">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <div><span>Coach</span><strong>Miguel Gamondi</strong></div>
+                    </div>
+                    <div class="f-stat-item">
+                        <i class="fa-solid fa-building"></i>
+                        <div><span>Stadium</span><strong>Benjamin Mkapa</strong></div>
+                    </div>
+                    <div class="f-stat-item">
+                        <i class="fa-solid fa-users"></i>
+                        <div><span>Squad</span><strong>28 Players</strong></div>
+                    </div>
+                    <div class="f-stat-item">
+                        <i class="fa-solid fa-bolt"></i>
+                        <div>
+                            <span>Current Form</span>
+                            <div class="form-dots">
+                                <div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f-stat-item">
+                        <i class="fa-solid fa-futbol"></i>
+                        <div><span>Goals</span><strong>71 Scored / 14 Conceded</strong></div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="padding: 15px 40px; font-size: 1rem;">View Full Profile <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>🏆 Competitions</span></div>
+
+        <!-- COMPETITIONS -->
+        <div class="comp-pills-row">
+            <div class="comp-pill">NBC Premier League</div>
+            <div class="comp-pill">Championship League</div>
+            <div class="comp-pill">First League</div>
+            <div class="comp-pill">Women's Premier League</div>
+            <div class="comp-pill">CAF Representatives</div>
+        </div>
+
+        <div class="section-separator"><span>⚽ All Clubs</span></div>
+
+        <!-- ALL CLUBS -->
+        <div class="clubs-grid-v3">
+            <a href="team-details.html?id=yanga" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/yanga.jpg" alt="Yanga SC">
+                <h3>Yanga SC</h3>
+                <span class="rank">Position: 1st</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="team-details.html?id=simba" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/simba.jpg" alt="Simba SC">
+                <h3>Simba SC</h3>
+                <span class="rank">Position: 2nd</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="team-details.html?id=azam" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/zam.png" style="background:#fff; border-radius:50%; padding:5px;" alt="Azam FC">
+                <h3>Azam FC</h3>
+                <span class="rank">Position: 3rd</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="team-details.html?id=singida" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/nbc.png" alt="Singida BS">
+                <h3>Singida BS</h3>
+                <span class="rank">Position: 4th</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+            
+            <a href="team-details.html?id=kmc" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/Premier league.png" alt="KMC FC">
+                <h3>KMC FC</h3>
+                <span class="rank">Position: 5th</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot win"></div><div class="dot loss"></div><div class="dot win"></div><div class="dot draw"></div><div class="dot loss"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="team-details.html?id=namungo" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/namungo fc.jpg" alt="Namungo FC">
+                <h3>Namungo FC</h3>
+                <span class="rank">Position: 6th</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot draw"></div><div class="dot loss"></div><div class="dot win"></div><div class="dot draw"></div><div class="dot win"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="team-details.html?id=tabora" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/Premier league.png" alt="Tabora United">
+                <h3>Tabora United</h3>
+                <span class="rank">Position: 7th</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot win"></div><div class="dot loss"></div><div class="dot loss"></div><div class="dot draw"></div><div class="dot loss"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="team-details.html?id=jkt" class="club-card-v3 reveal-element" style="text-decoration:none; color:inherit;">
+                <img src="images/Premier league.png" alt="JKT Tanzania">
+                <h3>JKT Tanzania</h3>
+                <span class="rank">Position: 8th</span>
+                <div class="form-dots" style="justify-content:center; margin-bottom:20px;">
+                    <div class="dot loss"></div><div class="dot draw"></div><div class="dot loss"></div><div class="dot loss"></div><div class="dot win"></div>
+                </div>
+                <div class="view-team-link">View Team <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+        </div>
+
+        <div class="section-separator"><span>📊 Club Rankings</span></div>
+
+        <!-- RANKINGS -->
+        <div class="ranking-list-v2">
+            <a href="team-details.html?id=yanga" class="ranking-item-v2" style="text-decoration:none; color:inherit;">
+                <span class="r-num">01</span>
+                <img src="images/yanga.jpg" style="height:35px;">
+                <span class="r-name">Yanga SC</span>
+                <span style="color:#22c55e; font-weight:950; font-size:0.7rem;">Stable</span>
+            </a>
+            <a href="team-details.html?id=simba" class="ranking-item-v2" style="text-decoration:none; color:inherit; display:flex;">
+                <span class="r-num">02</span>
+                <img src="images/simba.jpg" style="height:35px;">
+                <span class="r-name">Simba SC</span>
+                <span style="color:#22c55e; font-weight:950; font-size:0.7rem;">Stable</span>
+            </a>
+            <a href="team-details.html?id=azam" class="ranking-item-v2" style="text-decoration:none; color:inherit; display:flex;">
+                <span class="r-num">03</span>
+                <img src="images/zam.png" style="height:35px; background:#fff; border-radius:50%;">
+                <span class="r-name">Azam FC</span>
+                <span style="color:#22c55e; font-weight:950; font-size:0.7rem;">Stable</span>
+            </a>
+            <a href="team-details.html?id=singida" class="ranking-item-v2" style="text-decoration:none; color:inherit; display:flex;">
+                <span class="r-num">04</span>
+                <img src="images/nbc.png" style="height:35px;">
+                <span class="r-name">Singida BS</span>
+                <span style="color:#ef4444; font-weight:950; font-size:0.7rem;">Falling</span>
+            </a>
+            <a href="team-details.html?id=tabora" class="ranking-item-v2" style="text-decoration:none; color:inherit; display:flex;">
+                <span class="r-num">05</span>
+                <img src="images/Premier league.png" style="height:35px;">
+                <span class="r-name">Tabora United</span>
+                <span style="color:#22c55e; font-weight:950; font-size:0.7rem;">Rising</span>
+            </a>
+        </div>
+
+        <div class="section-separator"><span>🔥 Team of the Month</span></div>
+
+        <!-- TEAM OF THE MONTH -->
+        <div class="tom-card reveal-element">
+            <img src="images/yanga.jpg" style="height:120px; margin-bottom:20px;">
+            <h2 style="font-size:2.5rem; font-weight:950;">YANGA SC</h2>
+            <div style="display:flex; justify-content:center; gap:40px; margin-top:30px;">
+                <div><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; margin-bottom:5px;">Matches</p><strong style="font-size:1.5rem;">5</strong></div>
+                <div><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; margin-bottom:5px;">Wins</p><strong style="font-size:1.5rem; color:#22c55e;">5</strong></div>
+                <div><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; margin-bottom:5px;">Goals</p><strong style="font-size:1.5rem;">12</strong></div>
+                <div><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; margin-bottom:5px;">Conceded</p><strong style="font-size:1.5rem; color:#ef4444;">2</strong></div>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>📈 Form Guide</span></div>
+
+        <!-- FORM GUIDE -->
+        <div class="form-guide-grid">
+            <div class="form-row">
+                <span style="font-weight:900;">Yanga SC</span>
+                <div class="form-dots"><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div></div>
+            </div>
+            <div class="form-row">
+                <span style="font-weight:900;">Simba SC</span>
+                <div class="form-dots"><div class="dot win"></div><div class="dot win"></div><div class="dot win"></div><div style="background:#eab308;" class="dot"></div><div class="dot win"></div></div>
+            </div>
+            <div class="form-row">
+                <span style="font-weight:900;">Azam FC</span>
+                <div class="form-dots"><div class="dot win"></div><div class="dot win"></div><div style="background:#eab308;" class="dot"></div><div class="dot win"></div><div class="dot win"></div></div>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>⚽ Team Statistics</span></div>
+
+        <!-- TEAM STATS -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:20px;">
+            <div class="stat-box-mini">
+                <h4>Most Goals</h4>
+                <span class="top-club">🥇 Yanga SC</span>
+            </div>
+            <div class="stat-box-mini">
+                <h4>Best Defence</h4>
+                <span class="top-club">🥇 Yanga SC</span>
+            </div>
+            <div class="stat-box-mini">
+                <h4>Most Clean Sheets</h4>
+                <span class="top-club">🥇 Simba SC</span>
+            </div>
+            <div class="stat-box-mini">
+                <h4>Most Wins</h4>
+                <span class="top-club">🥇 Yanga SC</span>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>🌍 CAF Representatives</span></div>
+
+        <!-- CAF -->
+        <div style="display:flex; justify-content:center; gap:50px; flex-wrap:wrap;">
+            <div style="text-align:center;"><img src="images/yanga.jpg" style="height:60px; margin-bottom:10px;"> <p style="font-weight:900;">Yanga SC</p></div>
+            <div style="text-align:center;"><img src="images/simba.jpg" style="height:60px; margin-bottom:10px;"> <p style="font-weight:900;">Simba SC</p></div>
+            <div style="text-align:center;"><img src="images/zam.png" style="height:60px; background:#fff; border-radius:50%; margin-bottom:10px;"> <p style="font-weight:900;">Azam FC</p></div>
+        </div>
+
+        <div class="section-separator"><span>🏟 Stadiums</span></div>
+
+        <!-- STADIUMS -->
+        <div style="background:var(--bg-card); border-radius:30px; padding:40px; border:1px solid var(--border-color);">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+                <div style="font-weight:800; padding:15px; background:var(--surface-glass); border-radius:15px;">Benjamin Mkapa Stadium</div>
+                <div style="font-weight:800; padding:15px; background:var(--surface-glass); border-radius:15px;">Azam Complex</div>
+                <div style="font-weight:800; padding:15px; background:var(--surface-glass); border-radius:15px;">Liti Stadium</div>
+                <div style="font-weight:800; padding:15px; background:var(--surface-glass); border-radius:15px;">Uhuru Stadium</div>
+            </div>
+            <a href="#" style="display:block; text-align:center; margin-top:30px; font-weight:950; color:var(--primary);">View All Stadiums →</a>
+        </div>
+
+        <div class="section-separator"><span>🔄 Latest Team Transfers</span></div>
+
+        <!-- TRANSFERS -->
+        <div class="transfer-ticker">
+            <div class="transfer-item">
+                <span style="font-weight:900;">Player A</span>
+                <span style="color:var(--text-muted); font-size:0.8rem; font-weight:800;">Azam ➜ Simba</span>
+                <span style="font-size:0.7rem; color:var(--primary); font-weight:900;">COMPLETED</span>
+            </div>
+            <div class="transfer-item">
+                <span style="font-weight:900;">Player B</span>
+                <span style="color:var(--text-muted); font-size:0.8rem; font-weight:800;">Yanga ➜ TP Mazembe</span>
+                <span style="font-size:0.7rem; color:var(--primary); font-weight:900;">OFFICIAL</span>
+            </div>
+            <div class="transfer-item">
+                <span style="font-weight:900;">Player C</span>
+                <span style="color:var(--text-muted); font-size:0.8rem; font-weight:800;">Namungo ➜ Azam</span>
+                <span style="font-size:0.7rem; color:var(--primary); font-weight:900;">COMPLETED</span>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>👑 Star Players</span></div>
+
+        <!-- STAR PLAYERS -->
+        <div class="stars-grid">
+            <div class="star-item">
+                <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                <span>Aziz Ki</span>
+                <small>Yanga SC</small>
+            </div>
+            <div class="star-item">
+                <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                <span>Chama</span>
+                <small>Simba SC</small>
+            </div>
+            <div class="star-item">
+                <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                <span>Feisal Salum</span>
+                <small>Azam FC</small>
+            </div>
+            <div class="star-item">
+                <i class="fa-solid fa-star" style="color:var(--accent);"></i>
+                <span>Allan Okello</span>
+                <small>Yanga SC</small>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal for Team Profile -->
+    <div id="team-profile-modal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:99999; overflow-y:auto; padding:50px 0;">
+        <div class="container" style="background:var(--bg-card); border-radius:30px; border:1px solid var(--border-color); padding:60px; position:relative; box-shadow:0 30px 100px rgba(0,0,0,0.8);">
+            <button onclick="closeTeamProfile()" style="position:absolute; right:30px; top:30px; background:none; border:none; color:#fff; font-size:2.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+            <div id="profile-content"></div>
+        </div>
+    </div>
+
+    <!-- Portal Footer -->
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html" class="active"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+    
+    <script>
+        function openTeamProfile(teamId) {
+            window.location.href = 'team-details.html?id=' + teamId;
+        }
+
+        function closeTeamProfile() {
+            document.getElementById('team-profile-modal').style.display = 'none';
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
+

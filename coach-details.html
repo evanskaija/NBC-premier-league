@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Profile | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-color: #00b4d8;
+            --accent-hover: #0096c7;
+            --accent-rgb: 0, 180, 216;
+            --hero-bg: linear-gradient(135deg, #0d1b2a 0%, #162e44 60%, #00b4d8 120%);
+        }
+
+        /* Hero Banner & Glow Details */
+        .coach-hero {
+            background: var(--hero-bg);
+            padding: 70px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.5s ease;
+        }
+        
+        .hero-glow-ring {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(var(--accent-rgb),0.15) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        .c-hero-flex {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .c-main-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(var(--accent-rgb), 0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .c-hero-info {
+            color: #fff;
+        }
+
+        /* Stats Cards Section */
+        .manager-record-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .record-box {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 22px 20px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .record-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            background: rgba(var(--accent-rgb), 0.06);
+        }
+
+        .record-val {
+            font-size: 2.2rem;
+            font-weight: 950;
+            color: #fff;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .record-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+            display: block;
+        }
+
+        .win-rate-big {
+            font-size: 2.5rem;
+            font-weight: 950;
+            color: var(--accent-color);
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(var(--accent-rgb), 0.4);
+        }
+        
+        /* Profile Layout */
+        .profile-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .p-main-content, .p-side-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .widget-title {
+            font-size: 1.15rem;
+            font-weight: 950;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        /* Bio Metadata Labels */
+        .bio-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .bio-val {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        /* Career Timeline Styles */
+        .career-timeline {
+            position: relative;
+            padding-left: 35px;
+            margin-top: 10px;
+        }
+
+        .career-timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .timeline-item:hover {
+            border-color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 28px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--bg-main);
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
+        }
+
+        .timeline-date {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .timeline-club {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--text-main);
+        }
+
+        .timeline-role {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* Trophy Shelf Styles */
+        .trophy-shelf {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .trophy-group {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .trophy-group:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .t-group-title {
+            font-size: 0.95rem;
+            font-weight: 950;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 992px) {
+            .profile-dashboard { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .c-hero-flex { flex-direction: column; text-align: center; }
+            .manager-record-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline-item::before { display: none; }
+            .career-timeline { padding-left: 0; }
+            .career-timeline::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown active">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html" class="active">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+    <header class="coach-hero">
+        <div class="hero-glow-ring"></div>
+        <div class="container">
+            <div class="c-hero-flex">
+                <img src="images/Miguael gamondi.png" alt="Coach" class="c-main-img">
+                <div class="c-hero-info">
+                    <div style="font-weight:900; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.7);">Manager • Yanga SC</div>
+                    <h1 style="font-size: 3.5rem; font-weight: 950; line-height: 1; margin: 10px 0 20px;">Miguel Gamondi</h1>
+                    <div style="display:flex; gap:30px; align-items:center;">
+                        <div><span class="bio-label">Age</span><div class="bio-val">57 Years</div></div>
+                        <div><span class="bio-label">Country</span><div class="bio-val">Argentina 🇦🇷</div></div>
+                        <button class="btn btn-hero-follow">Follow Manager</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manager-record-grid">
+                <div class="record-box"><span class="win-rate-big">81%</span><span class="record-label">Win Percentage</span></div>
+                <div class="record-box"><span class="record-val">117</span><span class="record-label">Matches</span></div>
+                <div class="record-box"><span class="record-val">88</span><span class="record-label">Wins</span></div>
+                <div class="record-box"><span class="record-val">2.5</span><span class="record-label">Points Per Game</span></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container section-padding">
+        <div class="profile-dashboard">
+            <section class="p-main-content">
+                <div class="widget-title">Managerial Career History</div>
+                <div class="career-timeline">
+                    <!-- Loaded dynamically via JavaScript -->
+                </div>
+            </section>
+
+            <aside class="p-side-content">
+                <div class="widget-title">Trophy Cabinet</div>
+                <div class="trophy-shelf">
+                    <!-- Loaded dynamically via JavaScript -->
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html" class="active"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        let coachId = urlParams.get('id');
+        if (!coachId) coachId = 'gamondi'; // Default to Miguel Gamondi
+
+        const coachesDb = {
+            'gamondi': {
+                name: 'Miguel Gamondi',
+                img: 'images/Miguael gamondi.png',
+                team: 'Yanga SC',
+                age: '57 Years',
+                country: 'Argentina 🇦🇷',
+                winRate: '81%',
+                matches: '117',
+                wins: '88',
+                ppg: '2.5',
+                accentColor: '#f59e0b',
+                accentHover: '#d97706',
+                accentRgb: '245, 158, 11',
+                heroBg: 'linear-gradient(135deg, #005a36 0%, #008751 60%, #f59e0b 120%)',
+                trophies: [
+                    { category: 'With Yanga SC (Current)', items: [
+                        { name: 'NBC Premier League', count: 'x2' },
+                        { name: 'Tanzania Federation Cup', count: 'x1' },
+                        { name: 'Community Shield', count: 'x2' }
+                    ]},
+                    { category: 'International Career', items: [
+                        { name: 'Mamelodi Sundowns (PSL)', count: 'x1' },
+                        { name: 'ASEC Mimosas (CIV)', count: 'x1' }
+                    ]}
+                ],
+                timeline: [
+                    { date: 'May 2023 - Present', club: 'Yanga SC', role: 'Head Coach • NBC Premier League' },
+                    { date: '2022 - 2023', club: 'Ittehad Tanger', role: 'Head Coach • Botola Pro' },
+                    { date: '2021 - 2022', club: 'Maghreb Fès', role: 'Manager' },
+                    { date: '2016 - 2020', club: 'Hassania Agadir', role: 'Technical Director & Head Coach' }
+                ]
+            },
+            'fadlu': {
+                name: 'Fadlu Davids',
+                img: 'images/fadlu davis.jpg',
+                team: 'Simba SC',
+                age: '43 Years',
+                country: 'South Africa 🇿🇦',
+                winRate: '72%',
+                matches: '45',
+                wins: '32',
+                ppg: '2.2',
+                accentColor: '#e11d48',
+                accentHover: '#be123c',
+                accentRgb: '225, 29, 72',
+                heroBg: 'linear-gradient(135deg, #111 0%, #881337 60%, #e11d48 120%)',
+                trophies: [
+                    { category: 'With Simba SC (Current)', items: [
+                        { name: 'Community Shield', count: 'x1' },
+                        { name: 'Muungano Cup', count: 'x1' }
+                    ]},
+                    { category: 'International Career', items: [
+                        { name: 'Raja Casablanca (MAR) (Asst.)', count: 'x1' },
+                        { name: 'Lokomotiv Moscow (RUS) (Asst.)', count: 'x1' }
+                    ]}
+                ],
+                timeline: [
+                    { date: 'July 2024 - Present', club: 'Simba SC', role: 'Head Coach • NBC Premier League' },
+                    { date: '2023 - 2024', club: 'Raja Casablanca', role: 'Assistant Coach • Botola Pro' },
+                    { date: '2022', club: 'Lokomotiv Moscow', role: 'Assistant Coach • Russian Premier League' },
+                    { date: '2019 - 2022', club: 'Orlando Pirates', role: 'Co-Coach / Assistant Coach' }
+                ]
+            },
+            'dabo': {
+                name: 'Youssouph Dabo',
+                img: 'images/youssouph_dabo.png',
+                team: 'Azam FC',
+                age: '44 Years',
+                country: 'Senegal 🇸🇳',
+                winRate: '68%',
+                matches: '65',
+                wins: '42',
+                ppg: '2.1',
+                accentColor: '#2563eb',
+                accentHover: '#1d4ed8',
+                accentRgb: '37, 99, 235',
+                heroBg: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #2563eb 120%)',
+                trophies: [
+                    { category: 'With Azam FC (Current)', items: [
+                        { name: 'CRDB Federation Cup Runner-Up', count: 'x1' },
+                        { name: 'Mapinduzi Cup', count: 'x1' }
+                    ]},
+                    { category: 'International Career', items: [
+                        { name: 'Senegal Ligue 1 (Teungueth)', count: 'x1' },
+                        { name: 'Senegal FA Cup (Jaraaf)', count: 'x1' }
+                    ]}
+                ],
+                timeline: [
+                    { date: 'May 2023 - Present', club: 'Azam FC', role: 'Head Coach • NBC Premier League' },
+                    { date: '2022 - 2023', club: 'ASC Jaraaf', role: 'Head Coach • Senegal Ligue 1' },
+                    { date: '2019 - 2022', club: 'Teungueth FC', role: 'Head Coach • Senegal Ligue 1' },
+                    { date: '2017 - 2019', club: 'Senegal U20', role: 'Head Coach • CAF U-20 Championship' }
+                ]
+            }
+        };
+
+        const coach = coachesDb[coachId];
+        if (!coach) return;
+
+        // Apply custom dynamic branding styles
+        document.documentElement.style.setProperty('--accent-color', coach.accentColor);
+        document.documentElement.style.setProperty('--accent-hover', coach.accentHover);
+        document.documentElement.style.setProperty('--accent-rgb', coach.accentRgb);
+        document.documentElement.style.setProperty('--hero-bg', coach.heroBg);
+
+        // Update Title, Image, Info
+        document.title = `${coach.name} | Coach Profile`;
+        document.querySelector(".c-main-img").src = coach.img;
+        document.querySelector(".c-main-img").alt = coach.name;
+        document.querySelector(".c-hero-info h1").innerText = coach.name;
+        document.querySelector(".c-hero-info div").innerText = `Manager • ${coach.team}`;
+
+        // Bio details
+        const bioValues = document.querySelectorAll(".c-hero-info .bio-val");
+        if (bioValues.length >= 2) {
+            bioValues[0].innerText = coach.age;
+            bioValues[1].innerText = coach.country;
+        }
+
+        // Win Rates & stats
+        const rateBig = document.querySelector(".win-rate-big");
+        if (rateBig) rateBig.innerText = coach.winRate;
+
+        const recordVals = document.querySelectorAll(".record-box .record-val");
+        if (recordVals.length >= 3) {
+            recordVals[0].innerText = coach.matches;
+            recordVals[1].innerText = coach.wins;
+            recordVals[2].innerText = coach.ppg;
+        }
+
+        // Follow button text color adjustment for contrast
+        const followBtn = document.querySelector(".btn-hero-follow");
+        if (followBtn) {
+            followBtn.style.color = coachId === 'gamondi' ? '#000' : '#fff';
+        }
+
+        // Update Career Timeline
+        const timelineContainer = document.querySelector(".career-timeline");
+        if (timelineContainer && coach.timeline) {
+            timelineContainer.innerHTML = coach.timeline.map(item => `
+                <div class="timeline-item">
+                    <span class="timeline-date">${item.date}</span>
+                    <div class="timeline-club">${item.club}</div>
+                    <div class="timeline-role">${item.role}</div>
+                </div>
+            `).join('');
+        }
+
+        // Update Trophy Shelf
+        const trophyShelf = document.querySelector(".trophy-shelf");
+        if (trophyShelf && coach.trophies) {
+            trophyShelf.innerHTML = coach.trophies.map(group => `
+                <div class="trophy-group">
+                    <div class="t-group-title">${group.category}</div>
+                    <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+                        ${group.items.map(t => `
+                            <li style="display:flex; justify-content:space-between; align-items:center; font-weight:800; font-size:0.85rem; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.03);">
+                                <span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-trophy" style="color: #ffc300; font-size:0.9rem;"></i> ${t.name}</span>
+                                <span style="color:var(--accent-color); font-weight:950; font-size:1rem;">${t.count}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

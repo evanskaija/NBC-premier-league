@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Calendar | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Calendar Specific Premium Theme and Dashboard Layout */
+        :root {
+            --comp-nbc: #00b4d8;
+            --comp-nbc-glow: rgba(0, 180, 216, 0.2);
+            --comp-champ: #06d6a0;
+            --comp-champ-glow: rgba(6, 214, 160, 0.2);
+            --comp-first: #3a86c8;
+            --comp-first-glow: rgba(58, 134, 200, 0.2);
+            --comp-women: #7209b7;
+            --comp-women-glow: rgba(114, 9, 183, 0.2);
+            --comp-fa: #ffc300;
+            --comp-fa-glow: rgba(255, 195, 0, 0.2);
+            --comp-caf: #f72585;
+            --comp-caf-glow: rgba(247, 37, 133, 0.2);
+            --comp-intl: #4cc9f0;
+            --comp-intl-glow: rgba(76, 201, 240, 0.2);
+            --comp-friendly: #8a99ad;
+            --comp-friendly-glow: rgba(138, 153, 173, 0.2);
+        }
+
+        .calendar-dashboard {
+            display: grid;
+            grid-template-columns: 310px minmax(0, 1fr) 330px;
+            gap: 28px;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            align-items: start;
+        }
+
+        .brand-section {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 1250px) {
+            .calendar-dashboard {
+                grid-template-columns: 280px minmax(0, 1fr);
+            }
+            .cal-right-sidebar {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .calendar-dashboard {
+                grid-template-columns: 1fr;
+            }
+            .cal-right-sidebar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Widgets styling */
+        .cal-widget {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        
+        .cal-widget:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .cal-widget-title {
+            font-size: 0.75rem;
+            font-weight: 950;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            border-bottom: 1.5px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 1. Left Sidebar Elements */
+        /* Mini Calendar Grid */
+        .mini-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .mini-calendar-header h3 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .mini-calendar-nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px 8px;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .mini-calendar-nav-btn:hover {
+            color: var(--primary);
+        }
+
+        .mini-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+        .mini-calendar-day-label {
+            font-weight: 850;
+            color: var(--text-muted);
+            padding-bottom: 5px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+        }
+
+        .mini-calendar-cell {
+            padding: 8px 0;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .mini-calendar-cell:hover {
+            background: var(--bg-hover);
+        }
+
+        .mini-calendar-cell.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: 900;
+        }
+
+        .mini-calendar-cell.today {
+            border: 1px solid var(--primary);
+        }
+
+        .mini-calendar-cell.has-matches::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .mini-calendar-cell.other-month {
+            opacity: 0.3;
+        }
+
+        /* View toggles */
+        .view-toggle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: rgba(0,0,0,0.2);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .view-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 850;
+            padding: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+        }
+
+        .view-toggle-btn.active {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 4px 10px rgba(0, 180, 216, 0.2);
+        }
+
+        /* Checkbox Filters */
+        .filter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .filter-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .filter-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-checkbox-wrapper {
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+
+        .filter-checkbox-wrapper input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .filter-custom-checkbox {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 1.5px solid var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .filter-item input:checked + .filter-custom-checkbox {
+            background: var(--color-code);
+            border-color: var(--color-code);
+        }
+
+        .filter-item input:checked + .filter-custom-checkbox::after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.6rem;
+            color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .filter-color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-code);
+            display: inline-block;
+        }
+
+        .filter-count {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Custom Select Wrapper */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .club-search-select {
+            width: 100%;
+            appearance: none;
+            -webkit-appearance: none;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-main);
+            padding: 12px 40px 12px 16px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .club-search-select:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.05), rgba(255, 255, 255, 0.02));
+        }
+
+        .club-search-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .select-wrapper::after {
+            content: "\f078"; /* fa-chevron-down */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.75rem;
+            color: var(--primary);
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .select-wrapper:hover::after {
+            color: #fff;
+        }
+
+        [data-theme="light"] .club-search-select {
+            background: #ffffff;
+            color: #000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 2. Center Panel View Elements */
+        .cal-center-panel {
+            min-width: 0;
+        }
+
+        .cal-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cal-header-title {
+            font-size: 1.4rem;
+            font-weight: 950;
+            letter-spacing: -0.5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .export-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .export-btn:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        /* Horizontal Day Scroller */
+        .day-scroller-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 10px 15px;
+        }
+
+        .day-scroller-track {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            flex: 1;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .day-scroller-track::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .day-scroll-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 50px;
+            height: 65px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .day-scroll-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .day-scroll-item.active {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .day-scroll-item.active .day-scroll-num {
+            font-weight: 950;
+        }
+
+        .day-scroll-day {
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        .day-scroll-num {
+            font-size: 1.1rem;
+            font-weight: 900;
+        }
+
+        .scroller-nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .scroller-nav-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Day View Fixtures Lists */
+        .comp-group {
+            margin-bottom: 25px;
+        }
+
+        .comp-group-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--color-code);
+            padding-left: 10px;
+        }
+
+        .comp-group-header img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .comp-group-header h4 {
+            font-size: 0.85rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comp-group-count {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-left: auto;
+            font-weight: 700;
+        }
+
+        .match-row-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 14px 24px;
+            display: grid;
+            grid-template-columns: 110px 1fr 240px 90px;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .match-row-card:hover {
+            border-color: var(--color-code);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 650px) {
+            .match-row-card {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                text-align: center;
+                padding: 15px;
+            }
+            .match-row-time {
+                justify-content: center;
+            }
+            .match-row-teams {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .team-col.home, .team-col.away {
+                justify-content: center;
+                text-align: center;
+            }
+            .match-row-venue {
+                text-align: center;
+                justify-content: center;
+            }
+            .match-row-action {
+                justify-content: center;
+            }
+        }
+
+        .match-row-time {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.95rem;
+            font-weight: 900;
+        }
+
+        .match-row-status-tag {
+            font-size: 0.55rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: fit-content;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 3px;
+        }
+
+        .match-row-status-tag.live {
+            background: #ff3b30;
+            color: #fff;
+            animation: livePulse 1.5s infinite;
+        }
+
+        .match-row-status-tag.completed {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-muted);
+        }
+
+        .match-row-status-tag.upcoming {
+            background: rgba(0, 180, 216, 0.12);
+            color: var(--primary);
+        }
+
+        .match-row-teams {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .team-col {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .team-col.home {
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        .team-col.away {
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .team-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .team-name {
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+
+        .score-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .match-row-score-box {
+            background: rgba(0,0,0,0.2);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 950;
+            letter-spacing: 2px;
+            color: var(--color-code);
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .match-row-vs-box {
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .match-row-venue {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .match-row-venue i {
+            color: var(--color-code);
+        }
+
+        .match-row-action {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .match-row-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 850;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+        }
+
+        .match-row-btn:hover {
+            background: var(--color-code);
+            color: #000;
+            border-color: var(--color-code);
+        }
+
+        .no-matches-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px dotted var(--border-color);
+            border-radius: var(--radius);
+        }
+
+        .no-matches-placeholder i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .no-matches-placeholder h3 {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+            color: #fff;
+        }
+
+        /* 3. Monthly Calendar Grid Elements */
+        .month-grid-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow-x: auto;
+        }
+
+        .month-days-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            border-bottom: 1.5px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 8px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .month-cells-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-auto-rows: minmax(100px, 1fr);
+            gap: 6px;
+        }
+
+        .month-day-cell {
+            background: rgba(0,0,0,0.15);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 90px;
+        }
+
+        .month-day-cell:hover {
+            background: var(--bg-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .month-day-cell.other-month {
+            opacity: 0.35;
+        }
+
+        .month-day-cell.active {
+            border-color: var(--primary);
+            background: rgba(0, 180, 216, 0.03);
+        }
+
+        .month-day-cell.today {
+            box-shadow: inset 0 0 0 1px var(--primary);
+        }
+
+        .month-day-num {
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-align: right;
+            margin-bottom: 4px;
+        }
+
+        .month-day-cell.today .month-day-num {
+            color: var(--primary);
+        }
+
+        .month-cell-event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            overflow-y: auto;
+            flex: 1;
+            max-height: 80px;
+        }
+
+        .month-event-tag {
+            font-size: 0.55rem;
+            font-weight: 800;
+            padding: 3px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+            background: var(--color-code);
+            display: block;
+            border-left: 2.5px solid rgba(0,0,0,0.3);
+        }
+
+        /* 4. Weekly Timeline View Elements */
+        .week-view-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .week-day-container {
+            background: rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 15px;
+        }
+
+        .week-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .week-day-title {
+            font-size: 0.85rem;
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .week-day-title span {
+            color: var(--primary);
+        }
+
+        /* 5. Right Sidebar Analytics & Legend */
+        .chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .chart-svg-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+        }
+
+        .chart-svg-container svg {
+            transform: rotate(-90deg);
+        }
+
+        .chart-center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .chart-center-num {
+            font-size: 1.4rem;
+            font-weight: 950;
+            line-height: 1;
+        }
+
+        .chart-center-lbl {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 850;
+            letter-spacing: 0.5px;
+            margin-top: 3px;
+        }
+
+        .chart-legend {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-legend-color {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            background: var(--color-code);
+        }
+
+        /* Highlight card style */
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .highlight-card:hover {
+            border-color: var(--accent);
+            background: rgba(255, 195, 0, 0.02);
+            transform: translateY(-2px);
+        }
+
+        .hl-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hl-badge {
+            background: var(--accent);
+            color: #000;
+            font-size: 0.55rem;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 40px;
+            text-transform: uppercase;
+        }
+
+        .hl-comp {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .hl-teams {
+            font-size: 0.8rem;
+            font-weight: 900;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hl-date {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.75rem;
+            font-weight: 750;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .legend-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .legend-indicator.live {
+            background: #ff3b30;
+            box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
+        }
+
+        .legend-indicator.today {
+            background: #00b4d8;
+        }
+
+        .legend-icon {
+            width: 14px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        /* Tooltip */
+        .calendar-tooltip {
+            position: absolute;
+            background: rgba(0, 8, 20, 0.95);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 0.75rem;
+            z-index: 999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            max-width: 250px;
+            display: none;
+            pointer-events: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .tooltip-title {
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 5px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 3px;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+        }
+
+        .tooltip-match {
+            font-weight: 700;
+            padding: 3px 0;
+        }
+    </style>
+</head>
+<body>
+
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html" class="active"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+    <!-- MAIN BODY -->
+    <main class="calendar-dashboard" style="margin-top: 40px;">
+        
+        <!-- LEFT SIDEBAR: FILTERS AND MINI CALENDAR -->
+        <aside class="cal-left-sidebar">
+            
+            <!-- Mini Calendar Widget -->
+            <div class="cal-widget">
+                <div class="mini-calendar-header">
+                    <button class="mini-calendar-nav-btn" id="mini-cal-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                    <h3 id="mini-cal-title">June 2026</h3>
+                    <button class="mini-calendar-nav-btn" id="mini-cal-next"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="mini-calendar-grid" id="mini-calendar-body">
+                    <!-- Dynamic rendering -->
+                </div>
+            </div>
+
+            <!-- View Toggle Widget -->
+            <div class="cal-widget" style="padding: 12px;">
+                <div class="view-toggle-grid">
+                    <button class="view-toggle-btn active" data-view="day">Day</button>
+                    <button class="view-toggle-btn" data-view="week">Week</button>
+                    <button class="view-toggle-btn" data-view="month">Month</button>
+                </div>
+            </div>
+
+            <!-- Filter by Competition Widget -->
+            <div class="cal-widget">
+                <h3 class="cal-widget-title">Filter by Competition</h3>
+                <div class="filter-list" id="competition-filters-list">
+                    <!-- Dynamic Rendering -->
+                </div>
+            </div>
+
+            <!-- Filter by Club Widget -->
+            <div class="cal-widget">
+                <h3 class="cal-widget-title">Filter by Club</h3>
+                <div class="select-wrapper">
+                    <select class="club-search-select" id="club-filter-select">
+                        <option value="all">All Clubs</option>
+                        <!-- Prepopulated by script -->
+                    </select>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- CENTER PANEL: DYNAMIC FIXTURES CALENDAR VIEWS -->
+        <section class="cal-center-panel">
+            
+            <!-- Calendar Context Header -->
+            <div class="cal-header-row">
+                <h2 class="cal-header-title" id="calendar-view-header">Fixtures for Friday, June 5, 2026</h2>
+                <button class="export-btn" id="calendar-export-btn">
+                    <i class="fa-solid fa-file-export"></i> Export
+                </button>
+            </div>
+
+            <!-- Dynamic Horizontal Day Slider (For Day View) -->
+            <div class="day-scroller-container" id="day-scroller-panel">
+                <button class="scroller-nav-btn" id="day-scroller-left"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="day-scroller-track" id="day-scroller-track">
+                    <!-- Dynamic rendering of day items -->
+                </div>
+                <button class="scroller-nav-btn" id="day-scroller-right"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Primary Views Container -->
+            <div id="calendar-views-container">
+                <!-- Content injected dynamically based on active view -->
+            </div>
+
+        </section>
+
+        <!-- RIGHT SIDEBAR: ANALYTICS, HIGHLIGHTS, LEGEND -->
+        <aside class="cal-right-sidebar">
+            
+            <!-- Doughnut Chart Widget -->
+            <div class="cal-widget">
+                <h3 class="cal-widget-title">Matches by Competition</h3>
+                <div class="chart-wrapper">
+                    <div class="chart-svg-container">
+                        <svg viewBox="0 0 36 36" id="doughnut-chart-svg" width="100%" height="100%">
+                            <!-- Dynamic Circle Segments -->
+                        </svg>
+                        <div class="chart-center-text">
+                            <div class="chart-center-num" id="chart-total-count">0</div>
+                            <div class="chart-center-lbl">Matches</div>
+                        </div>
+                    </div>
+                    <div class="chart-legend" id="chart-legend-grid">
+                        <!-- Dynamic Legend Grid -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Highlights Widget -->
+            <div class="cal-widget">
+                <h3 class="cal-widget-title">Upcoming Highlights</h3>
+                <div class="upcoming-highlights" id="highlights-container">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+
+            <!-- Legend Widget -->
+            <div class="cal-widget">
+                <h3 class="cal-widget-title">Legend</h3>
+                <div class="legend-list">
+                    <div class="legend-row">
+                        <span class="legend-indicator live"></span>
+                        <span>Live Match</span>
+                    </div>
+                    <div class="legend-row">
+                        <span class="legend-indicator today"></span>
+                        <span>Match Today</span>
+                    </div>
+                    <div class="legend-row">
+                        <i class="fa-solid fa-clock legend-icon"></i>
+                        <span>Upcoming Match</span>
+                    </div>
+                    <div class="legend-row">
+                        <i class="fa-solid fa-circle-check legend-icon" style="color: var(--comp-champ)"></i>
+                        <span>Completed Match</span>
+                    </div>
+                    <div class="legend-row">
+                        <i class="fa-solid fa-location-dot legend-icon" style="color: var(--accent)"></i>
+                        <span>Venue</span>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Calendar Tooltip -->
+    <div class="calendar-tooltip" id="calendar-cell-tooltip"></div>
+
+    <!-- SITE FOOTER -->
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- MOBILE NAVIGATION MENU -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+    
+
+    <!-- CALENDAR ENGINE CODE -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // --- 1. MOCK FIXTURES DATABASE ---
+            const FIXTURES_DB = [
+                // Completed Matches (Early June)
+                { id: 1, date: "2026-06-01", time: "19:00", comp: "NBC Premier League", compLogo: "images/Premier league.png", compClass: "comp-nbc", color: "var(--comp-nbc)", home: "Yanga SC", homeLogo: "images/yanga.jpg", away: "Simba SC", awayLogo: "images/simba.jpg", venue: "Benjamin Mkapa Stadium", status: "completed", scoreHome: 2, scoreAway: 1 },
+                { id: 2, date: "2026-06-01", time: "15:00", comp: "Women's League", compLogo: "images/yanga.jpg", compClass: "comp-women", color: "var(--comp-women)", home: "Yanga Princess", homeLogo: "images/yanga.jpg", away: "Simba Queens", awayLogo: "images/simba.jpg", venue: "Karume Stadium", status: "completed", scoreHome: 1, scoreAway: 1 },
+                { id: 3, date: "2026-06-02", time: "14:00", comp: "Championship League", compLogo: "images/championship.png", compClass: "comp-champ", color: "var(--comp-champ)", home: "Mbeya City", homeLogo: "images/mbeya city.jpg", away: "Kengold FC", awayLogo: "images/Premier league.png", venue: "Sokoine Stadium", status: "completed", scoreHome: 0, scoreAway: 0 },
+                { id: 4, date: "2026-06-03", time: "16:00", comp: "First League", compLogo: "images/championship.png", compClass: "comp-first", color: "var(--comp-first)", home: "JKT Tanzania", homeLogo: "images/jkt tanzania.jpg", away: "Stand United", awayLogo: "images/Premier league.png", venue: "Jamhuri Stadium", status: "completed", scoreHome: 2, scoreAway: 0 },
+                { id: 5, date: "2026-06-05", time: "19:00", comp: "NBC Premier League", compLogo: "images/Premier league.png", compClass: "comp-nbc", color: "var(--comp-nbc)", home: "Azam FC", homeLogo: "images/azam.jpg", away: "Coastal Union", awayLogo: "images/costal union.jpg", venue: "Azam Complex", status: "completed", scoreHome: 3, scoreAway: 1 },
+                
+                // Live Match (Today - June 6)
+                { id: 6, date: "2026-06-06", time: "20:00", comp: "FA Cup", compLogo: "images/crdb cup.jpg", compClass: "comp-fa", color: "var(--comp-fa)", home: "Simba SC", homeLogo: "images/simba.jpg", away: "Coastal Union", awayLogo: "images/costal union.jpg", venue: "Benjamin Mkapa Stadium", status: "live", scoreHome: 1, scoreAway: 0 },
+                { id: 7, date: "2026-06-06", time: "16:00", comp: "NBC Premier League", compLogo: "images/Premier league.png", compClass: "comp-nbc", color: "var(--comp-nbc)", home: "Namungo FC", homeLogo: "images/namungo fc.jpg", away: "JKT Tanzania", awayLogo: "images/jkt tanzania.jpg", venue: "Majaliwa Stadium", status: "completed", scoreHome: 1, scoreAway: 1 },
+                { id: 8, date: "2026-06-06", time: "14:00", comp: "Championship League", compLogo: "images/championship.png", compClass: "comp-champ", color: "var(--comp-champ)", home: "Pamba Jiji", homeLogo: "images/pamba jiji.jpg", away: "Biashara United", awayLogo: "images/Premier league.png", venue: "Nyamagana Stadium", status: "completed", scoreHome: 2, scoreAway: 1 },
+ 
+                // Upcoming Matches
+                { id: 9, date: "2026-06-07", time: "16:00", comp: "NBC Premier League", compLogo: "images/Premier league.png", compClass: "comp-nbc", color: "var(--comp-nbc)", home: "Dodoma Jiji", homeLogo: "images/dodoma jiji.jpg", away: "Singida Black Stars", awayLogo: "images/singida.jpg", venue: "Jamhuri Stadium", status: "upcoming" },
+                { id: 10, date: "2026-06-07", time: "19:00", comp: "CAF Competitions", compLogo: "images/CAF_Champions_League.png", compClass: "comp-caf", color: "var(--comp-caf)", home: "Yanga SC", homeLogo: "images/yanga.jpg", away: "Al Ahly", awayLogo: "images/CAF_Champions_League.png", venue: "Benjamin Mkapa Stadium", status: "upcoming" },
+                { id: 11, date: "2026-06-08", time: "14:00", comp: "Women's League", compLogo: "images/yanga.jpg", compClass: "comp-women", color: "var(--comp-women)", home: "JKT Queens", homeLogo: "images/jkt tanzania.jpg", away: "Baobab Queens", awayLogo: "images/Premier league.png", venue: "Jamhuri Stadium", status: "upcoming" },
+                { id: 12, date: "2026-06-10", time: "19:00", comp: "NBC Premier League", compLogo: "images/Premier league.png", compClass: "comp-nbc", color: "var(--comp-nbc)", home: "Simba SC", homeLogo: "images/simba.jpg", away: "Azam FC", awayLogo: "images/azam.jpg", venue: "Benjamin Mkapa Stadium", status: "upcoming" },
+                { id: 13, date: "2026-06-12", time: "16:00", comp: "First League", compLogo: "images/championship.png", compClass: "comp-first", color: "var(--comp-first)", home: "Transit Camp", homeLogo: "images/Premier league.png", away: "African Lyon", awayLogo: "images/Premier league.png", venue: "Uhuru Stadium", status: "upcoming" },
+                { id: 14, date: "2026-06-13", time: "19:00", comp: "FA Cup", compLogo: "images/crdb cup.jpg", compClass: "comp-fa", color: "var(--comp-fa)", home: "Azam FC", homeLogo: "images/azam.jpg", away: "Yanga SC", awayLogo: "images/yanga.jpg", venue: "Benjamin Mkapa Stadium", status: "upcoming" },
+                { id: 15, date: "2026-06-13", time: "14:00", comp: "Championship League", compLogo: "images/championship.png", compClass: "comp-champ", color: "var(--comp-champ)", home: "Mbeya City", homeLogo: "images/mbeya city.jpg", away: "Biashara United", awayLogo: "images/Premier league.png", venue: "Sokoine Stadium", status: "upcoming" },
+                { id: 16, date: "2026-06-14", time: "19:00", comp: "CAF Competitions", compLogo: "images/CAF_Champions_League.png", compClass: "comp-caf", color: "var(--comp-caf)", home: "Simba SC", homeLogo: "images/simba.jpg", away: "Mamelodi Sundowns", awayLogo: "images/CAF_Champions_League.png", venue: "Benjamin Mkapa Stadium", status: "upcoming" },
+                { id: 17, date: "2026-06-16", time: "19:00", comp: "International", compLogo: "images/Premier league.png", compClass: "comp-intl", color: "var(--comp-intl)", home: "Tanzania", homeLogo: "images/Premier league.png", away: "Kenya", awayLogo: "images/Premier league.png", venue: "Benjamin Mkapa Stadium", status: "upcoming" },
+                { id: 18, date: "2026-06-20", time: "16:00", comp: "Friendly", compLogo: "images/Premier league.png", compClass: "comp-friendly", color: "var(--comp-friendly)", home: "Yanga SC", homeLogo: "images/yanga.jpg", away: "Singida Black Stars", awayLogo: "images/singida.jpg", venue: "Avic Town", status: "upcoming" },
+                { id: 19, date: "2026-06-25", time: "19:00", comp: "NBC Premier League", compLogo: "images/Premier league.png", compClass: "comp-nbc", color: "var(--comp-nbc)", home: "Coastal Union", homeLogo: "images/costal union.jpg", away: "Simba SC", awayLogo: "images/simba.jpg", venue: "Mkwakwani Stadium", status: "upcoming" }
+            ];
+
+            const COMPETITIONS = [
+                { name: "NBC Premier League", class: "comp-nbc", color: "var(--comp-nbc)" },
+                { name: "Championship League", class: "comp-champ", color: "var(--comp-champ)" },
+                { name: "First League", class: "comp-first", color: "var(--comp-first)" },
+                { name: "Women's League", class: "comp-women", color: "var(--comp-women)" },
+                { name: "FA Cup", class: "comp-fa", color: "var(--comp-fa)" },
+                { name: "CAF Competitions", class: "comp-caf", color: "var(--comp-caf)" },
+                { name: "International", class: "comp-intl", color: "var(--comp-intl)" },
+                { name: "Friendly", class: "comp-friendly", color: "var(--comp-friendly)" }
+            ];
+
+            const CLUBS = [
+                "Yanga SC", "Simba SC", "Azam FC", "Coastal Union", "Kengold FC", "Pamba Jiji", "Mbeya City", 
+                "Biashara United", "Dodoma Jiji", "Singida Black Stars", "JKT Tanzania", "Namungo FC",
+                "Transit Camp", "African Lyon", "Stand United", "Yanga Princess", "Simba Queens", "JKT Queens", 
+                "Baobab Queens", "Tanzania", "Kenya"
+            ];
+
+            // --- 2. CALENDAR STATE ---
+            let currentDate = new Date(2026, 5, 6); // Default to June 6, 2026
+            let selectedDate = new Date(2026, 5, 6);
+            let activeView = "day"; // "day", "week", "month"
+            let activeCompetitions = COMPETITIONS.map(c => c.name); // Filter active comps
+            let activeClub = "all";
+
+            // --- 3. DOM CACHING ---
+            const viewHeader = document.getElementById("calendar-view-header");
+            const viewsContainer = document.getElementById("calendar-views-container");
+            const dayScrollerPanel = document.getElementById("day-scroller-panel");
+            const dayScrollerTrack = document.getElementById("day-scroller-track");
+            const clubSelect = document.getElementById("club-filter-select");
+            const compFiltersContainer = document.getElementById("competition-filters-list");
+            const miniCalTitle = document.getElementById("mini-cal-title");
+            const miniCalBody = document.getElementById("mini-calendar-body");
+            const highlightsContainer = document.getElementById("highlights-container");
+            const chartSvg = document.getElementById("doughnut-chart-svg");
+            const chartTotalText = document.getElementById("chart-total-count");
+            const chartLegendGrid = document.getElementById("chart-legend-grid");
+            const tooltip = document.getElementById("calendar-cell-tooltip");
+
+            // --- 4. INITIALIZATION ---
+            function init() {
+                buildCompetitionFilters();
+                buildClubDropdown();
+                renderMiniCalendar();
+                renderView();
+                renderHighlights();
+                updateDoughnutChart();
+                setupEventListeners();
+            }
+
+            // --- 5. BUILD FILTERS & SELECTORS ---
+            function buildCompetitionFilters() {
+                compFiltersContainer.innerHTML = "";
+                COMPETITIONS.forEach(comp => {
+                    const count = FIXTURES_DB.filter(f => f.comp === comp.name).length;
+                    const item = document.createElement("div");
+                    item.className = "filter-item";
+                    item.style.setProperty("--color-code", comp.color);
+                    item.innerHTML = `
+                        <div class="filter-left">
+                            <label class="filter-checkbox-wrapper">
+                                <input type="checkbox" value="${comp.name}" checked>
+                                <span class="filter-custom-checkbox"></span>
+                            </label>
+                            <span class="filter-color-dot"></span>
+                            <span>${comp.name}</span>
+                        </div>
+                        <span class="filter-count">${count}</span>
+                    `;
+                    compFiltersContainer.appendChild(item);
+                });
+            }
+
+            function buildClubDropdown() {
+                CLUBS.sort().forEach(club => {
+                    const opt = document.createElement("option");
+                    opt.value = club;
+                    opt.textContent = club;
+                    clubSelect.appendChild(opt);
+                });
+            }
+
+            // --- 6. MINI CALENDAR ENGINE ---
+            function renderMiniCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+
+                const monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+
+                miniCalTitle.textContent = `${monthNames[month]} ${year}`;
+
+                // Header for days of week
+                let html = `
+                    <div class="mini-calendar-day-label">Mo</div>
+                    <div class="mini-calendar-day-label">Tu</div>
+                    <div class="mini-calendar-day-label">We</div>
+                    <div class="mini-calendar-day-label">Th</div>
+                    <div class="mini-calendar-day-label">Fr</div>
+                    <div class="mini-calendar-day-label">Sa</div>
+                    <div class="mini-calendar-day-label">Su</div>
+                `;
+
+                // Days calculation
+                const firstDayIndex = new Date(year, month, 1).getDay(); // Day of week 1st starts (0=Sun)
+                const correctedFirstDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1; // Map to Mon=0...Sun=6
+                
+                const lastDay = new Date(year, month + 1, 0).getDate();
+                const prevLastDay = new Date(year, month, 0).getDate();
+
+                // Prev month filler
+                for (let i = correctedFirstDay; i > 0; i--) {
+                    const dayNum = prevLastDay - i + 1;
+                    html += `<div class="mini-calendar-cell other-month" data-date="${year}-${pad(month)}-${pad(dayNum)}">${dayNum}</div>`;
+                }
+
+                // Current month days
+                for (let i = 1; i <= lastDay; i++) {
+                    const dateStr = `${year}-${pad(month + 1)}-${pad(i)}`;
+                    const hasMatches = FIXTURES_DB.some(f => f.date === dateStr);
+                    
+                    let classes = ["mini-calendar-cell"];
+                    if (hasMatches) classes.push("has-matches");
+                    if (i === 6 && month === 5 && year === 2026) classes.push("today"); // hardcoded today anchor
+                    if (selectedDate.getDate() === i && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
+                        classes.push("active");
+                    }
+
+                    html += `<div class="${classes.join(" ")}" data-date="${dateStr}">${i}</div>`;
+                }
+
+                // Next month filler
+                const totalCells = Math.ceil((correctedFirstDay + lastDay) / 7) * 7;
+                const nextFiller = totalCells - (correctedFirstDay + lastDay);
+                for (let i = 1; i <= nextFiller; i++) {
+                    html += `<div class="mini-calendar-cell other-month" data-date="${year}-${pad(month + 2)}-${pad(i)}">${i}</div>`;
+                }
+
+                miniCalBody.innerHTML = html;
+
+                // Bind click to cells
+                document.querySelectorAll(".mini-calendar-cell").forEach(cell => {
+                    cell.addEventListener("click", function () {
+                        const dateParts = this.getAttribute("data-date").split("-");
+                        selectedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                        
+                        // Sync date tracker if moved out of month
+                        currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+                        
+                        renderMiniCalendar();
+                        renderView();
+                    });
+                });
+            }
+
+            // --- 7. ACTIVE VIEWS SWITCHING ENGINE ---
+            function renderView() {
+                updateViewHeader();
+                
+                if (activeView === "day") {
+                    dayScrollerPanel.style.display = "flex";
+                    renderDayScroller();
+                    renderDayView();
+                } else if (activeView === "week") {
+                    dayScrollerPanel.style.display = "none";
+                    renderWeekView();
+                } else {
+                    dayScrollerPanel.style.display = "none";
+                    renderMonthView();
+                }
+                updateDoughnutChart();
+            }
+
+            function updateViewHeader() {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                if (activeView === "day") {
+                    viewHeader.textContent = `Fixtures for ${selectedDate.toLocaleDateString('en-US', options)}`;
+                } else if (activeView === "week") {
+                    const startOfWeek = getStartOfWeek(selectedDate);
+                    const endOfWeek = new Date(startOfWeek);
+                    endOfWeek.setDate(endOfWeek.getDate() + 6);
+                    viewHeader.textContent = `Matches: ${startOfWeek.getDate()} ${startOfWeek.toLocaleString('en-US', {month: 'short'})} - ${endOfWeek.getDate()} ${endOfWeek.toLocaleString('en-US', {month: 'short'})} 2026`;
+                } else {
+                    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    viewHeader.textContent = `${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
+                }
+            }
+
+            // --- 8. DAY VIEW CONTROLLER ---
+            function renderDayScroller() {
+                dayScrollerTrack.innerHTML = "";
+                const year = selectedDate.getFullYear();
+                const month = selectedDate.getMonth();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const thisDate = new Date(year, month, i);
+                    const item = document.createElement("div");
+                    item.className = "day-scroll-item";
+                    if (selectedDate.getDate() === i) {
+                        item.className += " active";
+                    }
+                    item.setAttribute("data-day", i);
+
+                    item.innerHTML = `
+                        <span class="day-scroll-day">${weekdays[thisDate.getDay()]}</span>
+                        <span class="day-scroll-num">${i}</span>
+                    `;
+
+                    item.addEventListener("click", function () {
+                        selectedDate.setDate(parseInt(this.getAttribute("data-day")));
+                        
+                        document.querySelectorAll(".day-scroll-item").forEach(el => el.classList.remove("active"));
+                        this.classList.add("active");
+                        
+                        renderMiniCalendar();
+                        updateViewHeader();
+                        renderDayView();
+                        updateDoughnutChart();
+                    });
+
+                    dayScrollerTrack.appendChild(item);
+                }
+
+                // Scroll active into view
+                const activeItem = dayScrollerTrack.querySelector(".day-scroll-item.active");
+                if (activeItem) {
+                    dayScrollerTrack.scrollLeft = activeItem.offsetLeft - dayScrollerTrack.offsetWidth / 2 + activeItem.offsetWidth / 2;
+                }
+            }
+
+            function renderDayView() {
+                const dateStr = formatDate(selectedDate);
+                const filtered = getFilteredMatches().filter(f => f.date === dateStr);
+
+                if (filtered.length === 0) {
+                    viewsContainer.innerHTML = `
+                        <div class="no-matches-placeholder">
+                            <i class="fa-regular fa-calendar-xmark"></i>
+                            <h3>No Matches Scheduled</h3>
+                            <p>Try clearing filters or check another day.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Group by competition
+                const grouped = {};
+                filtered.forEach(match => {
+                    if (!grouped[match.comp]) {
+                        grouped[match.comp] = [];
+                    }
+                    grouped[match.comp].push(match);
+                });
+
+                let html = "";
+                for (const [compName, matches] of Object.entries(grouped)) {
+                    const compDef = COMPETITIONS.find(c => c.name === compName) || { color: "#8a99ad" };
+                    html += `
+                        <div class="comp-group">
+                            <div class="comp-group-header" style="--color-code: ${compDef.color}">
+                                <img src="${matches[0].compLogo}" alt="">
+                                <h4>${compName}</h4>
+                                <span class="comp-group-count">${matches.length} Matches</span>
+                            </div>
+                            <div class="comp-matches-list">
+                    `;
+
+                    matches.forEach(match => {
+                        let scoreBoxHtml = `<span class="match-row-vs-box">VS</span>`;
+                        let scoreClass = match.status;
+
+                        if (match.status === "completed" || match.status === "live") {
+                            scoreBoxHtml = `<span class="match-row-score-box">${match.scoreHome} - ${match.scoreAway}</span>`;
+                        }
+
+                        html += `
+                            <div class="match-row-card" style="--color-code: ${compDef.color}">
+                                <div class="match-row-time">
+                                    <span>${match.time}</span>
+                                    <span class="match-row-status-tag ${scoreClass}">${match.status}</span>
+                                </div>
+                                <div class="match-row-teams">
+                                    <div class="team-col home">
+                                        <span class="team-name">${match.home}</span>
+                                        <img src="${match.homeLogo}" alt="" class="team-logo">
+                                    </div>
+                                    <div class="score-col">
+                                        ${scoreBoxHtml}
+                                    </div>
+                                    <div class="team-col away">
+                                        <img src="${match.awayLogo}" alt="" class="team-logo">
+                                        <span class="team-name">${match.away}</span>
+                                    </div>
+                                </div>
+                                <div class="match-row-venue">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>${match.venue}</span>
+                                </div>
+                                <div class="match-row-action">
+                                    <button class="match-row-btn" style="--color-code: ${compDef.color}">View</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+
+                viewsContainer.innerHTML = html;
+            }
+
+            // --- 9. WEEK VIEW CONTROLLER ---
+            function renderWeekView() {
+                const startOfWeek = getStartOfWeek(selectedDate);
+                let html = `<div class="week-view-list">`;
+
+                const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+                for (let i = 0; i < 7; i++) {
+                    const thisDate = new Date(startOfWeek);
+                    thisDate.setDate(startOfWeek.getDate() + i);
+                    const dateStr = formatDate(thisDate);
+                    
+                    const matches = getFilteredMatches().filter(f => f.date === dateStr);
+                    const formattedDisplay = `${weekdays[i]}, ${thisDate.getDate()} ${thisDate.toLocaleString('en-US', {month: 'long'})}`;
+
+                    let matchesHtml = `<div style="color:var(--text-muted); font-size:0.75rem; font-style:italic;">No fixtures scheduled</div>`;
+                    if (matches.length > 0) {
+                        matchesHtml = matches.map(match => {
+                            const compDef = COMPETITIONS.find(c => c.name === match.comp) || { color: "#8a99ad" };
+                            let scoreDisplay = `<span style="font-size:0.75rem; color:var(--text-muted); font-weight:800;">VS</span>`;
+                            if (match.status === "completed" || match.status === "live") {
+                                scoreDisplay = `<span style="font-weight:900; color:${compDef.color};">${match.scoreHome} - ${match.scoreAway}</span>`;
+                            }
+                            return `
+                                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.15); border-left:3.5px solid ${compDef.color}; padding:10px 15px; border-radius:8px; margin-bottom:8px; font-size:0.8rem;">
+                                    <span style="font-weight:800; color:var(--text-muted); min-width:50px;">${match.time}</span>
+                                    <div style="flex:1; display:flex; gap:10px; align-items:center; font-weight:800;">
+                                        <span style="text-align:right; flex:1;">${match.home}</span>
+                                        ${scoreDisplay}
+                                        <span style="flex:1;">${match.away}</span>
+                                    </div>
+                                    <span style="font-size:0.7rem; color:var(--text-muted); margin-left:20px; font-weight:700;"><i class="fa-solid fa-location-dot" style="color:${compDef.color}; margin-right:4px;"></i>${match.venue}</span>
+                                </div>
+                            `;
+                        }).join("");
+                    }
+
+                    html += `
+                        <div class="week-day-container">
+                            <div class="week-day-header">
+                                <h3 class="week-day-title">${formattedDisplay}</h3>
+                                <span style="font-size:0.7rem; font-weight:800; color:var(--primary);">${matches.length} Matches</span>
+                            </div>
+                            <div class="week-day-fixtures">
+                                ${matchesHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += `</div>`;
+                viewsContainer.innerHTML = html;
+            }
+
+            // --- 10. MONTH VIEW CONTROLLER (GRID & TOOLTIPS) ---
+            function renderMonthView() {
+                const year = selectedDate.getFullYear();
+                const month = selectedDate.getMonth();
+
+                let html = `
+                    <div class="month-grid-wrapper">
+                        <div class="month-days-header">
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                            <div>Sun</div>
+                        </div>
+                        <div class="month-cells-grid">
+                `;
+
+                const firstDayIndex = new Date(year, month, 1).getDay();
+                const correctedFirstDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
+                
+                const lastDay = new Date(year, month + 1, 0).getDate();
+                const prevLastDay = new Date(year, month, 0).getDate();
+
+                // Prev filler cells
+                for (let i = correctedFirstDay; i > 0; i--) {
+                    const dayNum = prevLastDay - i + 1;
+                    const dateStr = `${year}-${pad(month)}-${pad(dayNum)}`;
+                    html += renderMonthCell(dayNum, dateStr, true);
+                }
+
+                // Month cells
+                for (let i = 1; i <= lastDay; i++) {
+                    const dateStr = `${year}-${pad(month + 1)}-${pad(i)}`;
+                    html += renderMonthCell(i, dateStr, false);
+                }
+
+                // Next filler cells
+                const totalCells = Math.ceil((correctedFirstDay + lastDay) / 7) * 7;
+                const nextFiller = totalCells - (correctedFirstDay + lastDay);
+                for (let i = 1; i <= nextFiller; i++) {
+                    const dateStr = `${year}-${pad(month + 2)}-${pad(i)}`;
+                    html += renderMonthCell(i, dateStr, true);
+                }
+
+                html += `
+                        </div>
+                    </div>
+                `;
+                viewsContainer.innerHTML = html;
+
+                setupMonthGridInteraction();
+            }
+
+            function renderMonthCell(dayNum, dateStr, isOther) {
+                const matches = getFilteredMatches().filter(f => f.date === dateStr);
+                const cellDate = new Date(dateStr);
+                
+                let classes = ["month-day-cell"];
+                if (isOther) classes.push("other-month");
+                if (dayNum === 6 && cellDate.getMonth() === 5 && cellDate.getFullYear() === 2026) classes.push("today");
+                if (selectedDate.getDate() === dayNum && selectedDate.getMonth() === cellDate.getMonth() && selectedDate.getFullYear() === cellDate.getFullYear() && !isOther) {
+                    classes.push("active");
+                }
+
+                let eventsHtml = "";
+                if (matches.length > 0) {
+                    eventsHtml = `<div class="month-cell-event-list">`;
+                    matches.slice(0, 3).forEach(m => {
+                        const compDef = COMPETITIONS.find(c => c.name === m.comp) || { color: "#8a99ad" };
+                        eventsHtml += `<span class="month-event-tag" style="--color-code: ${compDef.color}">${m.home} vs ${m.away}</span>`;
+                    });
+                    if (matches.length > 3) {
+                        eventsHtml += `<span style="font-size:0.5rem; text-align:center; font-weight:800; color:var(--accent);">+${matches.length - 3} More</span>`;
+                    }
+                    eventsHtml += `</div>`;
+                }
+
+                return `
+                    <div class="${classes.join(" ")}" data-date="${dateStr}">
+                        <div class="month-day-num">${dayNum}</div>
+                        ${eventsHtml}
+                    </div>
+                `;
+            }
+
+            function setupMonthGridInteraction() {
+                document.querySelectorAll(".month-day-cell").forEach(cell => {
+                    // Hover Tooltip logic
+                    cell.addEventListener("mouseenter", function (e) {
+                        const dateStr = this.getAttribute("data-date");
+                        const matches = getFilteredMatches().filter(f => f.date === dateStr);
+                        if (matches.length === 0) return;
+
+                        const dateStrFormatted = new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric'});
+
+                        let tooltipHtml = `<div class="tooltip-title">${dateStrFormatted}</div>`;
+                        matches.forEach(m => {
+                            const compDef = COMPETITIONS.find(c => c.name === m.comp) || { color: "#8a99ad" };
+                            let scoreDisplay = "vs";
+                            if (m.status === "completed" || m.status === "live") {
+                                scoreDisplay = `${m.scoreHome} - ${m.scoreAway}`;
+                            }
+                            tooltipHtml += `<div class="tooltip-match" style="border-left: 2px solid ${compDef.color}; padding-left: 6px; margin-bottom: 4px;">
+                                <strong>${m.home}</strong> ${scoreDisplay} <strong>${m.away}</strong><br>
+                                <span style="font-size:0.6rem; opacity:0.7;">${m.time} | ${m.venue}</span>
+                            </div>`;
+                        });
+
+                        tooltip.innerHTML = tooltipHtml;
+                        tooltip.style.display = "block";
+                    });
+
+                    cell.addEventListener("mousemove", function (e) {
+                        tooltip.style.left = `${e.pageX + 15}px`;
+                        tooltip.style.top = `${e.pageY + 15}px`;
+                    });
+
+                    cell.addEventListener("mouseleave", function () {
+                        tooltip.style.display = "none";
+                    });
+
+                    // Navigation click
+                    cell.addEventListener("click", function () {
+                        const dateParts = this.getAttribute("data-date").split("-");
+                        selectedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                        
+                        // Switch back to Day View
+                        activeView = "day";
+                        document.querySelectorAll(".view-toggle-btn").forEach(btn => btn.classList.remove("active"));
+                        document.querySelector('[data-view="day"]').classList.add("active");
+                        
+                        tooltip.style.display = "none";
+                        renderMiniCalendar();
+                        renderView();
+                    });
+                });
+            }
+
+            // --- 11. DYNAMIC SVG BREAKDOWN DOUGHNUT CHART ---
+            function updateDoughnutChart() {
+                const matches = getFilteredMatches();
+                chartTotalText.textContent = matches.length;
+
+                // Calculate proportions
+                const breakdown = {};
+                COMPETITIONS.forEach(c => breakdown[c.name] = 0);
+                
+                matches.forEach(m => {
+                    if (breakdown[m.comp] !== undefined) {
+                        breakdown[m.comp]++;
+                    }
+                });
+
+                chartLegendGrid.innerHTML = "";
+                chartSvg.innerHTML = "";
+
+                if (matches.length === 0) {
+                    chartSvg.innerHTML = `<circle cx="18" cy="18" r="15.915" fill="transparent" stroke="rgba(255,255,255,0.05)" stroke-width="4.2"></circle>`;
+                    return;
+                }
+
+                let cumulativePercent = 0;
+                COMPETITIONS.forEach(comp => {
+                    const count = breakdown[comp.name];
+                    if (count > 0) {
+                        // Legend Grid Entry
+                        const legItem = document.createElement("div");
+                        legItem.className = "chart-legend-item";
+                        legItem.style.setProperty("--color-code", comp.color);
+                        legItem.innerHTML = `
+                            <span class="chart-legend-color"></span>
+                            <span>${comp.name} (${count})</span>
+                        `;
+                        chartLegendGrid.appendChild(legItem);
+
+                        // Draw SVG Ring Segment
+                        const percent = (count / matches.length) * 100;
+                        const strokeDasharray = `${percent} ${100 - percent}`;
+                        const strokeDashoffset = 100 - cumulativePercent;
+
+                        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        circle.setAttribute("cx", "18");
+                        circle.setAttribute("cy", "18");
+                        circle.setAttribute("r", "15.915");
+                        circle.setAttribute("fill", "transparent");
+                        circle.setAttribute("stroke", comp.color);
+                        circle.setAttribute("stroke-width", "4.2");
+                        circle.setAttribute("stroke-dasharray", strokeDasharray);
+                        circle.setAttribute("stroke-dashoffset", strokeDashoffset.toString());
+                        chartSvg.appendChild(circle);
+
+                        cumulativePercent += percent;
+                    }
+                });
+            }
+
+            // --- 12. HIGHLIGHTS CARDS ENGINE ---
+            function renderHighlights() {
+                // Filter matches in June that are marquee/upcoming highlights (id: 6, 10, 14, 16)
+                const hlIds = [6, 10, 14, 16];
+                const highlights = FIXTURES_DB.filter(f => hlIds.includes(f.id));
+
+                highlightsContainer.innerHTML = highlights.map(hl => {
+                    const compDef = COMPETITIONS.find(c => c.name === hl.comp) || { color: "#8a99ad" };
+                    let label = "Upcoming";
+                    let badgeColor = "var(--accent)";
+                    if (hl.status === "live") {
+                        label = "LIVE NOW";
+                        badgeColor = "#ff3b30";
+                    }
+
+                    return `
+                        <div class="highlight-card" onclick="focusHighlightDate('${hl.date}')">
+                            <div class="hl-top">
+                                <span class="hl-badge" style="background:${badgeColor}">${label}</span>
+                                <span class="hl-comp">${hl.comp}</span>
+                            </div>
+                            <div class="hl-teams">
+                                <span>${hl.home}</span>
+                                <span style="color:${compDef.color}">VS</span>
+                                <span>${hl.away}</span>
+                            </div>
+                            <div class="hl-date">
+                                <i class="fa-solid fa-calendar-day"></i>
+                                <span>${new Date(hl.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} • ${hl.time}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+            }
+
+            window.focusHighlightDate = function(dateStr) {
+                const dateParts = dateStr.split("-");
+                selectedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+                
+                // Force Day View
+                activeView = "day";
+                document.querySelectorAll(".view-toggle-btn").forEach(btn => btn.classList.remove("active"));
+                document.querySelector('[data-view="day"]').classList.add("active");
+
+                renderMiniCalendar();
+                renderView();
+            };
+
+            // --- 13. FILTER HELPER LOGIC ---
+            function getFilteredMatches() {
+                return FIXTURES_DB.filter(match => {
+                    // Competition check
+                    if (!activeCompetitions.includes(match.comp)) return false;
+                    // Club search filter check
+                    if (activeClub !== "all") {
+                        if (match.home !== activeClub && match.away !== activeClub) return false;
+                    }
+                    return true;
+                });
+            }
+
+            // --- 14. EVENT LISTENERS SETUP ---
+            function setupEventListeners() {
+                // Mini calendar month switching
+                document.getElementById("mini-cal-prev").addEventListener("click", () => {
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                    renderMiniCalendar();
+                });
+
+                document.getElementById("mini-cal-next").addEventListener("click", () => {
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                    renderMiniCalendar();
+                });
+
+                // Day scroller slide buttons
+                document.getElementById("day-scroller-left").addEventListener("click", () => {
+                    dayScrollerTrack.scrollLeft -= 150;
+                });
+
+                document.getElementById("day-scroller-right").addEventListener("click", () => {
+                    dayScrollerTrack.scrollLeft += 150;
+                });
+
+                // View Toggle tabs switching
+                document.querySelectorAll(".view-toggle-btn").forEach(btn => {
+                    btn.addEventListener("click", function () {
+                        document.querySelectorAll(".view-toggle-btn").forEach(b => b.classList.remove("active"));
+                        this.classList.add("active");
+                        activeView = this.getAttribute("data-view");
+                        renderView();
+                    });
+                });
+
+                // Competition checkbox selections
+                document.querySelectorAll("#competition-filters-list input").forEach(input => {
+                    input.addEventListener("change", function () {
+                        activeCompetitions = Array.from(document.querySelectorAll("#competition-filters-list input:checked"))
+                            .map(el => el.value);
+                        
+                        renderMiniCalendar();
+                        renderView();
+                    });
+                });
+
+                // Club selector dropdown
+                clubSelect.addEventListener("change", function () {
+                    activeClub = this.value;
+                    renderMiniCalendar();
+                    renderView();
+                });
+
+                // Export mock alert
+                document.getElementById("calendar-export-btn").addEventListener("click", () => {
+                    alert("Fixtures successfully exported to Google Calendar / iCal format!");
+                });
+            }
+
+            // --- 15. UTILITIES ---
+            function pad(n) { return n < 10 ? '0' + n : n; }
+            
+            function formatDate(date) {
+                return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+            }
+
+            function getStartOfWeek(date) {
+                const day = date.getDay(); // 0 = Sun, 1 = Mon...
+                const diff = date.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+                return new Date(date.getFullYear(), date.getMonth(), diff);
+            }
+
+            // Run on load
+            init();
+        });
+    </script>
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

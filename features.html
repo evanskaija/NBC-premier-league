@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-Depth Features | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Shared News Header Box Styling */
+        .news-header-box { background: var(--bg-card); padding: 20px; border-radius: var(--radius); border: 1px solid var(--border-color); margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .news-capsule-nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .news-capsule { background: rgba(0, 180, 216, 0.05); padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border-color); cursor: pointer; transition: var(--transition); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; color: inherit; }
+        .news-capsule:hover, .news-capsule.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+
+        /* Feature Specifics */
+        .feature-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .feature-card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-color); transition: var(--transition); }
+        .feature-card:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .feature-card img { width: 100%; height: 400px; object-fit: cover; }
+        .fc-body { padding: 30px; }
+        @media (max-width: 900px) { .feature-grid { grid-template-columns: 1fr; } }
+
+        /* Dynamic Article Details Viewer Modal Overlays */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 8, 20, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-container {
+            background: var(--bg-alt);
+            border: 1px solid var(--primary-glow);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+        }
+        .modal-overlay.open .modal-container {
+            transform: scale(1);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        .modal-close-btn:hover {
+            background: #ff3b30;
+            border-color: #ff3b30;
+            color: white;
+        }
+        
+        .modal-article-header {
+            position: relative;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .modal-article-header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,8,20,0.1), rgba(0,8,20,0.95));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+        }
+        .modal-article-tag {
+            background: var(--accent);
+            color: black;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 900;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 15px;
+        }
+        .modal-article-title {
+            font-size: 2.2rem;
+            font-weight: 950;
+            line-height: 1.1;
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .modal-article-subtitle {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0 0 15px 0;
+            line-height: 1.3;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+        .modal-article-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 700;
+        }
+        .modal-article-meta span i {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        .modal-body {
+            padding: 40px 30px;
+        }
+        .modal-section-title {
+            font-size: 0.8rem;
+            font-weight: 950;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 30px 0 15px 0;
+            display: block;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 6px;
+        }
+        .modal-section-title:first-child {
+            margin-top: 0;
+        }
+        .modal-text-block {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        .modal-text-block p {
+            margin-bottom: 20px;
+        }
+        .modal-text-block p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Top Header -->
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown active">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html" class="active">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <!-- 3. News Center Boxed Header -->
+        <header class="news-header-box fade-in">
+            <h1 style="font-weight: 950; font-size: 2rem; letter-spacing: -1px; margin-bottom: 10px;">NEWS CENTER</h1>
+            <div class="news-capsule-nav">
+                <a href="news.html" class="news-capsule">Latest</a>
+                <a href="transfers.html" class="news-capsule">Transfers</a>
+                <a href="interviews.html" class="news-capsule">Interviews</a>
+                <a href="features.html" class="news-capsule active">Features</a>
+                <a href="reports.html" class="news-capsule">Reports</a>
+                <a href="videos.html" class="news-capsule">Videos</a>
+            </div>
+        </header>
+
+        <div class="feature-grid">
+            <div class="feature-card reveal-element" onclick="openFeatureDetails('fans-passion')" style="cursor: pointer;">
+                <img src="images/Mashabiki-wa-simba.jpg" alt="Fans Feature">
+                <div class="fc-body">
+                    <span class="ni-tag" style="background:#ffd60a; color:#000; font-weight:900;">LONG READ</span>
+                    <h2 style="font-size: 2.2rem; margin: 15px 0; line-height: 1.1; font-weight:950;">The heart of the Game: Inside the passion of Tanzanian football fans</h2>
+                    <p style="font-size: 1.1rem; color: var(--text-muted);">A deep dive into the songs, the rituals, and the unbreakable spirit from Dar es Salaam to Mwanza.</p>
+                    <button class="btn btn-primary btn-large mt-20" onclick="event.stopPropagation(); openFeatureDetails('fans-passion');" style="cursor: pointer;">Begin Reading →</button>
+                </div>
+            </div>
+            <div class="sidebar-features">
+                <div class="section-header-pl"><h2>More Long Reads</h2></div>
+                <div class="analysis-card" style="margin-bottom:20px; padding:20px; background:var(--bg-card); border-radius:var(--radius); border:1px solid var(--border-color); cursor: pointer;" onclick="openFeatureDetails('tactics-evolution')">
+                    <h5 style="font-weight:900;">The evolution of tactical systems in the NBC Premier League</h5>
+                    <a href="javascript:void(0)" style="color:var(--primary); font-size:0.8rem; font-weight:900; text-decoration:none; display:block; margin-top:10px;">Read Feature →</a>
+                </div>
+                <div class="analysis-card" style="margin-bottom:20px; padding:20px; background:var(--bg-card); border-radius:var(--radius); border:1px solid var(--border-color); cursor: pointer;" onclick="openFeatureDetails('afcon-preps')">
+                    <h5 style="font-weight:900;">Road to 2027: Tanzania's AFCON hosting preparations</h5>
+                    <a href="javascript:void(0)" style="color:var(--primary); font-size:0.8rem; font-weight:900; text-decoration:none; display:block; margin-top:10px;">Read Feature →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html" class="active"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+    
+
+    <!-- Dynamic Article Details Viewer Modal Overlay -->
+    <div class="modal-overlay" id="feature-details-modal" onclick="closeFeatureModalOnOutsideClick(event)">
+        <div class="modal-container">
+            <div class="modal-close-btn" onclick="closeFeatureModal()"><i class="fa-solid fa-xmark"></i></div>
+            
+            <div class="modal-article-header" id="modal-article-header-bg">
+                <div class="modal-article-header-overlay">
+                    <span id="modal-article-tag" class="modal-article-tag">Long Read</span>
+                    <h3 id="modal-article-title" class="modal-article-title">Article Title</h3>
+                    <h4 id="modal-article-subtitle" class="modal-article-subtitle">Article Subtitle</h4>
+                    <div class="modal-article-meta">
+                        <span id="modal-article-author"><i class="fa-regular fa-user"></i> By Author</span>
+                        <span id="modal-article-date"><i class="fa-regular fa-calendar"></i> Date</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body" id="modal-article-body">
+                <!-- Dynamic body sections will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const featuresData = {
+            "fans-passion": {
+                title: "The heart of the Game: Inside the passion of Tanzanian football fans",
+                subtitle: "A deep dive into the songs, the rituals, and the unbreakable spirit from Dar es Salaam to Mwanza.",
+                image: "images/fans.jpg",
+                tag: "LONG READ",
+                author: "By Baraka Mpenja",
+                date: "June 7, 2026",
+                sections: [
+                    {
+                        title: "The Derby Atmosphere & Dar es Salaam Branches",
+                        text: "<p>When Simba and Yanga meet, Dar es Salaam comes to a complete standstill. But the passion starts weeks before, inside the neighborhood fan branches. From Kariakoo to Temeke, these branches are community hubs where members pay monthly dues, debate tactics, and practice new songs.</p><p>On matchday, they parade from their headquarters to the Benjamin Mkapa National Stadium, chanting, playing vuvuzelas, and showing off their colors. This branch culture is the backbone of the entire fan ecosystem, ensuring a packed and vibrant stadium.</p>"
+                    },
+                    {
+                        title: "The Rituality of Songs & Vibe",
+                        text: "<p>No match in the NBC Premier League is complete without the brass bands and singing groups. Unlike European clubs where chants are spontaneous, Tanzanian fans have structured groups. They write lyrics set to popular traditional music and Afro-pop beats.</p><p>The songs range from praising player masterclasses to teasing their rivals. The drums beat continuously for 90 minutes, turning the stadium into a colossal concert that keeps the players energized and the audience captivated.</p>"
+                    },
+                    {
+                        title: "From Dar to Mwanza: The Regional Passion",
+                        text: "<p>The passion is not limited to Dar es Salaam. When Yanga or Simba travel to regions like Mwanza, Tanga, or Mbeya, local fan branches prepare elaborate welcomes. At airports or bus terminals, hundreds of fans gather to carry their favorite players.</p><p>In stadiums like CCM Kirumba or Sokoine, the atmosphere matches that of Dar. Tanzanian football fans have a unique, unbreakable connection with their teams, making the NBC Premier League one of the most vibrant leagues in Africa.</p>"
+                    }
+                ]
+            },
+            "tactics-evolution": {
+                title: "The evolution of tactical systems in the NBC Premier League",
+                subtitle: "Analyzing how modern formations, rapid transitions, and creative playmakers have replaced traditional direct play styles.",
+                image: "images/mkapa.jpg",
+                tag: "TACTICAL ANALYSIS",
+                author: "By Kassim Dewji",
+                date: "June 5, 2026",
+                sections: [
+                    {
+                        title: "The Shift from Direct to Possession Play",
+                        text: "<p>Historically, Tanzanian league football relied heavily on physical battles and direct long balls. However, the arrival of modern foreign coaches like Miguel Gamondi and Abdelhak Benchikha has transformed team systems.</p><p>There is now a clear focus on structured build-up from the back, using double-pivots to control midfield transition and overload the half-spaces.</p>"
+                    },
+                    {
+                        title: "The Role of the Modern Playmaker (#10)",
+                        text: "<p>The league has seen a resurgence of the classic #10 role. Players like Stephane Aziz Ki (Yanga SC) and Clatous Chama (Simba SC) are given the freedom to wander, find pockets of space between the opposition midfield and defense, and play decisive passes.</p><p>Their tactical intelligence forces opponents to abandon standard mid-blocks, creating highly dynamic match scenarios.</p>"
+                    },
+                    {
+                        title: "Rapid Transitions and High-Pressing Structures",
+                        text: "<p>Azam FC and other top clubs have adopted Senegalese and West African tactical styles focusing on vertical transitions. When possession is lost, teams implement a counter-press to win the ball back within seconds.</p><p>This high-intensity approach has significantly raised the physical and tactical standards of the entire league.</p>"
+                    }
+                ]
+            },
+            "afcon-preps": {
+                title: "Road to 2027: Tanzania's AFCON hosting preparations",
+                subtitle: "An inside look at stadium upgrades, logistics planning, and local infrastructure projects ahead of the historic continental tournament.",
+                image: "images/stadium.png",
+                tag: "INFRASTRUCTURE & DEVELOPMENT",
+                author: "By Amina Salim",
+                date: "June 3, 2026",
+                sections: [
+                    {
+                        title: "Benjamin Mkapa Stadium Upgrades",
+                        text: "<p>As one of the key venues for the AFCON 2027 tournament, the Benjamin Mkapa National Stadium in Dar es Salaam is undergoing major renovations. This includes replacing the turf with hybrid grass, installing state-of-the-art VIP lounges, upgrading dressing rooms to meet FIFA elite category standards, and installing a new digital turnstile ticketing system for seamless access.</p>"
+                    },
+                    {
+                        title: "New Arenas & Regional Stadiums",
+                        text: "<p>Beyond Dar es Salaam, other venues like the Amaan Stadium in Zanzibar and new facilities in Arusha are being built or renovated. The TFF, in collaboration with the government, is investing heavily in training pitches and local transport links to ensure that visiting national teams have world-class facilities and smooth travel schedules.</p>"
+                    },
+                    {
+                        title: "Economic & Tourism Impact",
+                        text: "<p>Hosting AFCON is not just about football; it is a major economic driver. Thousands of fans from across Africa will travel to Tanzania, benefiting hotels, restaurants, transport, and tourism.</p><p>The tournament is a golden opportunity to showcase Tanzanian hospitality and solidify the country's position as a premier sporting hub in East Africa.</p>"
+                    }
+                ]
+            }
+        };
+
+        function openFeatureDetails(articleId) {
+            const data = featuresData[articleId];
+            if (!data) return;
+
+            // Header elements
+            document.getElementById("modal-article-header-bg").style.backgroundImage = `url('${data.image}')`;
+            document.getElementById("modal-article-tag").innerText = data.tag;
+            document.getElementById("modal-article-title").innerText = data.title;
+            document.getElementById("modal-article-subtitle").innerText = data.subtitle;
+            document.getElementById("modal-article-author").innerHTML = `<i class="fa-regular fa-user"></i> ${data.author}`;
+            document.getElementById("modal-article-date").innerHTML = `<i class="fa-regular fa-calendar"></i> ${data.date}`;
+
+            // Body sections
+            const bodyContainer = document.getElementById("modal-article-body");
+            bodyContainer.innerHTML = ""; // Clear
+            
+            data.sections.forEach(sec => {
+                const titleEl = document.createElement("span");
+                titleEl.className = "modal-section-title";
+                titleEl.innerText = sec.title;
+                
+                const textEl = document.createElement("div");
+                textEl.className = "modal-text-block";
+                textEl.innerHTML = sec.text;
+
+                bodyContainer.appendChild(titleEl);
+                bodyContainer.appendChild(textEl);
+            });
+
+            document.getElementById("feature-details-modal").classList.add("open");
+            document.body.style.overflow = "hidden"; // Prevent background scroll
+        }
+
+        function closeFeatureModal() {
+            document.getElementById("feature-details-modal").classList.remove("open");
+            document.body.style.overflow = ""; // Re-enable background scroll
+        }
+
+        function closeFeatureModalOnOutsideClick(event) {
+            if (event.target === document.getElementById("feature-details-modal")) {
+                closeFeatureModal();
+            }
+        }
+    </script>
+
+    
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

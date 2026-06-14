@@ -1,0 +1,17 @@
+# Ignore node modules and build artifacts
+node_modules/
+**/node_modules/
+*.log
+*.db
+*.sqlite
+*.mp4
+*.webm
+target/
+dist/
+build/
+*.jar
+*.class
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

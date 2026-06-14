@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Season Awards | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        .awards-hero {
+            background: linear-gradient(rgba(0, 15, 30, 0.9), rgba(0, 15, 30, 0.9)), url('images/stadium.png');
+            background-size: cover;
+            padding: 100px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .awards-hero h1 {
+            font-size: 4rem;
+            font-weight: 950;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .awards-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 80px 0;
+        }
+
+        .award-big-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .award-big-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px rgba(0, 180, 216, 0.1);
+        }
+
+        .award-big-card.gold { border-top: 10px solid #FFD700; }
+        .award-big-card.silver { border-top: 10px solid #C0C0C0; }
+        .award-big-card.bronze { border-top: 10px solid #CD7F32; }
+
+        .award-img-box {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--primary), transparent);
+        }
+
+        .award-img-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #fff;
+        }
+
+        .winner-name {
+            font-size: 2rem;
+            font-weight: 950;
+            margin-bottom: 5px;
+        }
+
+        .award-type {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .award-desc {
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .awards-hero h1 { font-size: 2.5rem; }
+        }
+
+        /* Award Details Modal */
+        .award-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 7, 15, 0.96);
+            backdrop-filter: blur(15px);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 30px 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .award-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .award-modal-content {
+            background: #000c18;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            padding: 45px;
+            box-shadow: 0 25px 80px rgba(0, 180, 216, 0.2);
+            transform: translateY(30px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .award-modal-overlay.active .award-modal-content {
+            transform: translateY(0);
+        }
+
+        .award-modal-close {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .award-modal-close:hover {
+            background: var(--primary);
+            color: #000;
+            transform: rotate(90deg);
+        }
+
+        /* Modal Grid Layout */
+        .modal-details-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .modal-details-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .award-modal-content {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Custom Image Carousel */
+        .modal-carousel {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #001524;
+        }
+
+        .modal-carousel-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .modal-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000814;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .carousel-btn.prev { left: 15px; }
+        .carousel-btn.next { right: 15px; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            width: 18px;
+            border-radius: 10px;
+        }
+
+        /* Bio & Stats Display */
+        .modal-bio-info {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .modal-bio-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-size: 0.9rem;
+        }
+
+        .modal-bio-row:last-child {
+            border-bottom: none;
+        }
+
+        .modal-bio-label {
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .modal-bio-val {
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .modal-stats-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .modal-stat-card {
+            background: rgba(0, 180, 216, 0.04);
+            border: 1px solid rgba(0, 180, 216, 0.15);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .modal-stat-card.rating-card {
+            background: rgba(255, 215, 0, 0.04);
+            border-color: rgba(255, 215, 0, 0.25);
+        }
+
+        .modal-stat-val {
+            font-size: 1.8rem;
+            font-weight: 950;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .modal-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Pitch Section Grid */
+        .pitch-builder-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 40px;
+            align-items: stretch;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .pitch-builder-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Tactical Pitch Board Styling */
+        .pitch-container {
+            background: #000c18;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .football-pitch {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            aspect-ratio: 0.75;
+            background: linear-gradient(135deg, #0e3518 0%, #154c23 100%);
+            border: 3px solid rgba(255,255,255,0.25);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 0 80px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 20px 10px;
+        }
+
+        /* Pitch Markings */
+        .pitch-center-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.25);
+            z-index: 1;
+        }
+
+        .pitch-center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20%;
+            aspect-ratio: 1;
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .pitch-penalty-area {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            border: 2px solid rgba(255,255,255,0.25);
+            z-index: 1;
+        }
+
+        .pitch-penalty-area.top-penalty {
+            top: 0;
+            height: 18%;
+            border-top: none;
+        }
+
+        .pitch-penalty-area.bottom-penalty {
+            bottom: 0;
+            height: 18%;
+            border-bottom: none;
+        }
+
+        .pitch-goal {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25%;
+            height: 3%;
+            border: 2px solid rgba(255,255,255,0.4);
+            z-index: 1;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .pitch-goal.top-goal {
+            top: -2px;
+            border-top: none;
+        }
+
+        .pitch-goal.bottom-goal {
+            bottom: -2px;
+            border-bottom: none;
+        }
+
+        /* Pitch Spot nodes */
+        .pitch-spot {
+            position: absolute;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(0, 15, 30, 0.85);
+            border: 2px dashed rgba(0, 180, 216, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .pitch-spot:hover {
+            border-style: solid;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            transform: scale(1.1);
+        }
+
+        .pitch-spot.active {
+            border-style: solid;
+            border-color: var(--primary);
+            background: rgba(0, 180, 216, 0.2);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .pitch-spot.filled {
+            border-style: solid;
+            border-color: #22c55e;
+            background: #000c18;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            padding: 0;
+        }
+
+        .pitch-spot .spot-jersey {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.25);
+            transition: all 0.3s ease;
+        }
+
+        .pitch-spot:hover .spot-jersey {
+            color: var(--primary);
+        }
+
+        .pitch-spot .spot-label {
+            position: absolute;
+            bottom: -25px;
+            background: rgba(0,0,0,0.85);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .pitch-spot.filled .spot-label {
+            border-color: #22c55e;
+            color: #22c55e;
+            bottom: -22px;
+        }
+
+        /* Player Image and Info in Placed Pitch Spot */
+        .pitch-spot .player-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #22c55e;
+        }
+
+        .pitch-spot .remove-player-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: #ef4444;
+            color: #fff;
+            border-radius: 50%;
+            border: none;
+            font-size: 0.65rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 6;
+            transition: all 0.2s ease;
+        }
+
+        .pitch-spot .remove-player-btn:hover {
+            background: #b91c1c;
+            transform: scale(1.2);
+        }
+
+        /* Coordinate Placement of Players (4-3-3 Formation) */
+        /* Forwards */
+        .position-lw { top: 22%; left: 18%; }
+        .position-st { top: 15%; left: 50%; transform: translateX(-50%); }
+        .position-rw { top: 22%; right: 18%; }
+
+        /* Midfielders */
+        .position-lcm { top: 46%; left: 22%; }
+        .position-cm  { top: 52%; left: 50%; transform: translateX(-50%); }
+        .position-rcm { top: 46%; right: 22%; }
+
+        /* Defenders */
+        .position-lb  { top: 72%; left: 12%; }
+        .position-lcb { top: 76%; left: 36%; }
+        .position-rcb { top: 76%; right: 36%; }
+        .position-rb  { top: 72%; right: 12%; }
+
+        /* Goalkeeper */
+        .position-gk  { bottom: 5%; left: 50%; transform: translateX(-50%); }
+
+        /* Squad Panel Selection */
+        .squad-panel {
+            background: #000c18;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            max-height: 520px;
+        }
+
+        .squad-panel-header {
+            margin-bottom: 20px;
+        }
+
+        .squad-panel-header h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .squad-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            font-size: 0.65rem;
+            font-weight: 850;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        .squad-search {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .squad-search i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .squad-search input {
+            width: 100%;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 15px 12px 42px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .squad-search input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.15);
+        }
+
+        .squad-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 5px;
+        }
+
+        .squad-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .squad-list::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+
+        /* Squad Player Row Card */
+        .squad-player-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .squad-player-card:hover {
+            border-color: var(--primary);
+            background: rgba(0, 180, 216, 0.02);
+            transform: translateX(5px);
+        }
+
+        .squad-player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .squad-player-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .squad-player-name {
+            font-weight: 850;
+            font-size: 0.9rem;
+            color: #fff;
+            display: block;
+        }
+
+        .squad-player-details {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .squad-player-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .squad-player-card:hover .squad-player-action {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        .squad-player-card.already-placed {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .squad-player-card.already-placed .squad-player-action {
+            color: #22c55e;
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Header & Nav (Standard) -->
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+    <header class="awards-hero">
+        <div class="container">
+            <h1>2025/26 SEASON AWARDS</h1>
+            <p style="font-weight: 700; color: var(--text-muted);">Celebrating the heroes of Tanzanian Football excellence.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="awards-showcase">
+            <!-- Player of the Season -->
+            <div class="award-big-card gold" style="cursor: pointer;" onclick="openAwardDetails('pacome')">
+                <div class="award-img-box">
+                    <img src="images/Pacome.jpg" alt="pocome">
+                </div>
+                <div class="award-type">Player of the Season</div>
+                <div class="winner-name">PACOME ZOUZUA</div>
+                <p class="award-desc">With 11 goals and 9 assists, the midfield maestro dominated the league, leading Yanga SC to multiple titles.</p>
+            </div>
+
+             <!-- Top scorer of the Season -->
+            <div class="award-big-card silver" style="cursor: pointer;" onclick="openAwardDetails('ahoua')">
+                <div class="award-img-box">
+                    <img src="images/jean (1).jpg" alt="ahoua">
+                </div>
+                <div class="award-type">Top scorer of the Season</div>
+                <div class="winner-name">JEAN CHARLES AHOUA</div>
+                <p class="award-desc">With 16 goals and 6 assists, the midfielder maestro dominated the internatin league, leading Simba SC to finals of caf confidaretion cup.</p>
+            </div>
+
+            <!-- Manager of the Season -->
+            <div class="award-big-card silver" style="cursor: pointer;" onclick="openAwardDetails('fadlu')">
+                <div class="award-img-box">
+                    <img src="images/fadlu davis.jpg" alt="Gamondi">
+                </div>
+                <div class="award-type">Manager of the Season</div>
+                <div class="winner-name">FADLU DAVIS</div>
+                <p class="award-desc">Masterminded a tactical revolution at Simba, achieving a record-breaking win streak.</p>
+            </div>
+
+            <!-- Young Player -->
+            <div class="award-big-card silver" style="cursor: pointer;" onclick="openAwardDetails('mzize')">
+                <div class="award-img-box">
+                    <img src="images/Clement mzize.png" alt="Mzize">
+                </div>
+                <div class="award-type">Young Player</div>
+                <div class="winner-name">CLEMENT MZIZE</div>
+                <p class="award-desc">A breakout year for the young striker, showing clinical finishing and maturity beyond his years.</p>
+            </div>
+
+            <!-- Goal of the Season -->
+            <div class="award-big-card silver" style="cursor: pointer;" onclick="openAwardDetails('feisal')">
+                <div class="award-img-box">
+                    <img src="images/feilasufi.jpg" alt="feisal">
+                </div>
+                <div class="award-type">Goal of the season</div>
+                <div class="winner-name">FEISAL SALUM</div>
+                <p class="award-desc">That 35-yard screamer against Simba SC will go down in history as one of the finest ever scored.</p>
+            </div>
+
+            <!-- Save of the Season -->
+            <div class="award-big-card silver" style="cursor: pointer;" onclick="openAwardDetails('kamala')">
+                <div class="award-img-box">
+                    <img src="images/kamala.jpg" alt="Kamala">
+                </div>
+                <div class="award-type">Save of the Season</div>
+                <div class="winner-name">MUSA KAMALA</div>
+                <p class="award-desc">Incredible reflexes to deny a certain goal in the dying minutes of the Federation Cup final.</p>
+            </div>
+        </div>
+
+        <!-- Pitch Builder Section -->
+        <section class="pitch-builder-section" style="margin-top: 60px; padding-bottom: 80px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <span style="font-size:0.75rem; text-transform:uppercase; font-weight:950; color:var(--primary); letter-spacing:4px; display:block; margin-bottom:10px;">Tactical Board</span>
+                <h2 style="font-size: 3rem; font-weight: 950; letter-spacing: -1px; margin: 0; text-transform: uppercase;">Team of the Season</h2>
+                <p style="color:var(--text-muted); font-weight:700; margin-top:10px;">Build your ultimate 2025/26 NBC Premier League lineup!</p>
+            </div>
+
+            <div class="pitch-controls" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px;">
+                <button class="btn btn-primary" onclick="autoFillBestXI()"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 8px;"></i> Recommend Best XI</button>
+                <button class="btn btn-outline" onclick="clearPitch()"><i class="fa-solid fa-rotate-right" style="margin-right: 8px;"></i> Clear Pitch</button>
+            </div>
+
+            <div class="pitch-builder-grid">
+                <!-- Pitch (Tactical Board) -->
+                <div class="pitch-container">
+                    <div class="football-pitch" id="football-pitch">
+                        <!-- Goal (Top) -->
+                        <div class="pitch-goal top-goal"></div>
+                        <!-- Penalty Area (Top) -->
+                        <div class="pitch-penalty-area top-penalty"></div>
+                        <!-- Center Line & Circle -->
+                        <div class="pitch-center-line"></div>
+                        <div class="pitch-center-circle"></div>
+                        <!-- Penalty Area (Bottom) -->
+                        <div class="pitch-penalty-area bottom-penalty"></div>
+                        <!-- Goal (Bottom) -->
+                        <div class="pitch-goal bottom-goal"></div>
+
+                        <!-- 4-3-3 Position Spots -->
+                        <!-- Forwards -->
+                        <div class="pitch-spot position-lw" data-position="FWD" data-spot="LW" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">LW</span>
+                        </div>
+                        <div class="pitch-spot position-st" data-position="FWD" data-spot="ST" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">ST</span>
+                        </div>
+                        <div class="pitch-spot position-rw" data-position="FWD" data-spot="RW" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">RW</span>
+                        </div>
+
+                        <!-- Midfielders -->
+                        <div class="pitch-spot position-lcm" data-position="MID" data-spot="LCM" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">LCM</span>
+                        </div>
+                        <div class="pitch-spot position-cm" data-position="MID" data-spot="CM" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">CM</span>
+                        </div>
+                        <div class="pitch-spot position-rcm" data-position="MID" data-spot="RCM" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">RCM</span>
+                        </div>
+
+                        <!-- Defenders -->
+                        <div class="pitch-spot position-lb" data-position="DEF" data-spot="LB" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">LB</span>
+                        </div>
+                        <div class="pitch-spot position-lcb" data-position="DEF" data-spot="LCB" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">LCB</span>
+                        </div>
+                        <div class="pitch-spot position-rcb" data-position="DEF" data-spot="RCB" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">RCB</span>
+                        </div>
+                        <div class="pitch-spot position-rb" data-position="DEF" data-spot="RB" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">RB</span>
+                        </div>
+
+                        <!-- Goalkeeper -->
+                        <div class="pitch-spot position-gk" data-position="GK" data-spot="GK" onclick="selectSpot(this)">
+                            <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                            <span class="spot-label">GK</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Squad Selection Panel -->
+                <div class="squad-panel">
+                    <div class="squad-panel-header">
+                        <h3>Player Pool</h3>
+                        <div class="squad-filters">
+                            <span class="filter-tab active" data-filter="ALL" onclick="filterSquadPool('ALL')">ALL</span>
+                            <span class="filter-tab" data-filter="GK" onclick="filterSquadPool('GK')">GK</span>
+                            <span class="filter-tab" data-filter="DEF" onclick="filterSquadPool('DEF')">DEF</span>
+                            <span class="filter-tab" data-filter="MID" onclick="filterSquadPool('MID')">MID</span>
+                            <span class="filter-tab" data-filter="FWD" onclick="filterSquadPool('FWD')">FWD</span>
+                        </div>
+                    </div>
+                    <div class="squad-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="squad-search-input" placeholder="Search player pool..." onkeyup="searchSquadPool()">
+                    </div>
+                    <div class="squad-list" id="squad-list">
+                        <!-- Placed dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Details Modal Overlay -->
+        <div id="award-details-modal" class="award-modal-overlay" onclick="handleOutsideModalClick(event)">
+            <div class="award-modal-content">
+                <button class="award-modal-close" onclick="closeAwardDetails()"><i class="fa-solid fa-xmark"></i></button>
+                <div id="award-modal-body">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 17. Professional Footer -->
+    
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<script>
+    // 1. Award Winners Detailed Database
+    const awardsDb = {
+        'pacome': {
+            name: 'Pacome Zouzua',
+            role: 'Midfield Maestro',
+            teamName: 'Yanga SC',
+            teamLogo: 'images/yanga.jpg',
+            bio: {
+                'Nationality': 'Ivory Coast 🇨🇮',
+                'Age': '28 Years',
+                'Preferred Foot': 'Right',
+                'Market Value': '€950K'
+            },
+            stats: [
+                { val: '8.45', label: 'Rating', isRating: true },
+                { val: '11', label: 'Goals' },
+                { val: '9', label: 'Assists' }
+            ],
+            desc: 'With 11 goals and 9 assists, the midfield maestro dominated the league, leading Yanga SC to multiple domestic titles.',
+            images: ['images/Pacome.jpg', 'images/yanga.jpg', 'images/Tuzo.JPG'],
+            profileId: 'pacome'
+        },
+        'ahoua': {
+            name: 'Jean Charles Ahoua',
+            role: 'Attacking Midfielder',
+            teamName: 'Simba SC',
+            teamLogo: 'images/simba.jpg',
+            bio: {
+                'Nationality': 'Ivory Coast 🇨🇮',
+                'Age': '24 Years',
+                'Preferred Foot': 'Left',
+                'Market Value': '€650K'
+            },
+            stats: [
+                { val: '8.25', label: 'Rating', isRating: true },
+                { val: '16', label: 'Goals' },
+                { val: '6', label: 'Assists' }
+            ],
+            desc: 'With 16 goals and 6 assists, the midfielder playmaker dominated the international stages, leading Simba SC to the finals of the CAF Confederation Cup.',
+            images: ['images/jean (1).jpg', 'images/jean (2).jpg', 'images/jean (3).jpg', 'images/jean (4).jpg'],
+            profileId: null
+        },
+        'fadlu': {
+            name: 'Fadlu Davis',
+            role: 'Head Coach',
+            teamName: 'Simba SC',
+            teamLogo: 'images/simba.jpg',
+            bio: {
+                'Nationality': 'South Africa 🇿🇦',
+                'Age': '43 Years',
+                'Win Rate': '72%',
+                'Points Per Game': '2.2'
+            },
+            stats: [
+                { val: '8.50', label: 'Rating', isRating: true },
+                { val: '45', label: 'Matches' },
+                { val: '32', label: 'Wins' }
+            ],
+            desc: 'Masterminded a tactical revolution at Simba, achieving a record-breaking win streak and reaching the continental finals in his debut season.',
+            images: ['images/fadlu davis.jpg', 'images/simba.jpg', 'images/tuzo1.JPG'],
+            profileId: null
+        },
+        'mzize': {
+            name: 'Clement Mzize',
+            role: 'Forward / Striker',
+            teamName: 'Yanga SC',
+            teamLogo: 'images/yanga.jpg',
+            bio: {
+                'Nationality': 'Tanzania 🇹🇿',
+                'Age': '22 Years',
+                'Preferred Foot': 'Right',
+                'Market Value': '€450K'
+            },
+            stats: [
+                { val: '7.85', label: 'Rating', isRating: true },
+                { val: '12', label: 'Goals' },
+                { val: '4', label: 'Assists' }
+            ],
+            desc: 'A breakout year for the young striker, showing clinical finishing, physical dominance, and maturity beyond his years.',
+            images: ['images/Clement mzize.png', 'images/mzize.webp', 'images/mzize1.jpg'],
+            profileId: 'mzize'
+        },
+        'feisal': {
+            name: 'Feisal Salum',
+            role: 'Midfielder / Playmaker',
+            teamName: 'Azam FC',
+            teamLogo: 'images/zam.png',
+            bio: {
+                'Nationality': 'Tanzania 🇹🇿',
+                'Age': '26 Years',
+                'Preferred Foot': 'Right',
+                'Market Value': '€750K'
+            },
+            stats: [
+                { val: '8.12', label: 'Rating', isRating: true },
+                { val: '18', label: 'Goals' },
+                { val: '12', label: 'Assists' }
+            ],
+            desc: 'That 35-yard screamer against Simba SC will go down in history as one of the finest ever scored. He dominated Azam FC\'s midfield with creativity and power.',
+            images: ['images/feilasufi.jpg', 'images/feisal salum.png', 'images/feisaly.jpg', 'images/feitoto.jpg'],
+            profileId: 'feisal-salum'
+        },
+        'kamala': {
+            name: 'Musa Kamala',
+            role: 'Goalkeeper',
+            teamName: 'Mashujaa FC',
+            teamLogo: 'images/nbc.png',
+            bio: {
+                'Nationality': 'Tanzania 🇹🇿',
+                'Age': '25 Years',
+                'Preferred Foot': 'Right',
+                'Market Value': '€150K'
+            },
+            stats: [
+                { val: '7.90', label: 'Rating', isRating: true },
+                { val: '10', label: 'Clean Sheets' },
+                { val: '98', label: 'Saves' }
+            ],
+            desc: 'Showed incredible reflexes and command of the box to deny key goals, most notably in the dying minutes of the Federation Cup final.',
+            images: ['images/kamala.jpg', 'images/Mussa pinpin kamala.png', 'images/nbc.png'],
+            profileId: null
+        },
+        'manula': {
+            name: 'Aishi Manula',
+            role: 'Goalkeeper',
+            teamName: 'Simba SC',
+            teamLogo: 'images/simba.jpg',
+            bio: {
+                'Nationality': 'Tanzania 🇹🇿',
+                'Age': '30 Years',
+                'Height': '183 cm',
+                'Market Value': '€150K'
+            },
+            stats: [
+                { val: '7.40', label: 'Rating', isRating: true },
+                { val: '12', label: 'Clean Sheets' },
+                { val: '22', label: 'Matches' }
+            ],
+            desc: 'Simba SC\'s experienced shot-stopper. Aishi Manula combines stellar command, organizational leadership, and fine shot-stopping to anchor the Simba defence.',
+            images: ['images/player.png', 'images/simba.jpg', 'images/Premier league.png'],
+            profileId: 'manula'
+        }
+    };
+
+    // Carousel state
+    let currentSlide = 0;
+
+    // 2. Open Award Details Modal
+    function openAwardDetails(id) {
+        const modal = document.getElementById('award-details-modal');
+        const body = document.getElementById('award-modal-body');
+        const data = awardsDb[id];
+        if (!data) return;
+
+        currentSlide = 0;
+
+        // Create Slides HTML
+        let slidesHtml = '';
+        let dotsHtml = '';
+        data.images.forEach((img, idx) => {
+            slidesHtml += `
+                <div class="modal-slide">
+                    <img src="${img}" alt="${data.name} slide">
+                </div>
+            `;
+            dotsHtml += `
+                <div class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx})"></div>
+            `;
+        });
+
+        // Create Bio Table Rows
+        let bioRowsHtml = '';
+        for (const [key, value] of Object.entries(data.bio)) {
+            bioRowsHtml += `
+                <div class="modal-bio-row">
+                    <span class="modal-bio-label">${key}</span>
+                    <span class="modal-bio-val">${value}</span>
+                </div>
+            `;
+        }
+
+        // Create Stats Cards
+        let statsHtml = '';
+        data.stats.forEach(stat => {
+            statsHtml += `
+                <div class="modal-stat-card ${stat.isRating ? 'rating-card' : ''}">
+                    <span class="modal-stat-val" style="color: ${stat.isRating ? 'var(--primary)' : '#fff'}">${stat.val}</span>
+                    <span class="modal-stat-label">${stat.label}</span>
+                </div>
+            `;
+        });
+
+        body.innerHTML = `
+            <div class="modal-details-grid">
+                <!-- Left: Image Gallery Carousel -->
+                <div>
+                    <div class="modal-carousel">
+                        <div class="modal-carousel-track" id="carousel-track">
+                            ${slidesHtml}
+                        </div>
+                        ${data.images.length > 1 ? `
+                            <button class="carousel-btn prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button class="carousel-btn next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                            <div class="carousel-dots">
+                                ${dotsHtml}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <!-- Biography details -->
+                    <div class="modal-bio-info">
+                        <span class="panel-heading" style="margin-bottom: 12px; display: block;"><i class="fa-solid fa-id-card"></i> Profile Bio</span>
+                        ${bioRowsHtml}
+                    </div>
+                </div>
+
+                <!-- Right: Performance and Description -->
+                <div style="display: flex; flex-direction: column; height: 100%;">
+                    <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 25px; margin-bottom: 30px;">
+                        <span style="color: var(--primary); font-weight: 950; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase;">${data.role} • ${data.teamName}</span>
+                        <h2 style="font-size: 2.8rem; font-weight: 950; margin: 5px 0; letter-spacing: -1px; text-transform: uppercase;">${data.name}</h2>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                            <img src="${data.teamLogo}" style="height: 24px; border-radius: 50%;" alt="Club Logo">
+                            <span style="font-weight: 800; font-size: 0.9rem; color: var(--text-muted);">${data.teamName}</span>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Summary -->
+                    <div class="modal-stats-summary">
+                        ${statsHtml}
+                    </div>
+
+                    <!-- Description -->
+                    <div style="flex-grow: 1;">
+                        <h3 class="panel-heading" style="margin-bottom: 12px;"><i class="fa-solid fa-quote-left" style="color: var(--primary); margin-right: 8px;"></i> Season Narrative</h3>
+                        <p style="font-weight: 600; line-height: 1.7; color: var(--text-muted); font-size: 0.95rem;">${data.desc}</p>
+                    </div>
+
+                    <!-- Image showcase grid footer -->
+                    <div style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 25px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <i class="fa-solid fa-images" style="color: var(--primary);"></i>
+                            <span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Includes ${data.images.length} high-resolution photos</span>
+                        </div>
+                        ${data.profileId ? `<a href="player-details.html?id=${data.profileId}" style="display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #000; padding: 10px 22px; border-radius: 50px; font-weight: 900; font-size: 0.8rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--primary)'"><i class='fa-solid fa-user-large'></i> View Full Profile</a>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAwardDetails() {
+        const modal = document.getElementById('award-details-modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function handleOutsideModalClick(e) {
+        if (e.target.id === 'award-details-modal') {
+            closeAwardDetails();
+        }
+    }
+
+    // Move slide by step (+1 or -1)
+    function moveSlide(step) {
+        const track = document.getElementById('carousel-track');
+        const slides = document.querySelectorAll('.modal-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        if (!track || slides.length === 0) return;
+
+        currentSlide = (currentSlide + step + slides.length) % slides.length;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+        // Update active dot
+        dots.forEach((dot, idx) => {
+            if (idx === currentSlide) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    function goToSlide(slideIdx) {
+        const track = document.getElementById('carousel-track');
+        const dots = document.querySelectorAll('.carousel-dot');
+        if (!track) return;
+
+        currentSlide = slideIdx;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+        dots.forEach((dot, idx) => {
+            if (idx === currentSlide) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+
+    // 3. Lineup Pitch Builder Systems
+    const squadPool = [
+        // Goalkeepers
+        { id: 'diarra', name: 'Djigui Diarra', pos: 'GK', team: 'Yanga SC', img: 'images/yanga.jpg', profileId: 'diarra' },
+        { id: 'kamala', name: 'Musa Kamala', pos: 'GK', team: 'Mashujaa FC', img: 'images/kamala.jpg', profileId: null },
+        { id: 'aishi', name: 'Aishi Salum', pos: 'GK', team: 'Azam FC', img: 'images/zam.png', profileId: null },
+        { id: 'manula', name: 'Aishi Manula', pos: 'GK', team: 'Simba SC', img: 'images/player.png', profileId: 'manula' },
+
+        // Defenders
+        { id: 'kapombe', name: 'Shomari Kapombe', pos: 'DEF', team: 'Simba SC', img: 'images/kapombe.jpg', profileId: null },
+        { id: 'shabalala', name: 'Mohamed Hussein', pos: 'DEF', team: 'Simba SC', img: 'images/shabalala.jpg', profileId: null },
+        { id: 'bacca', name: 'Ibrahim Bacca', pos: 'DEF', team: 'Yanga SC', img: 'images/yanga.jpg', profileId: null },
+        { id: 'beka', name: 'Beka', pos: 'DEF', team: 'Azam FC', img: 'images/beka.jpg', profileId: null },
+        { id: 'beker', name: 'Beker', pos: 'DEF', team: 'Azam FC', img: 'images/beker.jpg', profileId: null },
+        { id: 'beki', name: 'Beki', pos: 'DEF', team: 'Singida BS', img: 'images/beki.jpg', profileId: null },
+
+        // Midfielders
+        { id: 'azizki', name: 'Stephane Aziz Ki', pos: 'MID', team: 'Yanga SC', img: 'images/Stephane ki azizi.png', profileId: 'aziz-ki' },
+        { id: 'pacome', name: 'Pacome Zouzua', pos: 'MID', team: 'Yanga SC', img: 'images/Pacome.jpg', profileId: 'pacome' },
+        { id: 'ahoua', name: 'Jean Charles Ahoua', pos: 'MID', team: 'Simba SC', img: 'images/jean (1).jpg', profileId: null },
+        { id: 'feisal', name: 'Feisal Salum', pos: 'MID', team: 'Azam FC', img: 'images/feisal salum.png', profileId: 'feisal-salum' },
+        { id: 'chama', name: 'Clatous Chama', pos: 'MID', team: 'Simba SC', img: 'images/clatus chama.jpg', profileId: 'chama' },
+        { id: 'okello', name: 'Allan Okello', pos: 'MID', team: 'Simba SC', img: 'images/allan okelo.jpg', profileId: null },
+        { id: 'kagoma', name: 'Kagoma', pos: 'MID', team: 'Simba SC', img: 'images/Kagoma.jpg', profileId: null },
+
+        // Forwards
+        { id: 'mzize', name: 'Clement Mzize', pos: 'FWD', team: 'Yanga SC', img: 'images/Clement mzize.png', profileId: 'mzize' },
+        { id: 'mayele', name: 'Fiston Mayele', pos: 'FWD', team: 'Pyramids FC', img: 'images/Mayele fiston.jpeg', profileId: null },
+        { id: 'dube', name: 'Prince Dube', pos: 'FWD', team: 'Yanga SC', img: 'images/dube.jpg', profileId: null },
+        { id: 'starboy', name: 'Star Boy', pos: 'FWD', team: 'Simba SC', img: 'images/star boy.jpg', profileId: null },
+        { id: 'winger', name: 'Winger', pos: 'FWD', team: 'Azam FC', img: 'images/winger.jpg', profileId: null }
+    ];
+
+    let currentSelectedSpot = null;
+    let pitchState = {
+        'LW': null, 'ST': null, 'RW': null,
+        'LCM': null, 'CM': null, 'RCM': null,
+        'LB': null, 'LCB': null, 'RCB': null, 'RB': null,
+        'GK': null
+    };
+
+    // Load squad pool in side panel
+    function renderSquadPool(filterPos = 'ALL', searchQuery = '') {
+        const squadList = document.getElementById('squad-list');
+        squadList.innerHTML = '';
+
+        const filtered = squadPool.filter(p => {
+            const matchesPos = (filterPos === 'ALL' || p.pos === filterPos);
+            const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.team.toLowerCase().includes(searchQuery.toLowerCase());
+            return matchesPos && matchesSearch;
+        });
+
+        if (filtered.length === 0) {
+            squadList.innerHTML = '<div style="text-align:center; padding:30px; font-weight:800; color:var(--text-muted);">No players found.</div>';
+            return;
+        }
+
+        filtered.forEach(p => {
+            // Check if player is already on the pitch
+            const isPlaced = Object.values(pitchState).some(placedPlayer => placedPlayer && placedPlayer.id === p.id);
+
+            const card = document.createElement('div');
+            card.className = `squad-player-card ${isPlaced ? 'already-placed' : ''}`;
+            card.onclick = () => {
+                if (!isPlaced) {
+                    placePlayerInSelectedSpot(p);
+                }
+            };
+
+            card.innerHTML = `
+                <div class="squad-player-info">
+                    <img src="${p.img}" class="squad-player-avatar" alt="${p.name}">
+                    <div>
+                        <span class="squad-player-name" style="${p.profileId ? 'cursor:pointer; text-decoration:underline; color:var(--primary);' : ''}">${p.name}</span>
+                        <span class="squad-player-details">${p.pos} • ${p.team}</span>
+                    </div>
+                </div>
+                <div class="squad-player-action">
+                    <i class="fa-solid ${isPlaced ? 'fa-check' : 'fa-plus'}"></i>
+                </div>
+            `;
+            
+            if (p.profileId) {
+                const nameSpan = card.querySelector('.squad-player-name');
+                nameSpan.onclick = (e) => {
+                    e.stopPropagation();
+                    window.location.href = `player-details.html?id=${p.profileId}`;
+                };
+            }
+
+            squadList.appendChild(card);
+        });
+    }
+
+    // Select a pitch spot node
+    function selectSpot(element) {
+        const spotCode = element.getAttribute('data-spot');
+        const placedPlayer = pitchState[spotCode];
+        
+        if (placedPlayer && placedPlayer.profileId) {
+            window.location.href = `player-details.html?id=${placedPlayer.profileId}`;
+            return;
+        }
+
+        // Remove active class from all other spots
+        const spots = document.querySelectorAll('.pitch-spot');
+        spots.forEach(s => s.classList.remove('active'));
+
+        currentSelectedSpot = element;
+        element.classList.add('active');
+
+        // Set matching filter tab
+        const requiredPos = element.getAttribute('data-position');
+        filterSquadPool(requiredPos);
+    }
+
+    // Place a player into the active spot
+    function placePlayerInSelectedSpot(player) {
+        if (!currentSelectedSpot) {
+            // If no spot is selected, try to find an empty spot matching player position
+            const spotType = player.pos;
+            let targetSpot = null;
+            const spots = document.querySelectorAll('.pitch-spot');
+
+            for (const s of spots) {
+                const sPos = s.getAttribute('data-position');
+                const sCode = s.getAttribute('data-spot');
+                if (sPos === spotType && !pitchState[sCode]) {
+                    targetSpot = s;
+                    break;
+                }
+            }
+
+            // Fallback: Use the first empty spot overall
+            if (!targetSpot) {
+                for (const s of spots) {
+                    const sCode = s.getAttribute('data-spot');
+                    if (!pitchState[sCode]) {
+                        targetSpot = s;
+                        break;
+                    }
+                }
+            }
+
+            if (targetSpot) {
+                currentSelectedSpot = targetSpot;
+                targetSpot.classList.add('active');
+            } else {
+                alert('Please click on a spot on the pitch first to assign this player!');
+                return;
+            }
+        }
+
+        const spotCode = currentSelectedSpot.getAttribute('data-spot');
+        
+        // If a player was already in this spot, clear their placed state first
+        if (pitchState[spotCode]) {
+            pitchState[spotCode] = null;
+        }
+
+        // Assign player
+        pitchState[spotCode] = player;
+
+        // Render spot node content
+        renderSpotNode(currentSelectedSpot, player);
+
+        // Reset active spot highlight
+        currentSelectedSpot.classList.remove('active');
+        currentSelectedSpot = null;
+
+        // Refresh lists
+        const activeFilter = document.querySelector('.filter-tab.active').getAttribute('data-filter');
+        const query = document.getElementById('squad-search-input').value;
+        renderSquadPool(activeFilter, query);
+    }
+
+    function renderSpotNode(element, player) {
+        const spotCode = element.getAttribute('data-spot');
+        if (player) {
+            element.classList.add('filled');
+            element.innerHTML = `
+                <img src="${player.img}" class="player-photo" alt="${player.name}">
+                <button class="remove-player-btn" onclick="removePlayerFromSpot('${spotCode}', event)"><i class="fa-solid fa-xmark"></i></button>
+                <span class="spot-label">${player.name.split(' ')[player.name.split(' ').length - 1]}</span>
+            `;
+        } else {
+            element.classList.remove('filled');
+            element.innerHTML = `
+                <div class="spot-jersey"><i class="fa-solid fa-shirt"></i></div>
+                <span class="spot-label">${spotCode}</span>
+            `;
+        }
+    }
+
+    // Remove player from a spot
+    function removePlayerFromSpot(spotCode, event) {
+        if (event) event.stopPropagation();
+
+        const spotElement = document.querySelector(`.pitch-spot[data-spot="${spotCode}"]`);
+        pitchState[spotCode] = null;
+
+        if (spotElement) {
+            renderSpotNode(spotElement, null);
+            spotElement.classList.remove('active');
+        }
+
+        currentSelectedSpot = null;
+
+        // Refresh list
+        const activeFilter = document.querySelector('.filter-tab.active').getAttribute('data-filter');
+        const query = document.getElementById('squad-search-input').value;
+        renderSquadPool(activeFilter, query);
+    }
+
+    // Filter selector panel tabs
+    function filterSquadPool(pos) {
+        const tabs = document.querySelectorAll('.filter-tab');
+        tabs.forEach(t => {
+            if (t.getAttribute('data-filter') === pos) {
+                t.classList.add('active');
+            } else {
+                t.classList.remove('active');
+            }
+        });
+
+        const query = document.getElementById('squad-search-input').value;
+        renderSquadPool(pos, query);
+    }
+
+    // Search input handler
+    function searchSquadPool() {
+        const query = document.getElementById('squad-search-input').value;
+        const activeFilter = document.querySelector('.filter-tab.active').getAttribute('data-filter');
+        renderSquadPool(activeFilter, query);
+    }
+
+    // Clear whole pitch
+    function clearPitch() {
+        const spots = document.querySelectorAll('.pitch-spot');
+        spots.forEach(s => {
+            const code = s.getAttribute('data-spot');
+            pitchState[code] = null;
+            renderSpotNode(s, null);
+        });
+
+        currentSelectedSpot = null;
+        filterSquadPool('ALL');
+    }
+
+    // Recommendation / Auto-fill TOTS Lineup
+    function autoFillBestXI() {
+        clearPitch();
+
+        // Target Best XI Players mapping
+        const totsLineup = {
+            'GK': 'diarra',
+            'LB': 'shabalala',
+            'LCB': 'bacca',
+            'RCB': 'beka',
+            'RB': 'kapombe',
+            'LCM': 'pacome',
+            'CM': 'feisal',
+            'RCM': 'chama',
+            'LW': 'azizki',
+            'ST': 'mayele',
+            'RW': 'ahoua'
+        };
+
+        let delay = 100;
+        for (const [spotCode, playerId] of Object.entries(totsLineup)) {
+            setTimeout(() => {
+                const playerObj = squadPool.find(p => p.id === playerId);
+                const spotElement = document.querySelector(`.pitch-spot[data-spot="${spotCode}"]`);
+                
+                if (playerObj && spotElement) {
+                    pitchState[spotCode] = playerObj;
+                    renderSpotNode(spotElement, playerObj);
+                    
+                    // Add entry scale animation trigger
+                    spotElement.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        spotElement.style.transform = '';
+                    }, 300);
+
+                    // Refresh list at final step
+                    if (spotCode === 'RW') {
+                        const activeFilter = document.querySelector('.filter-tab.active').getAttribute('data-filter');
+                        renderSquadPool(activeFilter);
+                    }
+                }
+            }, delay);
+            delay += 150; // Stagger effect
+        }
+    }
+
+    // Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+        renderSquadPool('ALL');
+    });
+</script>
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

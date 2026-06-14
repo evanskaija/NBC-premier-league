@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Profile | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-color: #00b4d8;
+            --accent-hover: #0096c7;
+            --accent-rgb: 0, 180, 216;
+            --hero-bg: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 60%, #00b4d8 120%);
+        }
+
+        /* =========================================
+           PLAYER PROFILE — PREMIUM LIGHT PAGE
+           ========================================= */
+
+        /* Force light page background */
+        body {
+            background: #f0f4f8;
+            color: #0d1b2a;
+        }
+        [data-theme="dark"] body {
+            background: #f0f4f8;
+            color: #0d1b2a;
+        }
+
+        /* ---- Hero Banner ---- */
+        .profile-hero {
+            background: var(--hero-bg);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.5s ease;
+        }
+
+        .hero-glow-ring {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(var(--accent-rgb),0.15) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: end;
+            gap: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-photo-col {
+            padding: 40px 0 0 0;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero-player-img {
+            width: 260px;
+            height: 310px;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+
+        .hero-info-col {
+            padding: 60px 60px 40px 40px;
+            color: #fff;
+        }
+
+        .hero-club-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .hero-club-badge img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .hero-club-badge span {
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .hero-name {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 950;
+            line-height: 1;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .hero-position-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(var(--accent-rgb),0.15);
+            border: 1px solid rgba(var(--accent-rgb),0.4);
+            border-radius: 50px;
+            padding: 6px 18px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-hero-follow {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero-follow:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+        .btn-hero-share {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero-share:hover { background: rgba(255,255,255,0.2); }
+
+        /* ---- Quick Stats Strip (below hero) ---- */
+        .quick-stats-strip {
+            background: #fff;
+            border-bottom: 2px solid #e8eef4;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .qs-item {
+            flex: 1;
+            max-width: 180px;
+            text-align: center;
+            padding: 22px 20px;
+            border-right: 1px solid #e8eef4;
+            position: relative;
+        }
+
+        .qs-item:last-child { border-right: none; }
+
+        .qs-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #8a9db5;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
+
+        .qs-val {
+            font-size: 1.15rem;
+            font-weight: 950;
+            color: #0d1b2a;
+        }
+
+        .qs-icon {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 6px;
+        }
+
+        /* ---- Page Tabs ---- */
+        .profile-tabs {
+            display: flex;
+            gap: 0;
+            background: #fff;
+            border-bottom: 2px solid #e8eef4;
+            overflow-x: auto;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .profile-tab {
+            padding: 18px 25px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: #8a9db5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .profile-tab.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .profile-tab:hover { color: var(--accent-color); }
+
+        /* ---- Main Layout ---- */
+        .profile-page-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            padding: 40px 0;
+        }
+
+        /* ---- White Cards ---- */
+        .light-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid #e8eef4;
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 0.7rem;
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8a9db5;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title i { color: var(--accent-color); font-size: 0.8rem; }
+
+        /* ---- Season Stats Big Numbers ---- */
+        .season-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 15px;
+        }
+
+        .season-stat-box {
+            background: #f8fafc;
+            border: 1px solid #e8eef4;
+            border-radius: 16px;
+            padding: 20px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .season-stat-box:hover {
+            border-bottom-color: var(--accent-color);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(var(--accent-rgb),0.15);
+            background: #ffffff;
+        }
+
+        .ssb-val {
+            font-size: 2rem;
+            font-weight: 950;
+            color: #0d1b2a;
+            line-height: 1;
+        }
+
+        .ssb-val.highlight { color: var(--accent-color); }
+        .ssb-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #8a9db5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 6px;
+        }
+
+        /* ---- Transfer Value Chart ---- */
+        .value-chart-wrap {
+            position: relative;
+        }
+
+        .value-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .value-current {
+            font-size: 2.2rem;
+            font-weight: 950;
+            color: #0d1b2a;
+        }
+
+        .value-contract {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #8a9db5;
+            background: #f0f4f8;
+            border-radius: 8px;
+            padding: 6px 12px;
+        }
+
+        .chart-svg-light {
+            width: 100%;
+            height: 140px;
+        }
+
+        .y-labels {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 140px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: #b0bec5;
+            padding: 5px 0;
+        }
+
+        .chart-x-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: #b0bec5;
+        }
+
+        /* ---- Match Log ---- */
+        .match-log-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .match-log-table thead th {
+            font-size: 0.6rem;
+            font-weight: 850;
+            color: #8a9db5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 2px solid #e8eef4;
+        }
+
+        .match-log-table tbody tr {
+            border-bottom: 1px solid #f0f4f8;
+            transition: background 0.2s ease;
+        }
+
+        .match-log-table tbody tr:hover { background: #f8fafc; }
+
+        .match-log-table td {
+            padding: 14px 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .result-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 950;
+        }
+
+        .result-badge.W { background: #dcfce7; color: #16a34a; }
+        .result-badge.D { background: #fef9c3; color: #ca8a04; }
+        .result-badge.L { background: #fee2e2; color: #dc2626; }
+
+        .rating-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 900;
+        }
+
+        .rating-chip.good { background: #dcfce7; color: #16a34a; }
+        .rating-chip.ok { background: #fef9c3; color: #ca8a04; }
+        .rating-chip.poor { background: #fee2e2; color: #dc2626; }
+        .rating-chip.na { background: #f0f4f8; color: #8a9db5; }
+
+        /* ---- Radar / Skill Bars ---- */
+        .skill-bars { display: flex; flex-direction: column; gap: 14px; }
+
+        .skill-row { display: flex; flex-direction: column; gap: 5px; }
+
+        .skill-row-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #4a6080;
+        }
+
+        .skill-track {
+            height: 8px;
+            background: #e8eef4;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--accent-hover), var(--accent-color));
+            transition: width 1s ease;
+        }
+
+        .skill-fill.gold { background: linear-gradient(90deg, #b45309, #f59e0b); }
+        .skill-fill.green { background: linear-gradient(90deg, #15803d, #22c55e); }
+
+        /* ---- Goalkeeper Specific: Save Map ---- */
+        .save-map-wrap {
+            background: #f0f4f8;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .goal-visual {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            max-width: 300px;
+            margin: 0 auto 15px;
+        }
+
+        .goal-zone {
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border: 2px solid #c8d8e8;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .goal-zone.saved { background: #dcfce7; border-color: #22c55e; color: #16a34a; }
+        .goal-zone.conceded { background: #fee2e2; border-color: #ef4444; color: #dc2626; }
+
+        .goal-frame-label {
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: #8a9db5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        /* ---- Bio Table (right side) ---- */
+        .bio-table { width: 100%; }
+
+        .bio-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f4f8;
+        }
+
+        .bio-row:last-child { border-bottom: none; }
+
+        .bio-label-text {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #8a9db5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bio-val-text {
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: #0d1b2a;
+            text-align: right;
+        }
+
+        /* ---- Trophy Widget ---- */
+        .trophy-list { display: flex; flex-direction: column; gap: 12px; }
+
+        .trophy-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px 15px;
+            border: 1px solid #e8eef4;
+            transition: all 0.3s ease;
+        }
+
+        .trophy-item:hover {
+            border-color: var(--accent-color);
+            transform: translateX(4px);
+        }
+
+        /* SVG chart dynamic overrides */
+        #value-chart-svg #chartGrad stop {
+            stop-color: var(--accent-color);
+        }
+        #value-chart-svg #chart-path-line {
+            stroke: var(--accent-color);
+        }
+        #value-chart-svg #chart-dot-start, 
+        #value-chart-svg #chart-dot-end {
+            fill: var(--accent-color);
+        }
+
+        /* Clickable opponent & scores */
+        .clickable-cell {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .clickable-cell:hover {
+            color: var(--accent-color) !important;
+            text-decoration: underline;
+        }
+
+        .trophy-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .trophy-icon.gold { background: #fef9c3; color: #ca8a04; }
+        .trophy-icon.silver { background: #f1f5f9; color: #64748b; }
+        .trophy-icon.bronze { background: #fef3c7; color: #b45309; }
+
+        .trophy-text { flex-grow: 1; }
+        .trophy-name { font-size: 0.82rem; font-weight: 900; color: #0d1b2a; }
+        .trophy-year { font-size: 0.65rem; font-weight: 800; color: #8a9db5; }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 1100px) {
+            .profile-page-layout { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-photo-col { justify-content: center; padding: 40px 20px 0; }
+            .hero-player-img { width: 180px; height: 220px; }
+            .hero-info-col { padding: 20px 20px 30px; text-align: center; }
+            .hero-actions { justify-content: center; }
+            .quick-stats-strip { flex-wrap: wrap; }
+            .qs-item { min-width: 100px; flex: none; width: 33.33%; }
+        }
+
+        @media (max-width: 480px) {
+            .qs-item { width: 50%; }
+            .season-stat-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown active">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html" class="active">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="profile-hero">
+        <div class="hero-glow-ring"></div>
+        <div class="container">
+            <div class="hero-inner">
+                <!-- Photo -->
+                <div class="hero-photo-col">
+                    <img id="p-main-img" src="images/Stephane ki azizi.png" alt="Player" class="hero-player-img">
+                </div>
+
+                <!-- Info -->
+                <div class="hero-info-col">
+                    <div class="hero-club-badge">
+                        <img id="p-club-logo" src="images/yanga.jpg" alt="Club">
+                        <span id="p-club-tag">Yanga SC • #10</span>
+                    </div>
+                    <div class="hero-name" id="p-name">Stephane Aziz Ki</div>
+                    <div class="hero-position-badge">
+                        <i class="fa-solid fa-person-running"></i>
+                        <span id="p-position">Attacking Midfielder</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn-hero-follow"><i class="fa-solid fa-star" style="margin-right:8px;"></i>Follow</button>
+                        <button class="btn-hero-share"><i class="fa-solid fa-share-nodes" style="margin-right:6px;"></i>Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== QUICK STATS STRIP ===================== -->
+    <div class="quick-stats-strip" id="quick-stats-strip">
+        <!-- Filled dynamically -->
+    </div>
+
+    <!-- ===================== PAGE TABS ===================== -->
+    <div class="profile-tabs">
+        <div class="profile-tab active" onclick="switchTab('overview')">Overview</div>
+        <div class="profile-tab" onclick="switchTab('stats')">Stats</div>
+        <div class="profile-tab" onclick="switchTab('matches')">Match Log</div>
+        <div class="profile-tab" onclick="switchTab('bio')">Bio</div>
+    </div>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="container">
+        <div class="profile-page-layout">
+
+            <!-- ======== LEFT COLUMN ======== -->
+            <div id="main-col">
+
+                <!-- === SEASON STATS === -->
+                <div class="light-card" id="section-overview">
+                    <div class="card-title">
+                        <i class="fa-solid fa-chart-bar"></i>
+                        Season Performance 2025/26
+                    </div>
+                    <div class="season-stat-grid" id="season-stats-grid">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- === STAT DETAILS CONTAINER === -->
+                <div class="light-card" id="stat-details-container" style="display:none; transition: all 0.3s ease; border-left: 5px solid var(--accent-color);">
+                    <div class="card-title" style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;">
+                        <div>
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span id="stat-details-title" style="color: var(--accent-color);">Stat Breakdown</span>
+                        </div>
+                        <button onclick="closeStatDetail()" style="background: none; border: none; cursor: pointer; color: #8a9db5; font-size: 0.9rem;"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div id="stat-details-content" style="padding-top: 5px; line-height: 1.6; font-size: 0.82rem; color: #4a6080; font-weight: 700;">
+                        <!-- Filled dynamically by JS -->
+                    </div>
+                </div>
+
+                <!-- === GOALKEEPER ZONE (hidden by default) === -->
+                <div class="light-card" id="gk-save-map" style="display:none;">
+                    <div class="card-title">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Shot & Save Zones (NBC Premier League 2025/26)
+                    </div>
+                    <div class="save-map-wrap">
+                        <div class="goal-visual">
+                            <!-- Top row -->
+                            <div class="goal-zone saved">
+                                <i class="fa-solid fa-hand"></i>
+                                <span>3 Saved</span>
+                                <span style="font-size:0.55rem;">Top Left</span>
+                            </div>
+                            <div class="goal-zone conceded">
+                                <i class="fa-solid fa-futbol"></i>
+                                <span>4 Conceded</span>
+                                <span style="font-size:0.55rem;">Top Center</span>
+                            </div>
+                            <div class="goal-zone saved">
+                                <i class="fa-solid fa-hand"></i>
+                                <span>5 Saved</span>
+                                <span style="font-size:0.55rem;">Top Right</span>
+                            </div>
+                            <!-- Middle row -->
+                            <div class="goal-zone saved">
+                                <i class="fa-solid fa-hand"></i>
+                                <span>8 Saved</span>
+                                <span style="font-size:0.55rem;">Mid Left</span>
+                            </div>
+                            <div class="goal-zone conceded">
+                                <i class="fa-solid fa-futbol"></i>
+                                <span>6 Conceded</span>
+                                <span style="font-size:0.55rem;">Center</span>
+                            </div>
+                            <div class="goal-zone saved">
+                                <i class="fa-solid fa-hand"></i>
+                                <span>7 Saved</span>
+                                <span style="font-size:0.55rem;">Mid Right</span>
+                            </div>
+                            <!-- Bottom row -->
+                            <div class="goal-zone saved">
+                                <i class="fa-solid fa-hand"></i>
+                                <span>6 Saved</span>
+                                <span style="font-size:0.55rem;">Low Left</span>
+                            </div>
+                            <div class="goal-zone conceded">
+                                <i class="fa-solid fa-futbol"></i>
+                                <span>7 Conceded</span>
+                                <span style="font-size:0.55rem;">Low Center</span>
+                            </div>
+                            <div class="goal-zone saved">
+                                <i class="fa-solid fa-hand"></i>
+                                <span>9 Saved</span>
+                                <span style="font-size:0.55rem;">Low Right</span>
+                            </div>
+                        </div>
+                        <div class="goal-frame-label">
+                            <span style="color:#16a34a; margin-right: 20px;"><i class="fa-solid fa-hand"></i> Saves: 38</span>
+                            <span style="color:#dc2626;"><i class="fa-solid fa-futbol"></i> Goals Conceded: 21</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === TRANSFER VALUE CHART === -->
+                <div class="light-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        Transfer Value History
+                    </div>
+                    <div class="value-chart-wrap">
+                        <div class="value-header-row">
+                            <div>
+                                <div class="value-current" id="p-value">€1.2M</div>
+                                <div style="font-size: 0.7rem; font-weight: 800; color: #00b4d8; margin-top: 4px;">Current Market Value</div>
+                            </div>
+                            <div class="value-contract" id="p-contract">Contract: Jun 30, 2027</div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-end;">
+                            <svg class="chart-svg-light" id="value-chart-svg" viewBox="0 0 500 140" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#00b4d8;stop-opacity:0.3" />
+                                        <stop offset="100%" style="stop-color:#00b4d8;stop-opacity:0" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Grid lines -->
+                                <line x1="0" y1="0" x2="500" y2="0" stroke="#e8eef4" stroke-width="1"/>
+                                <line x1="0" y1="47" x2="500" y2="47" stroke="#e8eef4" stroke-width="1"/>
+                                <line x1="0" y1="93" x2="500" y2="93" stroke="#e8eef4" stroke-width="1"/>
+                                <line x1="0" y1="140" x2="500" y2="140" stroke="#e8eef4" stroke-width="1"/>
+                                <!-- Dynamic path - updated by JS -->
+                                <path id="chart-path-area" fill="url(#chartGrad)"/>
+                                <path id="chart-path-line" fill="none" stroke="#00b4d8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- Dots -->
+                                <circle id="chart-dot-start" r="5" fill="#00b4d8"/>
+                                <circle id="chart-dot-end" r="7" fill="#00b4d8" stroke="#fff" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="chart-x-labels" id="chart-x-labels">
+                            <span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === GK DISTRIBUTION STATS === -->
+                <div class="light-card" id="gk-distribution" style="display:none;">
+                    <div class="card-title">
+                        <i class="fa-solid fa-lines-leaning"></i>
+                        GK Skills Assessment
+                    </div>
+                    <div class="skill-bars">
+                        <div class="skill-row">
+                            <div class="skill-row-header"><span>Reflexes</span><span>91%</span></div>
+                            <div class="skill-track"><div class="skill-fill" style="width: 91%"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-header"><span>Distribution (Pass Accuracy)</span><span>84%</span></div>
+                            <div class="skill-track"><div class="skill-fill green" style="width: 84%"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-header"><span>Penalty Save Rate</span><span>0% (0/3)</span></div>
+                            <div class="skill-track"><div class="skill-fill gold" style="width: 0%"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-header"><span>Aerial Dominance</span><span>88%</span></div>
+                            <div class="skill-track"><div class="skill-fill" style="width: 88%"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-header"><span>Sweeper-Keeper Actions</span><span>75%</span></div>
+                            <div class="skill-track"><div class="skill-fill green" style="width: 75%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === OUTFIELD SKILL BARS === -->
+                <div class="light-card" id="outfield-skills">
+                    <div class="card-title">
+                        <i class="fa-solid fa-chart-radar"></i>
+                        Performance vs Peers
+                    </div>
+                    <div class="skill-bars" id="outfield-skill-bars">
+                        <!-- Filled by JS -->
+                    </div>
+                    <p style="font-size: 0.65rem; color: #8a9db5; font-weight: 700; margin-top: 20px; border-top: 1px solid #e8eef4; padding-top: 15px;">Compared to players in the same position — NBC Premier League 2025/26.</p>
+                </div>
+
+                <!-- === MATCH LOG === -->
+                <div class="light-card" id="match-log-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-list-check"></i>
+                        Match Statistics
+                    </div>
+                    <!-- League filter -->
+                    <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <span class="filter-pill active" onclick="setMatchFilter('all', this)">All Competitions</span>
+                        <span class="filter-pill" onclick="setMatchFilter('nbcpl', this)">NBC Premier League</span>
+                        <span class="filter-pill" onclick="setMatchFilter('ucl', this)">CAF Champions League</span>
+                        <span class="filter-pill" onclick="setMatchFilter('intl', this)">International</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="match-log-table" id="match-log-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Opponent</th>
+                                    <th>Result</th>
+                                    <th>Score</th>
+                                    <th>Mins</th>
+                                    <th>Saves</th>
+                                    <th>Conceded</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody id="match-log-body">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ======== RIGHT COLUMN ======== -->
+            <div id="side-col">
+
+                <!-- === BIO TABLE === -->
+                <div class="light-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-id-card"></i>
+                        Player Profile
+                    </div>
+                    <div class="bio-table" id="bio-table">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- === TROPHIES === -->
+                <div class="light-card" id="trophies-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-trophy"></i>
+                        Honours
+                    </div>
+                    <div class="trophy-list" id="trophies-list">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html" class="active"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <style>
+        .filter-pill {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 850;
+            background: #f0f4f8;
+            color: #4a6080;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .filter-pill.active, .filter-pill:hover {
+            background: #00b4d8;
+            color: #fff;
+        }
+    </style>
+
+<script>
+// ===================================================
+//  PLAYER DATABASE
+// ===================================================
+const playersDb = {
+    'manula': {
+        type: 'GK',
+        name: 'Aishi Manula',
+        img: 'images/player.png',
+        num: '28',
+        position: 'Goalkeeper',
+        posIcon: 'fa-solid fa-hands',
+        height: '183 cm',
+        dob: 'Sep 13, 1995',
+        age: '30 Years',
+        foot: 'Right',
+        country: 'Tanzania 🇹🇿',
+        value: '€150K',
+        contract: 'Jun 30, 2026',
+        clubLogo: 'images/simba.jpg',
+        clubName: 'Simba SC',
+        shirt: '28',
+        seasonStats: [
+            { val: '7.40', label: 'Rating', highlight: true },
+            { val: '22', label: 'Matches' },
+            { val: '1,980', label: 'Minutes' },
+            { val: '12', label: 'Clean Sheets' },
+            { val: '15', label: 'Conceded' },
+            { val: '1', label: 'Yellow Cards' }
+        ],
+        quickStats: [
+            { icon: 'fa-solid fa-ruler-vertical', label: 'Height', val: '183 cm' },
+            { icon: 'fa-solid fa-shirt', label: 'Shirt', val: '#28' },
+            { icon: 'fa-solid fa-birthday-cake', label: 'Born', val: 'Sep 13, 1995' },
+            { icon: 'fa-solid fa-shoe-prints', label: 'Foot', val: 'Right' },
+            { icon: 'fa-solid fa-flag', label: 'Country', val: 'Tanzania' },
+            { icon: 'fa-solid fa-money-bill-trend-up', label: 'Value', val: '€150K' }
+        ],
+        bio: [
+            { label: 'Full Name', val: 'Aishi Salum Manula' },
+            { label: 'Date of Birth', val: 'Sep 13, 1995' },
+            { label: 'Height', val: '183 cm' },
+            { label: 'Nationality', val: 'Tanzania 🇹🇿' },
+            { label: 'Preferred Foot', val: 'Right' },
+            { label: 'Shirt Number', val: '#28' },
+            { label: 'Club', val: 'Simba SC' },
+            { label: 'Contract Expires', val: 'Jun 30, 2026' },
+            { label: 'Transfer Value', val: '€150K' },
+            { label: 'Agent', val: 'N/A' }
+        ],
+        skills: [
+            { name: 'Reflexes', pct: 85, type: 'default' },
+            { name: 'Save Percentage', pct: 72, type: 'green' },
+            { name: 'Distribution (Pass Acc.)', pct: 78, type: 'default' },
+            { name: 'Aerial Dominance', pct: 80, type: 'green' },
+            { name: 'Sweeper-Keeper Actions', pct: 70, type: 'default' }
+        ],
+        valueHistory: {
+            points: [[0, 140], [100, 130], [200, 110], [300, 80], [400, 40], [500, 18]],
+            labels: ['2021','2022','2023','2024','2025','2026']
+        },
+        matches: [
+            { date: 'Jun 1', opponent: 'Namungo FC', comp: 'nbcpl', result: 'W', score: '2-0', mins: 90, saves: 4, conceded: 0, rating: '7.5' },
+            { date: 'May 28', opponent: 'Yanga SC', comp: 'nbcpl', result: 'L', score: '1-2', mins: 90, saves: 3, conceded: 2, rating: '6.2' },
+            { date: 'May 22', opponent: 'Coastal Union', comp: 'nbcpl', result: 'W', score: '3-0', mins: 90, saves: 2, conceded: 0, rating: '7.0' },
+            { date: 'May 15', opponent: 'Azam FC', comp: 'nbcpl', result: 'D', score: '1-1', mins: 90, saves: 5, conceded: 1, rating: '7.8' },
+            { date: 'May 10', opponent: 'KMC FC', comp: 'nbcpl', result: 'W', score: '2-1', mins: 90, saves: 4, conceded: 1, rating: '7.2' },
+            { date: 'May 3', opponent: 'Mashujaa FC', comp: 'nbcpl', result: 'W', score: '1-0', mins: 90, saves: 3, conceded: 0, rating: '7.5' },
+            { date: 'Apr 26', opponent: 'Al Ahly', comp: 'ucl', result: 'D', score: '0-0', mins: 90, saves: 6, conceded: 0, rating: '8.2' },
+            { date: 'Apr 19', opponent: 'Al Ahly', comp: 'ucl', result: 'L', score: '0-1', mins: 90, saves: 4, conceded: 1, rating: '6.8' }
+        ],
+        trophies: [
+            { icon: 'gold', name: 'NBC Premier League', years: '2020/21, 2019/20, 2018/19, 2017/18' },
+            { icon: 'gold', name: 'Federation Cup', years: '2021, 2020' },
+            { icon: 'gold', name: 'Mapinduzi Cup', years: '2022' }
+        ]
+    },
+    'aziz-ki': {
+        type: 'FLD',
+        name: 'Stephane Aziz Ki',
+        img: 'images/Stephane ki azizi.png',
+        num: '10',
+        position: 'Attacking Midfielder',
+        posIcon: 'fa-solid fa-person-running',
+        height: '178 cm',
+        dob: 'Jan 15, 1996',
+        age: '28 Years',
+        foot: 'Left',
+        country: 'Burkina Faso 🇧🇫',
+        value: '€1.2M',
+        contract: 'Jun 30, 2027',
+        clubLogo: 'images/yanga.jpg',
+        clubName: 'Yanga SC',
+        shirt: '10',
+        seasonStats: [
+            { val: '8.33', label: 'Rating', highlight: true },
+            { val: '30', label: 'Matches' },
+            { val: '28', label: 'Goals' },
+            { val: '15', label: 'Assists' },
+            { val: '2,410', label: 'Minutes' },
+            { val: '3', label: 'Yellow Cards' }
+        ],
+        quickStats: [
+            { icon: 'fa-solid fa-ruler-vertical', label: 'Height', val: '178 cm' },
+            { icon: 'fa-solid fa-shirt', label: 'Shirt', val: '#10' },
+            { icon: 'fa-solid fa-birthday-cake', label: 'Born', val: 'Jan 15, 1996' },
+            { icon: 'fa-solid fa-shoe-prints', label: 'Foot', val: 'Left' },
+            { icon: 'fa-solid fa-flag', label: 'Country', val: 'Burkina Faso' },
+            { icon: 'fa-solid fa-money-bill-trend-up', label: 'Value', val: '€1.2M' }
+        ],
+        bio: [
+            { label: 'Full Name', val: 'Stéphane Aziz Ki' },
+            { label: 'Date of Birth', val: 'Jan 15, 1996' },
+            { label: 'Height', val: '178 cm' },
+            { label: 'Nationality', val: 'Burkina Faso 🇧🇫' },
+            { label: 'Preferred Foot', val: 'Left' },
+            { label: 'Shirt Number', val: '#10' },
+            { label: 'Club', val: 'Yanga SC' },
+            { label: 'Contract Expires', val: 'Jun 30, 2027' },
+            { label: 'Transfer Value', val: '€1.2M' }
+        ],
+        skills: [
+            { name: 'Goal Conversion', pct: 99, type: 'default' },
+            { name: 'Chance Creation', pct: 92, type: 'green' },
+            { name: 'Dribbling', pct: 86, type: 'default' },
+            { name: 'Pass Accuracy', pct: 74, type: 'green' },
+            { name: 'Pressing Intensity', pct: 80, type: 'default' }
+        ],
+        valueHistory: {
+            points: [[0, 140], [100, 130], [200, 110], [300, 80], [400, 40], [500, 10]],
+            labels: ['2022','2023','2024','2025','2026']
+        },
+        matches: [
+            { date: 'May 20', opponent: 'Simba SC', comp: 'nbcpl', result: 'W', score: '3-1', mins: 90, saves: 0, conceded: 0, rating: '9.0', goals: 2, assists: 1 },
+            { date: 'May 15', opponent: 'Azam FC', comp: 'nbcpl', result: 'D', score: '2-2', mins: 89, saves: 0, conceded: 0, rating: '7.5', goals: 1, assists: 0 },
+            { date: 'May 8', opponent: 'Mtibwa', comp: 'nbcpl', result: 'W', score: '4-0', mins: 90, saves: 0, conceded: 0, rating: '8.5', goals: 3, assists: 1 }
+        ],
+        trophies: [
+            { icon: 'gold', name: 'NBC Premier League', years: '24/25, 23/24' },
+            { icon: 'silver', name: 'Federation Cup', years: '2024, 2023' },
+            { icon: 'bronze', name: 'Ivorian League', years: '2021' }
+        ]
+    },
+    'feisal-salum': {
+        type: 'FLD',
+        name: 'Feisal Salum',
+        img: 'images/feitoto.jpg',
+        num: '6',
+        position: 'Attacking Midfielder',
+        posIcon: 'fa-solid fa-person-running',
+        height: '174 cm',
+        dob: 'Mar 10, 1998',
+        age: '26 Years',
+        foot: 'Right',
+        country: 'Tanzania 🇹🇿',
+        value: '€750K',
+        contract: 'Jun 30, 2026',
+        clubLogo: 'images/zam.png',
+        clubName: 'Azam FC',
+        shirt: '6',
+        seasonStats: [
+            { val: '8.12', label: 'Rating', highlight: true },
+            { val: '29', label: 'Matches' },
+            { val: '18', label: 'Goals' },
+            { val: '12', label: 'Assists' },
+            { val: '2,350', label: 'Minutes' },
+            { val: '2', label: 'Yellow Cards' }
+        ],
+        quickStats: [
+            { icon: 'fa-solid fa-ruler-vertical', label: 'Height', val: '174 cm' },
+            { icon: 'fa-solid fa-shirt', label: 'Shirt', val: '#6' },
+            { icon: 'fa-solid fa-birthday-cake', label: 'Born', val: 'Mar 10, 1998' },
+            { icon: 'fa-solid fa-shoe-prints', label: 'Foot', val: 'Right' },
+            { icon: 'fa-solid fa-flag', label: 'Country', val: 'Tanzania' },
+            { icon: 'fa-solid fa-money-bill-trend-up', label: 'Value', val: '€750K' }
+        ],
+        bio: [
+            { label: 'Full Name', val: 'Feisal Salum' },
+            { label: 'Date of Birth', val: 'Mar 10, 1998' },
+            { label: 'Height', val: '174 cm' },
+            { label: 'Nationality', val: 'Tanzania 🇹🇿' },
+            { label: 'Preferred Foot', val: 'Right' },
+            { label: 'Shirt Number', val: '#6' },
+            { label: 'Club', val: 'Azam FC' },
+            { label: 'Contract Expires', val: 'Jun 30, 2026' },
+            { label: 'Transfer Value', val: '€750K' }
+        ],
+        skills: [
+            { name: 'Goal Conversion', pct: 88, type: 'default' },
+            { name: 'Chance Creation', pct: 90, type: 'green' },
+            { name: 'Dribbling', pct: 82, type: 'default' },
+            { name: 'Long Shots', pct: 96, type: 'gold' },
+            { name: 'Vision & Passing', pct: 85, type: 'green' }
+        ],
+        valueHistory: {
+            points: [[0, 140], [125, 120], [250, 90], [375, 50], [500, 18]],
+            labels: ['2022','2023','2024','2025','2026']
+        },
+        matches: [
+            { date: 'May 18', opponent: 'Yanga SC', comp: 'nbcpl', result: 'L', score: '1-3', mins: 90, saves: 0, conceded: 0, rating: '7.0', goals: 1, assists: 0 },
+            { date: 'May 11', opponent: 'Simba SC', comp: 'nbcpl', result: 'W', score: '2-1', mins: 90, saves: 0, conceded: 0, rating: '8.5', goals: 2, assists: 0 }
+        ],
+        trophies: [
+            { icon: 'gold', name: 'Goal of the Season', years: '2025/26' },
+            { icon: 'silver', name: 'NBC Premier League Runner-Up', years: '2024/25' }
+        ]
+    },
+    'mzize': {
+        type: 'FLD',
+        name: 'Clement Mzize',
+        img: 'images/Clement mzize.png',
+        num: '9',
+        position: 'Forward / Striker',
+        posIcon: 'fa-solid fa-person-running',
+        height: '182 cm',
+        dob: 'Feb 20, 2002',
+        age: '22 Years',
+        foot: 'Right',
+        country: 'Tanzania 🇹🇿',
+        value: '€450K',
+        contract: 'Jun 30, 2027',
+        clubLogo: 'images/yanga.jpg',
+        clubName: 'Yanga SC',
+        shirt: '9',
+        seasonStats: [
+            { val: '7.85', label: 'Rating', highlight: true },
+            { val: '26', label: 'Matches' },
+            { val: '12', label: 'Goals' },
+            { val: '4', label: 'Assists' },
+            { val: '1,980', label: 'Minutes' },
+            { val: '1', label: 'Yellow Cards' }
+        ],
+        quickStats: [
+            { icon: 'fa-solid fa-ruler-vertical', label: 'Height', val: '182 cm' },
+            { icon: 'fa-solid fa-shirt', label: 'Shirt', val: '#9' },
+            { icon: 'fa-solid fa-birthday-cake', label: 'Born', val: 'Feb 20, 2002' },
+            { icon: 'fa-solid fa-shoe-prints', label: 'Foot', val: 'Right' },
+            { icon: 'fa-solid fa-flag', label: 'Country', val: 'Tanzania' },
+            { icon: 'fa-solid fa-money-bill-trend-up', label: 'Value', val: '€450K' }
+        ],
+        bio: [
+            { label: 'Full Name', val: 'Clement Mzize' },
+            { label: 'Date of Birth', val: 'Feb 20, 2002' },
+            { label: 'Height', val: '182 cm' },
+            { label: 'Nationality', val: 'Tanzania 🇹🇿' },
+            { label: 'Preferred Foot', val: 'Right' },
+            { label: 'Shirt Number', val: '#9' },
+            { label: 'Club', val: 'Yanga SC' },
+            { label: 'Contract Expires', val: 'Jun 30, 2027' },
+            { label: 'Transfer Value', val: '€450K' }
+        ],
+        skills: [
+            { name: 'Finishing', pct: 82, type: 'default' },
+            { name: 'Physical Strength', pct: 88, type: 'green' },
+            { name: 'Headers', pct: 85, type: 'default' },
+            { name: 'Dribbling', pct: 72, type: 'green' },
+            { name: 'Work Rate', pct: 90, type: 'gold' }
+        ],
+        valueHistory: {
+            points: [[0, 135], [150, 110], [300, 75], [450, 40], [500, 20]],
+            labels: ['2022','2023','2024','2025','2026']
+        },
+        matches: [],
+        trophies: [
+            { icon: 'gold', name: 'Young Player of the Season', years: '2025/26' },
+            { icon: 'gold', name: 'NBC Premier League', years: '2024/25' }
+        ]
+    },
+    'chama': {
+        type: 'FLD',
+        name: 'Clatous Chama',
+        img: 'images/clatus chama.jpg',
+        num: '17',
+        position: 'Attacking Midfielder',
+        posIcon: 'fa-solid fa-person-running',
+        height: '180 cm',
+        dob: 'Dec 5, 1991',
+        age: '33 Years',
+        foot: 'Right',
+        country: 'Zambia 🇿🇲',
+        value: '€600K',
+        contract: 'Jun 30, 2026',
+        clubLogo: 'images/simba.jpg',
+        clubName: 'Simba SC',
+        shirt: '17',
+        seasonStats: [
+            { val: '8.10', label: 'Rating', highlight: true },
+            { val: '25', label: 'Matches' },
+            { val: '8', label: 'Goals' },
+            { val: '14', label: 'Assists' },
+            { val: '2,100', label: 'Minutes' },
+            { val: '4', label: 'Yellow Cards' }
+        ],
+        quickStats: [
+            { icon: 'fa-solid fa-ruler-vertical', label: 'Height', val: '180 cm' },
+            { icon: 'fa-solid fa-shirt', label: 'Shirt', val: '#17' },
+            { icon: 'fa-solid fa-birthday-cake', label: 'Born', val: 'Dec 5, 1991' },
+            { icon: 'fa-solid fa-shoe-prints', label: 'Foot', val: 'Right' },
+            { icon: 'fa-solid fa-flag', label: 'Country', val: 'Zambia' },
+            { icon: 'fa-solid fa-money-bill-trend-up', label: 'Value', val: '€600K' }
+        ],
+        bio: [
+            { label: 'Full Name', val: 'Clatous Otis Chama' },
+            { label: 'Date of Birth', val: 'Dec 5, 1991' },
+            { label: 'Height', val: '180 cm' },
+            { label: 'Nationality', val: 'Zambia 🇿🇲' },
+            { label: 'Preferred Foot', val: 'Right' },
+            { label: 'Shirt Number', val: '#17' },
+            { label: 'Club', val: 'Simba SC' },
+            { label: 'Contract Expires', val: 'Jun 30, 2026' },
+            { label: 'Transfer Value', val: '€600K' }
+        ],
+        skills: [
+            { name: 'Vision & Passing', pct: 94, type: 'default' },
+            { name: 'Chance Creation', pct: 89, type: 'green' },
+            { name: 'Set Pieces', pct: 87, type: 'gold' },
+            { name: 'Dribbling', pct: 80, type: 'default' },
+            { name: 'Experience', pct: 98, type: 'green' }
+        ],
+        valueHistory: {
+            points: [[0, 100], [125, 80], [250, 60], [375, 45], [500, 35]],
+            labels: ['2022','2023','2024','2025','2026']
+        },
+        matches: [],
+        trophies: [
+            { icon: 'gold', name: 'NBC Premier League', years: '2024/25' },
+            { icon: 'gold', name: 'CAF Confederation Cup', years: '2023' }
+        ]
+    },
+    'diarra': {
+        type: 'GK',
+        name: 'Djigui Diarra',
+        img: 'images/yanga.jpg',
+        num: '1',
+        position: 'Goalkeeper',
+        posIcon: 'fa-solid fa-hands',
+        height: '185 cm',
+        dob: 'Jul 12, 1995',
+        age: '29 Years',
+        foot: 'Right',
+        country: 'Mali 🇲🇱',
+        value: '€800K',
+        contract: 'Jun 30, 2026',
+        clubLogo: 'images/yanga.jpg',
+        clubName: 'Yanga SC',
+        shirt: '1',
+        seasonStats: [
+            { val: '8.22', label: 'Rating', highlight: true },
+            { val: '28', label: 'Matches' },
+            { val: '2,520', label: 'Minutes' },
+            { val: '15', label: 'Clean Sheets' },
+            { val: '18', label: 'Conceded' },
+            { val: '2', label: 'Yellow Cards' }
+        ],
+        quickStats: [
+            { icon: 'fa-solid fa-ruler-vertical', label: 'Height', val: '185 cm' },
+            { icon: 'fa-solid fa-shirt', label: 'Shirt', val: '#1' },
+            { icon: 'fa-solid fa-birthday-cake', label: 'Born', val: 'Jul 12, 1995' },
+            { icon: 'fa-solid fa-shoe-prints', label: 'Foot', val: 'Right' },
+            { icon: 'fa-solid fa-flag', label: 'Country', val: 'Mali' },
+            { icon: 'fa-solid fa-money-bill-trend-up', label: 'Value', val: '€800K' }
+        ],
+        bio: [
+            { label: 'Full Name', val: 'Djigui Diarra' },
+            { label: 'Date of Birth', val: 'Jul 12, 1995' },
+            { label: 'Height', val: '185 cm' },
+            { label: 'Nationality', val: 'Mali 🇲🇱' },
+            { label: 'Preferred Foot', val: 'Right' },
+            { label: 'Shirt Number', val: '#1' },
+            { label: 'Club', val: 'Yanga SC' },
+            { label: 'Contract Expires', val: 'Jun 30, 2026' },
+            { label: 'Transfer Value', val: '€800K' }
+        ],
+        skills: [
+            { name: 'Reflexes', pct: 88, type: 'default' },
+            { name: 'Save Percentage', pct: 70, type: 'green' },
+            { name: 'Distribution', pct: 75, type: 'default' },
+            { name: 'Aerial Dominance', pct: 82, type: 'green' },
+            { name: 'Penalty Saves', pct: 45, type: 'gold' }
+        ],
+        valueHistory: {
+            points: [[0, 130], [125, 115], [250, 95], [375, 65], [500, 40]],
+            labels: ['2022','2023','2024','2025','2026']
+        },
+        matches: [],
+        trophies: [
+            { icon: 'gold', name: 'NBC Premier League', years: '2024/25' },
+            { icon: 'silver', name: 'Best GK Award', years: '2024/25' }
+        ]
+    },
+    'pacome': {
+        type: 'FLD',
+        name: 'Pacome Zouzua',
+        img: 'images/Pacome.jpg',
+        num: '29',
+        position: 'Attacking Midfielder',
+        posIcon: 'fa-solid fa-person-running',
+        height: '179 cm',
+        dob: 'Apr 30, 1997',
+        age: '28 Years',
+        foot: 'Right',
+        country: 'Ivory Coast 🇨🇮',
+        value: '€950K',
+        contract: 'Jun 30, 2026',
+        clubLogo: 'images/yanga.jpg',
+        clubName: 'Yanga SC',
+        shirt: '29',
+        seasonStats: [
+            { val: '8.45', label: 'Rating', highlight: true },
+            { val: '31', label: 'Matches' },
+            { val: '11', label: 'Goals' },
+            { val: '9', label: 'Assists' },
+            { val: '2,620', label: 'Minutes' },
+            { val: '2', label: 'Yellow Cards' }
+        ],
+        quickStats: [
+            { icon: 'fa-solid fa-ruler-vertical', label: 'Height', val: '179 cm' },
+            { icon: 'fa-solid fa-shirt', label: 'Shirt', val: '#29' },
+            { icon: 'fa-solid fa-birthday-cake', label: 'Born', val: 'Apr 30, 1997' },
+            { icon: 'fa-solid fa-shoe-prints', label: 'Foot', val: 'Right' },
+            { icon: 'fa-solid fa-flag', label: 'Country', val: 'Ivory Coast' },
+            { icon: 'fa-solid fa-money-bill-trend-up', label: 'Value', val: '€950K' }
+        ],
+        bio: [
+            { label: 'Full Name', val: 'Pacome Peasscia Zouzua' },
+            { label: 'Date of Birth', val: 'Apr 30, 1997' },
+            { label: 'Height', val: '179 cm' },
+            { label: 'Nationality', val: 'Ivory Coast 🇨🇮' },
+            { label: 'Preferred Foot', val: 'Right' },
+            { label: 'Shirt Number', val: '#29' },
+            { label: 'Club', val: 'Yanga SC' },
+            { label: 'Contract Expires', val: 'Jun 30, 2026' },
+            { label: 'Transfer Value', val: '€950K' }
+        ],
+        skills: [
+            { name: 'Chance Creation', pct: 94, type: 'default' },
+            { name: 'Dribbling', pct: 90, type: 'green' },
+            { name: 'Passing Vision', pct: 92, type: 'default' },
+            { name: 'Ball Control', pct: 91, type: 'green' },
+            { name: 'Set Pieces', pct: 84, type: 'default' }
+        ],
+        valueHistory: {
+            points: [[0, 130], [125, 115], [250, 95], [375, 55], [500, 15]],
+            labels: ['2022','2023','2024','2025','2026']
+        },
+        matches: [],
+        trophies: [
+            { icon: 'gold', name: 'Player of the Season', years: '2025/26' },
+            { icon: 'gold', name: 'NBC Premier League', years: '2024/25, 23/24' }
+        ]
+    }
+};
+
+// ===================================================
+//  GLOBAL STATE
+// ===================================================
+let currentPlayer = null;
+let currentMatchFilter = 'all';
+
+// ===================================================
+//  INIT
+// ===================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id') || 'manula';
+    loadPlayer(id);
+});
+
+function loadPlayer(id) {
+    currentPlayer = playersDb[id];
+    if (!currentPlayer) {
+        currentPlayer = playersDb['manula'];
+    }
+    const p = currentPlayer;
+
+    // Dynamic Club Branding Accents
+    const clubName = p.clubName.toLowerCase();
+    let accent, hover, rgb, heroBg;
+    if (clubName.includes('yanga')) {
+        accent = '#008751';
+        hover = '#006d40';
+        rgb = '0, 135, 81';
+        heroBg = 'linear-gradient(135deg, #052e16 0%, #008751 60%, #f59e0b 120%)';
+    } else if (clubName.includes('simba')) {
+        accent = '#e11d48';
+        hover = '#be123c';
+        rgb = '225, 29, 72';
+        heroBg = 'linear-gradient(135deg, #1e1b4b 0%, #be123c 60%, #f43f5e 120%)';
+    } else if (clubName.includes('azam')) {
+        accent = '#2563eb';
+        hover = '#1d4ed8';
+        rgb = '37, 99, 235';
+        heroBg = 'linear-gradient(135deg, #0f172a 0%, #1d4ed8 60%, #3b82f6 120%)';
+    } else {
+        accent = '#00b4d8';
+        hover = '#0096c7';
+        rgb = '0, 180, 216';
+        heroBg = 'linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 60%, #00b4d8 120%)';
+    }
+
+    const root = document.documentElement;
+    root.style.setProperty('--accent-color', accent);
+    root.style.setProperty('--accent-hover', hover);
+    root.style.setProperty('--accent-rgb', rgb);
+    root.style.setProperty('--hero-bg', heroBg);
+
+    // Hero
+    document.getElementById('p-main-img').src = p.img;
+    document.getElementById('p-name').textContent = p.name;
+    document.getElementById('p-club-logo').src = p.clubLogo;
+    document.getElementById('p-club-tag').textContent = `${p.clubName} • #${p.shirt}`;
+    document.getElementById('p-position').textContent = p.position;
+    document.title = `${p.name} | Player Profile | Tanzania Football Hub`;
+
+    // Value
+    document.getElementById('p-value').textContent = p.value;
+    document.getElementById('p-contract').textContent = `Contract: ${p.contract}`;
+
+    // Hide details panel on new player load
+    closeStatDetail();
+
+    // Quick stats strip
+    renderQuickStats(p);
+
+    // Season stats
+    renderSeasonStats(p);
+
+    // GK toggle
+    const isGK = p.type === 'GK';
+    document.getElementById('gk-save-map').style.display = isGK ? 'block' : 'none';
+    document.getElementById('gk-distribution').style.display = isGK ? 'block' : 'none';
+    document.getElementById('outfield-skills').style.display = isGK ? 'none' : 'block';
+
+    // Skills (shown for outfield)
+    if (!isGK) renderSkillBars(p);
+
+    // Bio
+    renderBio(p);
+
+    // Trophies
+    renderTrophies(p);
+
+    // Match log headers
+    if (isGK) {
+        document.querySelector('#match-log-table thead tr').innerHTML = `
+            <th>Date</th><th>Opponent</th><th>Comp</th><th>Result</th><th>Score</th>
+            <th>Mins</th><th>Saves</th><th>Conceded</th><th>Rating</th>`;
+    } else {
+        document.querySelector('#match-log-table thead tr').innerHTML = `
+            <th>Date</th><th>Opponent</th><th>Comp</th><th>Result</th><th>Score</th>
+            <th>Mins</th><th>Goals</th><th>Assists</th><th>Rating</th>`;
+    }
+
+    renderMatches(p, 'all');
+
+    // Value chart
+    renderValueChart(p);
+}
+
+function renderQuickStats(p) {
+    const strip = document.getElementById('quick-stats-strip');
+    strip.innerHTML = p.quickStats.map(s => `
+        <div class="qs-item">
+            <div class="qs-icon"><i class="${s.icon}"></i></div>
+            <div class="qs-label">${s.label}</div>
+            <div class="qs-val">${s.val}</div>
+        </div>
+    `).join('');
+}
+
+function renderSeasonStats(p) {
+    const grid = document.getElementById('season-stats-grid');
+    grid.innerHTML = p.seasonStats.map(s => `
+        <div class="season-stat-box" onclick="showStatDetail('${s.label}', '${s.val}')">
+            <div class="ssb-val ${s.highlight ? 'highlight' : ''}">${s.val}</div>
+            <div class="ssb-label">${s.label}</div>
+        </div>
+    `).join('');
+}
+
+function renderSkillBars(p) {
+    const container = document.getElementById('outfield-skill-bars');
+    container.innerHTML = p.skills.map(s => `
+        <div class="skill-row">
+            <div class="skill-row-header"><span>${s.name}</span><span>${s.pct}%</span></div>
+            <div class="skill-track">
+                <div class="skill-fill ${s.type !== 'default' ? s.type : ''}" style="width: ${s.pct}%"></div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderBio(p) {
+    const table = document.getElementById('bio-table');
+    table.innerHTML = p.bio.map(b => `
+        <div class="bio-row">
+            <span class="bio-label-text">${b.label}</span>
+            <span class="bio-val-text">${b.val}</span>
+        </div>
+    `).join('');
+}
+
+function renderTrophies(p) {
+    const list = document.getElementById('trophies-list');
+    list.innerHTML = p.trophies.map(t => `
+        <div class="trophy-item">
+            <div class="trophy-icon ${t.icon}">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div class="trophy-text">
+                <div class="trophy-name">${t.name}</div>
+                <div class="trophy-year">${t.years}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderMatches(p, filter) {
+    const tbody = document.getElementById('match-log-body');
+    const isGK = p.type === 'GK';
+
+    let filtered = p.matches;
+    if (filter !== 'all') {
+        filtered = p.matches.filter(m => m.comp === filter);
+    }
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 30px; color: #8a9db5; font-weight: 800;">No matches found.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = filtered.map(m => {
+        const ratingNum = parseFloat(m.rating);
+        let ratingClass = 'na';
+        if (!isNaN(ratingNum)) {
+            ratingClass = ratingNum >= 7 ? 'good' : ratingNum >= 5.5 ? 'ok' : 'poor';
+        }
+
+        let dynCols = '';
+        if (isGK) {
+            dynCols = `<td>${m.saves > 0 ? m.saves : '-'}</td><td>${m.conceded !== undefined ? m.conceded : '-'}</td>`;
+        } else {
+            dynCols = `<td>${m.goals !== undefined ? m.goals : '-'}</td><td>${m.assists !== undefined ? m.assists : '-'}</td>`;
+        }
+
+        const compMap = { nbcpl: 'NBC Premier League', ucl: 'CAF Champions League', intl: 'International', all: '-' };
+
+        return `<tr>
+            <td style="font-size:0.75rem; color: #8a9db5;">${m.date}</td>
+            <td class="clickable-cell" onclick="goToTeam('${m.opponent}')"><strong>${m.opponent}</strong></td>
+            <td style="font-size:0.7rem; color:#8a9db5;">${compMap[m.comp] || m.comp}</td>
+            <td><span class="result-badge ${m.result}">${m.result}</span></td>
+            <td class="clickable-cell" onclick="goToMatch('${m.opponent}', '${m.comp}')" style="font-weight: 900;">${m.score}</td>
+            <td style="color: #4a6080;">${m.mins > 0 ? m.mins + "'" : '<span style=\"color:#b0bec5\">-</span>'}</td>
+            ${dynCols}
+            <td><span class="rating-chip ${ratingClass}">${m.rating}</span></td>
+        </tr>`;
+    }).join('');
+}
+
+function setMatchFilter(filter, el) {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    currentMatchFilter = filter;
+    renderMatches(currentPlayer, filter);
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.profile-tab').forEach((t, i) => {
+        const tabs = ['overview', 'stats', 'matches', 'bio'];
+        t.classList.toggle('active', tabs[i] === tab);
+    });
+
+    // Scroll to relevant section
+    const sectionMap = {
+        overview: 'main-col',
+        stats: 'outfield-skills',
+        matches: 'match-log-card',
+        bio: 'side-col'
+    };
+
+    const el = document.getElementById(sectionMap[tab]);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderValueChart(p) {
+    const pts = p.valueHistory.points;
+    if (!pts || pts.length === 0) return;
+
+    const w = 500, h = 140;
+
+    // Build path
+    const lineCoords = pts.map(([x, y]) => `${x},${y}`).join(' L ');
+    const linePath = `M ${lineCoords}`;
+
+    // Area (close path to bottom)
+    const firstX = pts[0][0], lastX = pts[pts.length - 1][0];
+    const firstY = pts[0][1], lastY = pts[pts.length - 1][1];
+    const areaPath = `M ${firstX},${firstY} L ${lineCoords} L ${lastX},${h} L ${firstX},${h} Z`;
+
+    document.getElementById('chart-path-line').setAttribute('d', linePath);
+    document.getElementById('chart-path-area').setAttribute('d', areaPath);
+    document.getElementById('chart-dot-start').setAttribute('cx', firstX);
+    document.getElementById('chart-dot-start').setAttribute('cy', firstY);
+    document.getElementById('chart-dot-end').setAttribute('cx', lastX);
+    document.getElementById('chart-dot-end').setAttribute('cy', lastY);
+
+    // Render nodes for all points in the SVG
+    const svg = document.getElementById('value-chart-svg');
+    svg.querySelectorAll('.chart-node').forEach(node => node.remove());
+
+    pts.forEach(([x, y], index) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute('cx', x);
+        circle.setAttribute('cy', y);
+        circle.setAttribute('r', index === pts.length - 1 ? '7' : '5');
+        circle.setAttribute('class', 'chart-node');
+        circle.setAttribute('fill', 'var(--accent-color)');
+        circle.setAttribute('stroke', '#fff');
+        circle.setAttribute('stroke-width', '2');
+        circle.style.cursor = 'pointer';
+
+        // Add event listeners for tooltip
+        circle.addEventListener('click', (e) => {
+            showChartTooltip(x, y, p.valueHistory.labels[index], index, p);
+        });
+        
+        svg.appendChild(circle);
+    });
+
+    // X Labels
+    const xLabels = document.getElementById('chart-x-labels');
+    if (xLabels && p.valueHistory.labels) {
+        xLabels.innerHTML = p.valueHistory.labels.map(l => `<span>${l}</span>`).join('');
+    }
+}
+
+// ===================================================
+//  INTERACTIVE STAT DETAILS & NAVIGATION HELPERS
+// ===================================================
+function closeStatDetail() {
+    document.getElementById('stat-details-container').style.display = 'none';
+}
+
+function showStatDetail(label, val) {
+    const container = document.getElementById('stat-details-container');
+    const title = document.getElementById('stat-details-title');
+    const content = document.getElementById('stat-details-content');
+    
+    title.textContent = `${label} Breakdown - ${currentPlayer.name}`;
+    
+    let html = '';
+    const name = currentPlayer.name;
+
+    if (label.toLowerCase() === 'goals') {
+        if (currentPlayer.shirt === '10') { // Aziz Ki
+            html = `
+                <p>Stephane Aziz Ki was the top goalscorer in the NBC Premier League with a historic 28 goals, averaging 0.93 goals per match.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Key Scoring Matchdays:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>⚽⚽ vs <strong>Simba SC</strong> (May 20) - Derby brace</li>
+                    <li>⚽ vs <strong>Azam FC</strong> (May 15) - Crucial equalizer</li>
+                    <li>⚽⚽⚽ vs <strong>Mtibwa Sugar</strong> (May 8) - Masterclass hat-trick</li>
+                    <li>⚽ vs <strong>Namungo FC</strong> (Apr 26) - Late match-winner</li>
+                    <li>21 other goals in league fixtures.</li>
+                </ul>
+            `;
+        } else if (currentPlayer.shirt === '6') { // Feisal Salum
+            html = `
+                <p>Feisal Salum scored 18 goals from midfield, making him the highest-scoring domestic midfielder of the season.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Key Scoring Matchdays:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>⚽ vs <strong>Yanga SC</strong> (May 18) - Console goal in 1-3 loss</li>
+                    <li>⚽⚽ vs <strong>Simba SC</strong> (May 11) - Match-winning double</li>
+                    <li>⚽ vs <strong>Dodoma Jiji</strong> (Apr 22) - Spectacular 30-yard long shot</li>
+                    <li>14 other goals in NBC Premier League matches.</li>
+                </ul>
+            `;
+        } else if (currentPlayer.shirt === '9') { // Clement Mzize
+            html = `
+                <p>Clement Mzize scored 12 goals in all competitions, showcasing his rapid development as a clinical striker.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Key Scoring Matchdays:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>⚽ vs <strong>KMC FC</strong> (May 22) - Opened the scoring</li>
+                    <li>⚽ vs <strong>JKT Tanzania</strong> (May 14) - Header from a corner</li>
+                    <li>⚽⚽ vs <strong>Tabora United</strong> (Apr 18) - Quick brace after subbing on</li>
+                    <li>8 other goals in domestic matches.</li>
+                </ul>
+            `;
+        } else if (currentPlayer.shirt === '17') { // Chama
+            html = `
+                <p>Clatous Chama scored 8 goals this season, combining his elite playmaking with goal-scoring threats.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Key Scoring Matchdays:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>⚽ vs <strong>Yanga SC</strong> (May 20) - Derby penalty kick</li>
+                    <li>⚽ vs <strong>Geita Gold</strong> (May 12) - Free-kick goal</li>
+                    <li>6 other goals in league fixtures.</li>
+                </ul>
+            `;
+        } else if (currentPlayer.shirt === '29') { // Pacome
+            html = `
+                <p>Pacome Zouzua netted 11 goals, including vital goals in continental and domestic cup matches.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Key Scoring Matchdays:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>⚽ vs <strong>Mamelodi Sundowns</strong> (CAF Champions League)</li>
+                    <li>⚽ vs <strong>Simba SC</strong> (Domestic Cup)</li>
+                    <li>9 other goals in league games.</li>
+                </ul>
+            `;
+        } else {
+            html = `<p>${name} scored ${val} goals this season.</p>`;
+        }
+    } else if (label.toLowerCase() === 'assists') {
+        if (currentPlayer.shirt === '10') { // Aziz Ki
+            html = `
+                <p>Aziz Ki provided 15 assists, representing 21% of Yanga's total goals this season.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Assist Breakdown:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>🅰️ vs <strong>Simba SC</strong> (May 20) - Set up Clement Mzize</li>
+                    <li>🅰️ vs <strong>Mtibwa Sugar</strong> (May 8) - Through pass</li>
+                    <li>13 other key assists across NBC Premier League.</li>
+                </ul>
+            `;
+        } else if (currentPlayer.shirt === '6') { // Feisal Salum
+            html = `
+                <p>Feisal Salum provided 12 assists, acting as a crucial creative hub for Azam FC.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Assist Breakdown:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>🅰️🅰️ vs <strong>Dodoma Jiji</strong> (Apr 22) - Two assists from key passes</li>
+                    <li>10 other assists in league matches.</li>
+                </ul>
+            `;
+        } else if (currentPlayer.shirt === '17') { // Chama
+            html = `
+                <p>Clatous Chama provided 14 assists, showing his signature vision and touch.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Assist Breakdown:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>🅰️ vs <strong>Coastal Union</strong> (May 22) - Assisted opening goal</li>
+                    <li>13 other assists across domestic matches.</li>
+                </ul>
+            `;
+        } else if (currentPlayer.shirt === '29') { // Pacome
+            html = `
+                <p>Pacome Zouzua registered 9 assists, playing key passes to strikers in small spaces.</p>
+                <h4 style="margin-top:10px; color:var(--accent-color);">Assist Breakdown:</h4>
+                <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                    <li>🅰️ vs <strong>Simba SC</strong> (Derby) - Cutback from the wing</li>
+                    <li>8 other assists this season.</li>
+                </ul>
+            `;
+        } else {
+            html = `<p>${name} provided ${val} assists this season.</p>`;
+        }
+    } else if (label.toLowerCase() === 'rating') {
+        html = `
+            <p>Calculated average rating over the 2025/26 season: <strong>${val}</strong>.</p>
+            <h4 style="margin-top:10px; color:var(--accent-color);">Performance Breakdown:</h4>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:5px;">
+                <div>⚽ Attacking Score: 8.8 / 10</div>
+                <div>👟 Pass Completion: 84%</div>
+                <div>🛡️ Defensive Rating: 6.9 / 10</div>
+                <div>🧠 Tactical Discipline: 8.5 / 10</div>
+            </div>
+        `;
+    } else if (label.toLowerCase() === 'matches') {
+        html = `
+            <p>${name} made ${val} appearances this season.</p>
+            <p style="margin-top:5px;">Check out the "Match Statistics" log table below to view the statistics details for each individual match.</p>
+        `;
+        // Switch tab
+        switchTab('matches');
+    } else if (label.toLowerCase() === 'minutes') {
+        html = `
+            <p>Total time spent on the pitch: <strong>${val} minutes</strong>.</p>
+            <p style="margin-top:5px;">Started in 92% of matches. Substituted off in 15% of games to manage physical workload during heavy schedules.</p>
+        `;
+    } else if (label.toLowerCase().includes('yellow')) {
+        html = `
+            <p>Disciplinary record: <strong>${val} Yellow Cards</strong>, 0 Red Cards.</p>
+            <p style="margin-top:5px;">Booked for tactical fouls to stop counter-attacks in tight league fixtures.</p>
+        `;
+    } else if (label.toLowerCase().includes('clean')) {
+        html = `
+            <p>${name} registered <strong>${val} clean sheets</strong> this season, playing a critical role in defense.</p>
+            <h4 style="margin-top:10px; color:var(--accent-color);">Key Shutouts:</h4>
+            <ul style="padding-left: 20px; margin-top:5px; list-style-type: none;">
+                <li>🛡️ vs <strong>Al Ahly</strong> (CAF Champions League, 0-0 Draw)</li>
+                <li>🛡️ vs <strong>Namungo FC</strong> (NBCPL, 2-0 Win)</li>
+                <li>🛡️ vs <strong>Coastal Union</strong> (NBCPL, 3-0 Win)</li>
+                <li>9 other clean sheets.</li>
+            </ul>
+        `;
+    } else if (label.toLowerCase() === 'conceded') {
+        html = `
+            <p>Conceded <strong>${val} goals</strong> in total, demonstrating excellent defensive organization.</p>
+            <p style="margin-top:5px;">Average concession rate: <strong>${(parseFloat(val)/22).toFixed(2)} goals per match</strong>.</p>
+        `;
+    } else {
+        html = `<p>${name}'s ${label} is ${val} for the 2025/26 season.</p>`;
+    }
+    
+    content.innerHTML = html;
+    container.style.display = 'block';
+    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+const teamNameMap = {
+    'Simba SC': 'simba',
+    'Yanga SC': 'yanga',
+    'Azam FC': 'azam',
+    'Singida BS': 'singida',
+    'Coastal Union': 'coastal',
+    'KMC FC': 'kmc',
+    'Namungo FC': 'namungo'
+};
+
+function goToTeam(teamName) {
+    const id = teamNameMap[teamName] || 'yanga';
+    window.location.href = `team-details.html?id=${id}`;
+}
+
+function goToMatch(opponent, comp) {
+    let matchId = 'yanga-simba'; // default
+    if (currentPlayer && currentPlayer.clubName) {
+        const myTeam = currentPlayer.clubName.toLowerCase();
+        const opp = opponent.toLowerCase();
+        if ((myTeam.includes('yanga') && opp.includes('simba')) || (myTeam.includes('simba') && opp.includes('yanga'))) {
+            matchId = 'yanga-simba';
+        } else if ((myTeam.includes('azam') && opp.includes('yanga')) || (myTeam.includes('yanga') && opp.includes('azam'))) {
+            matchId = 'azam-yanga';
+        } else if ((myTeam.includes('azam') && opp.includes('namungo')) || (myTeam.includes('namungo') && opp.includes('azam'))) {
+            matchId = 'azam-namungo';
+        } else if ((myTeam.includes('simba') && opp.includes('coastal')) || (myTeam.includes('coastal') && opp.includes('simba'))) {
+            matchId = 'simba-coastal';
+        }
+    }
+    window.location.href = `match-details.html?id=${matchId}`;
+}
+
+function showChartTooltip(x, y, year, index, p) {
+    let tooltip = document.getElementById('chart-tooltip');
+    if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.id = 'chart-tooltip';
+        tooltip.style.position = 'absolute';
+        tooltip.style.background = 'var(--accent-color)';
+        tooltip.style.color = '#fff';
+        tooltip.style.padding = '6px 12px';
+        tooltip.style.borderRadius = '8px';
+        tooltip.style.fontSize = '0.75rem';
+        tooltip.style.fontWeight = '800';
+        tooltip.style.pointerEvents = 'none';
+        tooltip.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)';
+        tooltip.style.transition = 'all 0.15s ease';
+        tooltip.style.zIndex = '10';
+        document.querySelector('.value-chart-wrap').appendChild(tooltip);
+    }
+
+    const values = {
+        'aziz-ki': ['€150K', '€300K', '€600K', '€900K', '€1.2M'],
+        'manula': ['€80K', '€120K', '€180K', '€200K', '€170K', '€150K'],
+        'feisal-salum': ['€200K', '€350K', '€500K', '€650K', '€750K'],
+        'mzize': ['€50K', '€120K', '€250K', '€380K', '€450K'],
+        'chama': ['€500K', '€700K', '€800K', '€700K', '€600K'],
+        'diarra': ['€300K', '€450K', '€600K', '€750K', '€800K'],
+        'pacome': ['€250K', '€400K', '€650K', '€850K', '€950K']
+    };
+
+    const isGK = p.type === 'GK';
+    const playerKey = p.shirt === '10' ? 'aziz-ki' : p.shirt === '28' ? 'manula' : p.shirt === '6' ? 'feisal-salum' : p.shirt === '9' ? 'mzize' : p.shirt === '17' ? 'chama' : p.shirt === '1' ? 'diarra' : 'pacome';
+    const playerValues = values[playerKey] || ['€500K'];
+    const val = playerValues[index] || p.value;
+
+    tooltip.innerHTML = `<strong>${year}</strong>: ${val}`;
+    
+    const container = document.querySelector('.chart-svg-light');
+    const rect = container.getBoundingClientRect();
+    const parentRect = document.querySelector('.value-chart-wrap').getBoundingClientRect();
+    
+    const posX = rect.left - parentRect.left + (x / 500) * rect.width;
+    const posY = rect.top - parentRect.top + (y / 140) * rect.height;
+
+    tooltip.style.left = `${posX - 40}px`;
+    tooltip.style.top = `${posY - 35}px`;
+    tooltip.style.display = 'block';
+
+    if (window.tooltipTimeout) clearTimeout(window.tooltipTimeout);
+    window.tooltipTimeout = setTimeout(() => {
+        tooltip.style.display = 'none';
+    }, 3000);
+}
+</script>
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

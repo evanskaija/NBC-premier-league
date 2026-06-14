@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanzania Football Hub | Official Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+    <!-- 3. Hero Section -->
+    <header class="hero-section reveal-element">
+        <div class="hero-slideshow" id="hero-slideshow"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>WELCOME TO <span class="highlight">TANZANIA FOOTBALL HUB</span></h1>
+
+            <div class="hero-quick-links">
+                <a href="livescores.html" class="hero-card">Live Scores</a>
+                <a href="fixtures.html" class="hero-card">Fixtures</a>
+                <a href="results.html" class="hero-card">Results</a>
+                <a href="standings.html" class="hero-card">League Tables</a>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="fixtures.html" class="btn btn-primary btn-large" style="text-decoration: none; display: inline-flex; align-items:center; justify-content:center;">View Matches</a>
+                <a href="teams.html" class="btn btn-glass btn-large" style="text-decoration: none; display: inline-flex; align-items:center; justify-content:center;">Explore Teams</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. Competitions Section -->
+    <section class="pl-container section-padding reveal-element">
+        <div class="container">
+            <div class="section-header-pl">
+                <h2>Competitions</h2>
+            </div>
+            <div class="leagues-grid-v2">
+                <a href="nbcpremierleague.html" class="league-card-v2" style="text-decoration:none; color:inherit;"><img src="images/nbc.png" alt="NBC"><span>NBC Premier League</span></a>
+                <a href="championship.html" class="league-card-v2" style="text-decoration:none; color:inherit;"><img src="images/championship.png" alt="Championship"><span>Championship</span></a>
+                <a href="firstleague.html" class="league-card-v2" style="text-decoration:none; color:inherit;"><img src="images/Premier league.png" alt="First League"><span>First League</span></a>
+                <a href="womensleague.html" class="league-card-v2" style="text-decoration:none; color:inherit;"><img src="images/nbc.png" alt="Women"><span>Women's League</span></a>
+                <a href="facup.html" class="league-card-v2" style="text-decoration:none; color:inherit;"><img src="images/crdb cup.jpg" alt="FA Cup"><span>FA Cup</span></a>
+                <a href="cafmatches.html" class="league-card-v2" style="text-decoration:none; color:inherit;"><img src="images/confidaration.png" alt="CAF"><span>CAF Matches</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. News & Features -->
+    <section class="pl-container section-padding bg-alt reveal-element">
+        <div class="container">
+            <div class="section-header-pl">
+                <h2>News & Features</h2>
+            </div>
+            <div class="pl-grid-5">
+                <a href="news.html" class="pl-card" style="display:block;text-decoration:none;color:inherit;">
+                    <div class="pl-img-box"><img src="images/mayele.jpg" alt="News"></div>
+                    <div class="pl-info">
+                        <h3>One of the player who played in Tanzania appearing at fifa world cup 2026 by nation</h3>
+                        <span class="pl-tag">News</span>
+                    </div>
+                </a>
+                <a href="news.html" class="pl-card" style="display:block;text-decoration:none;color:inherit;">
+                    <div class="pl-img-box"><img src="images/nbc ball.jpg" alt="News"></div>
+                    <div class="pl-info">
+                        <h3>Summer 2026: Key football dates for your calendar</h3>
+                        <span class="pl-tag">News</span>
+                    </div>
+                </a>
+                <a href="news.html" class="pl-card" style="display:block;text-decoration:none;color:inherit;">
+                    <div class="pl-img-box"><img src="images/mkapa.jpg" alt="News"></div>
+                    <div class="pl-info">
+                        <h3>When will the 2026/27 Premier League fixtures be released?</h3>
+                        <span class="pl-tag">News</span>
+                    </div>
+                </a>
+                <a href="news.html" class="pl-card" style="display:block;text-decoration:none;color:inherit;">
+                    <div class="pl-img-box"><img src="images/tuzo1.JPG" alt="News"></div>
+                    <div class="pl-info">
+                        <h3>TEN reasons why 2025/26 was the most competitive season EVER</h3>
+                        <span class="pl-tag">Features</span>
+                    </div>
+                </a>
+                <a href="news.html" class="pl-card" style="display:block;text-decoration:none;color:inherit;">
+                    <div class="pl-img-box"><img src="images/Mashabiki-wa-simba.jpg" alt="News"></div>
+                    <div class="pl-info">
+                        <h3>REVEALED: Premier League Fan Team of the Season 2025/26</h3>
+                        <span class="pl-tag">Fan Team</span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center mt-15">
+                <a href="news.html" class="btn btn-pill" style="text-decoration: none;">View More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Awards -->
+    <section class="pl-container section-padding reveal-element">
+        <div class="container">
+            <div class="section-header-pl">
+                <h2>Full Season Awards 🏆</h2>
+            </div>
+            <div class="pl-grid-6">
+                <a href="awards.html" class="award-card orange" style="text-decoration:none; display:block;">
+                    <div class="aw-header">
+                        <span>PACOME</span>
+                        <strong>ZOUZUA</strong>
+                    </div>
+                    <img src="images/Pacome.jpg" alt="Award">
+                    <div class="aw-footer">Player of the Season</div>
+                </a>
+                <a href="awards.html" class="award-card yellow" style="text-decoration:none; display:block;">
+                    <div class="aw-header">
+                        <span>JEAN CHARLES</span>
+                        <strong>AHOUA</strong>
+                    </div>
+                    <img src="images/jean (1).jpg" alt="Award">
+                    <div class="aw-footer">Top Scorer of the Season</div>
+                </a>
+                <a href="awards.html" class="award-card yellow" style="text-decoration:none; display:block;">
+                    <div class="aw-header">
+                        <span>FADLU</span>
+                        <strong>DAVIDS</strong>
+                    </div>
+                    <img src="images/fadlu davis.jpg" alt="Award">
+                    <div class="aw-footer">Manager/Coach of the Season</div>
+                </a>
+                <a href="awards.html" class="award-card purple" style="text-decoration:none; display:block;">
+                    <div class="aw-header">
+                        <span>CLEMENT</span>
+                        <strong>MZIZE</strong>
+                    </div>
+                    <img src="images/mzize1.jpg" alt="Award">
+                    <div class="aw-footer">Young Player of the Season</div>
+                </a>
+                <a href="awards.html" class="award-card green" style="text-decoration:none; display:block;">
+                    <div class="aw-header">
+                        <span>FEISAL</span>
+                        <strong>SALUM</strong>
+                    </div>
+                    <img src="images/feilasufi.jpg" alt="Award">
+                    <div class="aw-footer">Goal of the Season</div>
+                </a>
+                <a href="awards.html" class="award-card pink" style="text-decoration:none; display:block;">
+                    <div class="aw-header">
+                        <span>MUSA</span>
+                        <strong>KAMALA</strong>
+                    </div>
+                    <img src="images/kamala.jpg" alt="Award">
+                    <div class="aw-footer">Save of the Season</div>
+                </a>
+            </div>
+            <div class="text-center mt-15">
+                <a href="awards.html" class="btn btn-pill" style="text-decoration: none;">View More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Standings (Table & Statistics) -->
+    <section class="table-fixtures section-padding bg-alt reveal-element">
+        <div class="container split-layout">
+            <div class="main-column">
+                <div class="section-header-pl">
+                    <h2>League Table</h2>
+                </div>
+                <div class="glass-container">
+                    <table class="pl-table-v3">
+                        <thead>
+                            <tr>
+                                <th>Pos</th>
+                                <th>Team</th>
+                                <th class="text-center">P</th>
+                                <th class="text-center">W</th>
+                                <th class="text-center">D</th>
+                                <th class="text-center">L</th>
+                                <th class="text-center">GF</th>
+                                <th class="text-center">GA</th>
+                                <th class="text-center">GD</th>
+                                <th class="text-center">Pts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="window.location.href='team-details.html?id=yanga'" style="cursor:pointer;">
+                                <td class="pos">1</td>
+                                <td class="team"><img src="images/yanga.jpg" alt=""> Yanga SC</td>
+                                <td class="text-center">30</td>
+                                <td class="text-center">23</td>
+                                <td class="text-center">3</td>
+                                <td class="text-center">4</td>
+                                <td class="text-center">71</td>
+                                <td class="text-center">14</td>
+                                <td class="text-center">57</td>
+                                <td class="pts text-center">72</td>
+                            </tr>
+                            <tr onclick="window.location.href='team-details.html?id=simba'" style="cursor:pointer;">
+                                <td class="pos">2</td>
+                                <td class="team"><img src="images/simba.jpg" alt=""> Simba SC</td>
+                                <td class="text-center">30</td>
+                                <td class="text-center">21</td>
+                                <td class="text-center">5</td>
+                                <td class="text-center">4</td>
+                                <td class="text-center">59</td>
+                                <td class="text-center">25</td>
+                                <td class="text-center">34</td>
+                                <td class="pts text-center">68</td>
+                            </tr>
+                            <tr onclick="window.location.href='team-details.html?id=singida'" style="cursor:pointer;">
+                                <td class="pos">3</td>
+                                <td class="team"><img src="images/singida.jpg" alt=""> Singida SC</td>
+                                <td class="text-center">30</td>
+                                <td class="text-center">20</td>
+                                <td class="text-center">5</td>
+                                <td class="text-center">5</td>
+                                <td class="text-center">59</td>
+                                <td class="text-center">25</td>
+                                <td class="text-center">34</td>
+                                <td class="pts text-center">65</td>
+                            </tr>
+                            <tr onclick="window.location.href='team-details.html?id=azam'" style="cursor:pointer;">
+                                <td class="pos">4</td>
+                                <td class="team"><img src="images/azam.jpg" alt=""> Azam FC</td>
+                                <td class="text-center">30</td>
+                                <td class="text-center">18</td>
+                                <td class="text-center">7</td>
+                                <td class="text-center">5</td>
+                                <td class="text-center">63</td>
+                                <td class="text-center">21</td>
+                                <td class="text-center">42</td>
+                                <td class="pts text-center">61</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center mt-10">
+                        <a href="standings.html" class="btn btn-pill btn-sm" style="text-decoration: none;">View Full Table</a>
+                    </div>
+                </div>
+                <div class="glass-container mt-15">
+                    <div class="section-header-pl sub-h">
+                        <h3>Club Form Guide</h3>
+                    </div>
+                    <table class="form-table">
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th class="text-right">Recent Form</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="window.location.href='team-details.html?id=yanga'" style="cursor:pointer;">
+                                <td class="team-meta"><img src="images/yanga.jpg" alt=""> Yanga SC</td>
+                                <td class="text-right">
+                                    <span class="f-dot w"></span><span class="f-dot w"></span><span
+                                        class="f-dot w"></span><span class="f-dot w"></span><span
+                                        class="f-dot w"></span>
+                                </td>
+                            </tr>
+                            <tr onclick="window.location.href='team-details.html?id=simba'" style="cursor:pointer;">
+                                <td class="team-meta"><img src="images/simba.jpg" alt=""> Simba SC</td>
+                                <td class="text-right">
+                                    <span class="f-dot w"></span><span class="f-dot w"></span><span
+                                        class="f-dot d"></span><span class="f-dot w"></span><span
+                                        class="f-dot w"></span>
+                                </td>
+                            </tr>
+                            <tr onclick="window.location.href='team-details.html?id=azam'" style="cursor:pointer;">
+                                <td class="team-meta"><img src="images/azam.jpg" alt=""> Azam FC</td>
+                                <td class="text-right">
+                                    <span class="f-dot w"></span><span class="f-dot w"></span><span
+                                        class="f-dot l"></span><span class="f-dot w"></span><span
+                                        class="f-dot w"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center mt-10">
+                        <a href="#" class="view-more-link">View Full Form →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="side-column">
+                <div class="fixtures-micro-v2">
+                    <div class="section-header-pl sub-h">
+                        <h3>Match Predictions</h3>
+                    </div>
+                    <div class="prediction-widget-v3" id="home-poll-widget">
+                        <!-- Head to head club logos -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 10px;">
+                            <img src="images/yanga.jpg" alt="Yanga SC" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                            <span style="font-size: 0.8rem; font-weight: 950; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px;">VS</span>
+                            <img src="images/simba.jpg" alt="Simba SC" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                        </div>
+                        <div class="pw-header" style="text-align: center; margin-bottom: 20px;">Yanga SC vs Simba SC</div>
+                        
+                        <!-- Progress bars for poll results -->
+                        <div class="pw-bars" style="margin-bottom: 25px;">
+                            <div class="pw-item" style="margin-bottom: 12px;">
+                                <div class="pw-label" style="display:flex; justify-content:space-between; font-weight:800; font-size:0.75rem;">
+                                    <span>Yanga SC Win</span>
+                                    <span id="vote-pct-yanga">48%</span>
+                                </div>
+                                <div class="pw-progress" style="height: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; margin-top:5px;">
+                                    <div id="vote-bar-yanga" class="pw-fill" style="height:100%; width: 48%; background: var(--primary); transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                </div>
+                            </div>
+                            <div class="pw-item" style="margin-bottom: 12px;">
+                                <div class="pw-label" style="display:flex; justify-content:space-between; font-weight:800; font-size:0.75rem;">
+                                    <span>Draw</span>
+                                    <span id="vote-pct-draw">22%</span>
+                                </div>
+                                <div class="pw-progress" style="height: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; margin-top:5px;">
+                                    <div id="vote-bar-draw" class="pw-fill bg-grey" style="height:100%; width: 22%; background: #64748b; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                </div>
+                            </div>
+                            <div class="pw-item" style="margin-bottom: 12px;">
+                                <div class="pw-label" style="display:flex; justify-content:space-between; font-weight:800; font-size:0.75rem;">
+                                    <span>Simba SC Win</span>
+                                    <span id="vote-pct-simba">30%</span>
+                                </div>
+                                <div class="pw-progress" style="height: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; margin-top:5px;">
+                                    <div id="vote-bar-simba" class="pw-fill bg-red" style="height:100%; width: 30%; background: #ef4444; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Interactive buttons -->
+                        <div id="vote-options-row" style="display: flex; flex-direction: column; gap: 8px;">
+                            <button class="btn btn-sm btn-outline" style="text-align: left; padding: 10px 15px; font-weight: 800; font-size: 0.7rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;" onclick="castHomeVote('yanga')">
+                                <span>Vote Yanga SC Win</span> <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline" style="text-align: left; padding: 10px 15px; font-weight: 800; font-size: 0.7rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;" onclick="castHomeVote('draw')">
+                                <span>Vote Draw</span> <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline" style="text-align: left; padding: 10px 15px; font-weight: 800; font-size: 0.7rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;" onclick="castHomeVote('simba')">
+                                <span>Vote Simba SC Win</span> <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div id="vote-status-msg" style="display: none; text-align: center; font-size: 0.65rem; font-weight: 800; color: #22c55e; margin-top: 15px;">
+                            <i class="fa-solid fa-circle-check"></i> Thank you! Your prediction has been recorded.
+                        </div>
+                    </div>
+
+                    <div class="section-header-pl sub-h mt-15">
+                        <h3>Upcoming Fixtures</h3>
+                    </div>
+                    <div class="fix-card-v2" onclick="window.location.href='match-details.html?id=azam-yanga'" style="cursor:pointer;">
+                        <div class="fix-teams">
+                            <div class="ft-team"><img src="images/azam.jpg" alt=""><span>AAM</span></div>
+                            <div class="ft-vs">VS</div>
+                            <div class="ft-team"><span>SND</span><img src="images/yanga.jpg" alt=""></div>
+                        </div>
+                        <div class="fix-time">Saturday | 16:00</div>
+                    </div>
+                </div>
+                <div class="text-center mt-10">
+                    <a href="fixtures.html" class="btn btn-pill btn-sm" style="text-decoration: none;">View All Fixtures</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Standings (Table & Statistics) -->
+
+    <!-- 6. Unmissable Moments -->
+    <section class="pl-container section-padding reveal-element">
+        <div class="container">
+            <div class="section-header-pl">
+                <h2>Unmissable Moments 🔥</h2>
+            </div>
+            <div class="moments-grid-shorts">
+                <!-- Video 1 -->
+                <div class="moment-vertical clone-tiktok">
+                    <div class="m-badge-new">New</div>
+                    <video src="images/short 1 (1).mp4" poster="" loop muted playsinline class="moment-video"
+                        onclick="this.paused ? this.play() : this.pause(); this.muted=false;"></video>
+                        
+                    <div class="mv-bottom-info">
+                        <div class="mv-creator">
+                            <img src="images/simba.jpg" alt="User" class="mv-avatar-v2">
+                            <div class="mv-details">
+                                <div class="mv-handle">@nbcpremierleague <i class="fa-solid fa-circle-check"></i></div>
+                            </div>
+                        </div>
+                        <p class="mv-caption">Did you forget something, Stephane? ⚽️✨</p>
+                        <div class="mv-audio-track">
+                            <i class="fa-solid fa-music"></i>
+                            <div class="scrolling-text">Aziz Ki - Masterclass (Original Sound)</div>
+                        </div>
+                    </div>
+                    <div class="mv-music-disk"><i class="fa-solid fa-compact-disc"></i></div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="moment-vertical clone-tiktok">
+                    <div class="m-badge-new">New</div>
+                    <video src="images/short 1 (2).mp4" poster="" loop muted playsinline class="moment-video"
+                        onclick="this.paused ? this.play() : this.pause(); this.muted=false;"></video>
+
+                    <div class="mv-actions-sidebar">
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-heart"></i></div>
+                            <span>8.2k</span>
+                        </div>
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-comment"></i></div>
+                            <span>321</span>
+                        </div>
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-share"></i></div>
+                            <span>Share</span>
+                        </div>
+                    </div>
+
+                    <div class="mv-bottom-info">
+                        <div class="mv-creator">
+                            <img src="images/yanga.jpg" alt="User" class="mv-avatar-v2">
+                            <div class="mv-details">
+                                <div class="mv-handle">@yanga_sc <i class="fa-solid fa-circle-check"></i></div>
+                                <button class="mv-follow">Follow</button>
+                            </div>
+                        </div>
+                        <p class="mv-caption">ALL-ACCESS to every moment of Yanga's win! 🏆</p>
+                        <div class="mv-audio-track">
+                            <i class="fa-solid fa-music"></i>
+                            <div class="scrolling-text">Yanga SC Championship Night</div>
+                        </div>
+                    </div>
+                    <div class="mv-music-disk"><i class="fa-solid fa-compact-disc"></i></div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="moment-vertical clone-tiktok">
+                    <div class="m-badge-new">New</div>
+                    <video src="images/short 1 (3).mp4" poster="" loop muted playsinline class="moment-video"
+                        onclick="this.paused ? this.play() : this.pause(); this.muted=false;"></video>
+
+                    <div class="mv-actions-sidebar">
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-heart"></i></div>
+                            <span>15.1k</span>
+                        </div>
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-comment"></i></div>
+                            <span>1.2k</span>
+                        </div>
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-share"></i></div>
+                            <span>Share</span>
+                        </div>
+                    </div>
+
+                    <div class="mv-bottom-info">
+                        <div class="mv-creator">
+                            <img src="images/yanga.jpg" alt="User" class="mv-avatar-v2">
+                            <div class="mv-details">
+                                <div class="mv-handle">@simba_sc <i class="fa-solid fa-circle-check"></i></div>
+                                <button class="mv-follow">Follow</button>
+                            </div>
+                        </div>
+                        <p class="mv-caption">SLO-MO: Aziz Ki's masterclass finish. Pure class! 🎯</p>
+                        <div class="mv-audio-track">
+                            <i class="fa-solid fa-music"></i>
+                            <div class="scrolling-text">Stadium Crowd Roar</div>
+                        </div>
+                    </div>
+                    <div class="mv-music-disk"><i class="fa-solid fa-compact-disc"></i></div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="moment-vertical clone-tiktok desktop-only">
+                    <div class="m-badge-new">New</div>
+                    <video src="images/fei 10.mp4" poster="" loop muted playsinline class="moment-video"
+                        onclick="this.paused ? this.play() : this.pause(); this.muted=false;"></video>
+
+                    <div class="mv-actions-sidebar">
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-heart"></i></div>
+                            <span>21.4k</span>
+                        </div>
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-comment"></i></div>
+                            <span>2.4k</span>
+                        </div>
+                        <div class="action-item">
+                            <div class="icon-circle"><i class="fa-solid fa-share"></i></div>
+                            <span>Share</span>
+                        </div>
+                    </div>
+
+                    <div class="mv-bottom-info">
+                        <div class="mv-creator">
+                            <img src="images/azam.jpg" alt="User" class="mv-avatar-v2">
+                            <div class="mv-details">
+                                <div class="mv-handle">@nbcpremierleague <i class="fa-solid fa-circle-check"></i></div>
+                                <button class="mv-follow">Follow</button>
+                            </div>
+                        </div>
+                        <p class="mv-caption">Matchday Atmosphere is UNREAL! 🏟️✨</p>
+                        <div class="mv-audio-track">
+                            <i class="fa-solid fa-music"></i>
+                            <div class="scrolling-text">National Stadium - Ambience</div>
+                        </div>
+                    </div>
+                    <div class="mv-music-disk"><i class="fa-solid fa-compact-disc"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Quizzes -->
+    <section class="pl-container section-padding bg-alt reveal-element">
+        <div class="container">
+            <div class="pl-grid-4">
+                <a href="quiz.html" class="quiz-card-pl" style="background-image: url('images/nbc ball.jpg'); display:block; text-decoration:none; cursor:pointer;">
+                    <div class="qz-overlay"></div>
+                    <div class="qz-content">
+                        <div class="qz-thumb"><i class="fa-solid fa-brain"></i> QUIZ</div>
+                        <p>QUIZ: Can you spot the ball?</p>
+                        <span class="pl-tag">Quizzes</span>
+                    </div>
+                </a>
+                <a href="quiz.html" class="quiz-card-pl" style="background-image: url('images/mkapa.jpg'); display:block; text-decoration:none; cursor:pointer;">
+                    <div class="qz-overlay"></div>
+                    <div class="qz-content">
+                        <div class="qz-thumb"><i class="fa-solid fa-brain"></i> QUIZ</div>
+                        <p>QUIZ: Which players' faces have we combined?</p>
+                        <span class="pl-tag">Quizzes</span>
+                    </div>
+                </a>
+                <a href="quiz.html" class="quiz-card-pl" style="background-image: url('images/mzize.webp'); display:block; text-decoration:none; cursor:pointer;">
+                    <div class="qz-overlay"></div>
+                    <div class="qz-content">
+                        <div class="qz-thumb"><i class="fa-solid fa-brain"></i> QUIZ</div>
+                        <p>QUIZ: Guess the player from their BABY photo</p>
+                        <span class="pl-tag">Quizzes</span>
+                    </div>
+                </a>
+                <a href="quiz.html" class="quiz-card-pl" style="background-image: url('images/kamala.jpg'); display:block; text-decoration:none; cursor:pointer;">
+                    <div class="qz-overlay"></div>
+                    <div class="qz-content">
+                        <div class="qz-thumb"><i class="fa-solid fa-brain"></i> QUIZ</div>
+                        <p>QUIZ: Can you match the player to the celebration?</p>
+                        <span class="pl-tag">Quizzes</span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center mt-15">
+                <a href="quiz.html" class="btn btn-pill" style="text-decoration: none;">View More Quizzes</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. Football Quiz -->
+    <section class="football-quiz section-padding reveal-element">
+        <div class="container">
+            <div class="quiz-banner">
+                <div class="quiz-info">
+                    <h3>🏆 TEST YOUR KNOWLEDGE</h3>
+                    <p>How much do you know about Tanzanian Football History?</p>
+                    <a href="quiz.html" class="btn btn-primary" style="text-decoration: none;">Start Quiz Now</a>
+                </div>
+                <div class="quiz-icon">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transfer Watch & On This Day -->
+    <section class="pl-container section-padding bg-alt reveal-element">
+        <div class="container split-layout">
+            <!-- Transfer Watch -->
+            <div class="main-column">
+                <div class="section-header-pl">
+                    <h2>Transfer Watch ⭐</h2>
+                </div>
+                <div class="transfer-grid-v3">
+                    <!-- Rumour Card -->
+                    <div class="tr-card rumour">
+                        <div class="tr-badge">🔥 Rumour</div>
+                        <div class="tr-main">
+                            <h4>Lameck Lawi linked with Simba SC</h4>
+                            <div class="tr-swap-logos">
+                                <img src="images/costal union.jpg" alt="Coastal Union">
+                                <i class="fa-solid fa-arrow-right-long swap-arrow" style="color: #ff9800;"></i>
+                                <img src="images/simba.jpg" alt="Simba SC">
+                            </div>
+                            <div class="tr-conf">
+                                <span>Confidence</span>
+                                <div class="conf-bar">
+                                    <div class="fill" style="width: 75%"></div>
+                                </div>
+                                <strong>75%</strong>
+                            </div>
+                        </div>
+                        <a href="transfers.html" class="btn btn-outline btn-sm" style="text-decoration:none; text-align:center;">Official News →</a>
+                    </div>
+
+                    <!-- Confirmed Card -->
+                    <div class="tr-card confirmed">
+                        <div class="tr-badge">✅ Confirmed</div>
+                        <div class="tr-main">
+                            <div class="tr-swap">
+                                <h4>Prince Dube</h4>
+                                <div class="tr-swap-logos">
+                                    <img src="images/zam.png" alt="Azam FC">
+                                    <i class="fa-solid fa-arrow-right-long swap-arrow" style="color: #4caf50;"></i>
+                                    <img src="images/yanga.jpg" alt="Yanga SC">
+                                </div>
+                                <span class="swap-path">Azam FC <i class="fa-solid fa-right-long" style="font-size:0.7rem; margin:0 4px; color:var(--primary);"></i> Yanga SC</span>
+                            </div>
+                        </div>
+                        <a href="transfers.html" class="btn btn-primary btn-sm" style="text-decoration:none; text-align:center; margin-top: 15px;">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- On This Day -->
+            <div class="side-column">
+                <div class="section-header-pl">
+                    <h2>On This Day ⭐</h2>
+                </div>
+                <div class="history-card">
+                    <div class="hist-header">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <span>June 5, 2021</span>
+                    </div>
+                    <ul class="hist-list">
+                        <li><i class="fa-solid fa-star"></i> <span><strong>Yanga SC</strong> won the NBC Premier League title.</span></li>
+                        <li><i class="fa-solid fa-award"></i> <span><strong>Azam FC</strong> won the FA Cup (2018).</span></li>
+                    </ul>
+                    <div class="hist-footer">
+                        <p>Fresh content every day.</p>
+                        <a href="#" class="view-more-link" style="text-decoration: none;">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Football Calendar -->
+    <section class="pl-container section-padding reveal-element" id="fixtures-calendar">
+        <div class="container">
+            <div class="section-header-pl">
+                <h2>Football Calendar 📅</h2>
+            </div>
+            <!-- Filter Bar -->
+            <div class="cal-filters">
+                <select class="cal-select" id="cal-comp">
+                    <option>All Competitions</option>
+                    <option>NBC Premier League</option>
+                    <option>Championship</option>
+                    <option>First League</option>
+                    <option>Women's League</option>
+                    <option>CRDB FA Cup</option>
+                    <option>CAF Competitions</option>
+                </select>
+                <select class="cal-select" id="cal-club">
+                    <option>All Clubs</option>
+                    <option>Yanga SC</option>
+                    <option>Simba SC</option>
+                    <option>Azam FC</option>
+                    <option>Namungo FC</option>
+                </select>
+                <div class="cal-view-toggle">
+                    <button class="cal-btn active">Day</button>
+                    <button class="cal-btn">Week</button>
+                    <button class="cal-btn">Month</button>
+                </div>
+            </div>
+
+            <!-- Calendar Match Cards -->
+            <div class="cal-date-header">
+                <i class="fa-solid fa-chevron-left" style="cursor: pointer;"></i>
+                <span>Saturday, June 7, 2026</span>
+                <i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i>
+            </div>
+            <div class="cal-matches-list">
+                <!-- Match 1 -->
+                <div class="cal-match-card" onclick="window.location.href='match-details.html?id=yanga-simba'" style="cursor:pointer;">
+                    <div class="cal-match-comp"><img src="images/nbc.png" alt="NBC"> NBC Premier League</div>
+                    <div class="cal-match-body">
+                        <div class="cal-team"><img src="images/yanga.jpg" alt="Yanga SC"><span>Yanga SC</span></div>
+                        <div class="cal-center">
+                            <span class="cal-time">16:00</span>
+                            <span class="cal-status upcoming">Upcoming</span>
+                        </div>
+                        <div class="cal-team away"><span>Simba SC</span><img src="images/simba.jpg" alt="Simba SC"></div>
+                    </div>
+                    <div class="cal-match-venue"><i class="fa-solid fa-location-dot"></i> <span>Benjamin Mkapa Stadium, Dar es Salaam</span></div>
+                </div>
+
+                <!-- Match 2 -->
+                <div class="cal-match-card" onclick="window.location.href='match-details.html?id=azam-namungo'" style="cursor:pointer;">
+                    <div class="cal-match-comp"><img src="images/nbc.png" alt="NBC"> NBC Premier League</div>
+                    <div class="cal-match-body">
+                        <div class="cal-team"><img src="images/azam.jpg" alt="Azam FC"><span>Azam FC</span></div>
+                        <div class="cal-center">
+                            <span class="cal-time">19:00</span>
+                            <span class="cal-status upcoming">Upcoming</span>
+                        </div>
+                        <div class="cal-team away"><span>Namungo FC</span><img src="images/namungo fc.jpg" alt="Namungo FC"></div>
+                    </div>
+                    <div class="cal-match-venue"><i class="fa-solid fa-location-dot"></i> <span>Azam Complex, Chamazi</span></div>
+                </div>
+
+                <!-- Match 3 -->
+                <div class="cal-match-card" onclick="window.location.href='match-details.html?id=simba-coastal'" style="cursor:pointer;">
+                    <div class="cal-match-comp"><img src="images/crdb cup.jpg" alt="CRDB"> CRDB FA Cup — Round of 16</div>
+                    <div class="cal-match-body">
+                        <div class="cal-team"><img src="images/simba.jpg" alt="Simba SC"><span>Simba SC</span></div>
+                        <div class="cal-center">
+                            <span class="cal-time">20:00</span>
+                            <span class="cal-status live">LIVE</span>
+                        </div>
+                        <div class="cal-team away"><span>Coastal Union</span><img src="images/costal union.jpg" alt="Coastal Union"></div>
+                    </div>
+                    <div class="cal-match-venue"><i class="fa-solid fa-location-dot"></i> <span>Benjamin Mkapa Stadium</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Record Watch -->
+    <section class="pl-container section-padding bg-alt reveal-element">
+        <div class="container">
+            <div class="section-header-pl">
+                <h2>Record Watch 🏅</h2>
+            </div>
+            <div class="records-grid">
+                <div class="record-card">
+                    <div class="rec-icon"><i class="fa-solid fa-futbol"></i></div>
+                    <div class="rec-info">
+                        <h4>Most Goals in a Season</h4>
+                        <p class="rec-holder">Aziz Ki — 28 Goals</p>
+                        <div class="rec-bar">
+                            <div class="rec-fill" style="width: 93%"></div>
+                        </div>
+                        <span class="rec-note">Record: 30 goals by Mbwana Samatta (2018/19). 2 goals away!</span>
+                    </div>
+                </div>
+                <div class="record-card">
+                    <div class="rec-icon"><i class="fa-solid fa-hand"></i></div>
+                    <div class="rec-info">
+                        <h4>Most Clean Sheets</h4>
+                        <p class="rec-holder">Djigui Diarra — 19 Clean Sheets</p>
+                        <div class="rec-bar">
+                            <div class="rec-fill" style="width: 86%"></div>
+                        </div>
+                        <span class="rec-note">Record: 22 clean sheets (2016/17). 3 away!</span>
+                    </div>
+                </div>
+                <div class="record-card">
+                    <div class="rec-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="rec-info">
+                        <h4>Longest Winning Streak</h4>
+                        <p class="rec-holder">Yanga SC — 14 Wins</p>
+                        <div class="rec-bar">
+                            <div class="rec-fill" style="width: 78%"></div>
+                        </div>
+                        <span class="rec-note">Record: 18 consecutive wins (2014/15). 4 away!</span>
+                    </div>
+                </div>
+                <div class="record-card">
+                    <div class="rec-icon"><i class="fa-solid fa-star"></i></div>
+                    <div class="rec-info">
+                        <h4>Most Assists</h4>
+                        <p class="rec-holder">Stephane Aziz Ki — 15 Assists</p>
+                        <div class="rec-bar">
+                            <div class="rec-fill" style="width: 88%"></div>
+                        </div>
+                        <span class="rec-note">Record: 17 assists by Fiston Mayele. 2 away!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section section-padding reveal-element">
+        <div class="container text-center">
+            <h2>Stay Updated</h2>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter Email" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 17. Professional Footer -->
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<script>
+// ===================================================
+//  INTERACTIVE FAN POLL
+// ===================================================
+document.addEventListener('DOMContentLoaded', () => {
+    initHomePoll();
+});
+
+function initHomePoll() {
+    const voted = localStorage.getItem('home-poll-voted');
+    const yangaVotes = parseInt(localStorage.getItem('home-poll-yanga') || '120');
+    const drawVotes = parseInt(localStorage.getItem('home-poll-draw') || '55');
+    const simbaVotes = parseInt(localStorage.getItem('home-poll-simba') || '75');
+    
+    updatePollUI(yangaVotes, drawVotes, simbaVotes, voted);
+}
+
+function castHomeVote(choice) {
+    if (localStorage.getItem('home-poll-voted')) {
+        alert("You have already voted in this matchday poll!");
+        return;
+    }
+    
+    let yangaVotes = parseInt(localStorage.getItem('home-poll-yanga') || '120');
+    let drawVotes = parseInt(localStorage.getItem('home-poll-draw') || '55');
+    let simbaVotes = parseInt(localStorage.getItem('home-poll-simba') || '75');
+    
+    if (choice === 'yanga') yangaVotes++;
+    else if (choice === 'draw') drawVotes++;
+    else if (choice === 'simba') simbaVotes++;
+    
+    localStorage.setItem('home-poll-yanga', yangaVotes);
+    localStorage.setItem('home-poll-draw', drawVotes);
+    localStorage.setItem('home-poll-simba', simbaVotes);
+    localStorage.setItem('home-poll-voted', choice);
+    
+    updatePollUI(yangaVotes, drawVotes, simbaVotes, choice);
+}
+
+function updatePollUI(yanga, draw, simba, chosenChoice) {
+    const total = yanga + draw + simba;
+    const yangaPct = Math.round((yanga / total) * 100);
+    const drawPct = Math.round((draw / total) * 100);
+    const simbaPct = 100 - yangaPct - drawPct; // Ensure they sum to 100
+    
+    // Update labels
+    const pctYangaEl = document.getElementById('vote-pct-yanga');
+    const pctDrawEl = document.getElementById('vote-pct-draw');
+    const pctSimbaEl = document.getElementById('vote-pct-simba');
+    
+    if (pctYangaEl) pctYangaEl.textContent = `${yangaPct}%`;
+    if (pctDrawEl) pctDrawEl.textContent = `${drawPct}%`;
+    if (pctSimbaEl) pctSimbaEl.textContent = `${simbaPct}%`;
+    
+    // Update bars
+    const barYangaEl = document.getElementById('vote-bar-yanga');
+    const barDrawEl = document.getElementById('vote-bar-draw');
+    const barSimbaEl = document.getElementById('vote-bar-simba');
+    
+    if (barYangaEl) barYangaEl.style.width = `${yangaPct}%`;
+    if (barDrawEl) barDrawEl.style.width = `${drawPct}%`;
+    if (barSimbaEl) barSimbaEl.style.width = `${simbaPct}%`;
+    
+    if (chosenChoice) {
+        // Disable buttons / show selected choice
+        const optionsRow = document.getElementById('vote-options-row');
+        if (optionsRow) {
+            optionsRow.style.pointerEvents = 'none';
+            optionsRow.style.opacity = '0.6';
+            
+            const buttons = optionsRow.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline');
+                // Remove existing checkmarks
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = 'fa-solid fa-chevron-right';
+                }
+            });
+            
+            const choices = { 'yanga': 0, 'draw': 1, 'simba': 2 };
+            const selectedBtn = buttons[choices[chosenChoice]];
+            if (selectedBtn) {
+                selectedBtn.classList.remove('btn-outline');
+                selectedBtn.classList.add('btn-primary');
+                selectedBtn.innerHTML = `<span>Selected: ${selectedBtn.querySelector('span').innerText}</span> <i class="fa-solid fa-circle-check"></i>`;
+            }
+        }
+        
+        const statusMsg = document.getElementById('vote-status-msg');
+        if (statusMsg) statusMsg.style.display = 'block';
+    }
+}
+</script>
+<script src="script.js"></script>
+</body>
+
+</html>

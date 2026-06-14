@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Scores | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .ls-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Tabs System */
+        .ls-tabs-v3 {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: var(--bg-card);
+            padding: 10px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 20px auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .ls-tab-v3 {
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 950;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+        }
+
+        .ls-tab-v3.active {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .count-badge {
+            background: rgba(0,0,0,0.1);
+            padding: 2px 8px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+        }
+
+        /* Match of the Day Header */
+        .motd-card {
+            background: linear-gradient(135deg, #001d3d, #000);
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid var(--primary-glow);
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .motd-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            font-weight: 900;
+            font-size: 0.75rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .motd-body {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .motd-team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .motd-team img { height: 120px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.5)); }
+        .motd-team h2 { font-size: 2rem; font-weight: 950; letter-spacing: -1px; }
+
+        .motd-score {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .motd-val { font-size: 5rem; font-weight: 950; line-height: 1; }
+        .motd-time { color: var(--accent); font-weight: 950; animation: blink 1s infinite; }
+
+        @keyframes blink { 50% { opacity: 0.3; } }
+
+        /* Goal Alert */
+        .goal-alert-banner {
+            background: var(--accent);
+            color: #000;
+            padding: 20px 40px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            font-weight: 950;
+            box-shadow: 0 15px 30px rgba(255, 195, 0, 0.2);
+        }
+
+        /* Match Row Modern */
+        .match-row-v3 {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .match-row-v3:hover {
+            border-color: var(--primary);
+            background: var(--bg-hover);
+        }
+
+        /* Momentum Bar */
+        .momentum-wrap {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+        }
+
+        .m-bar {
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            margin-top: 20px;
+        }
+
+        /* Side Intelligence Mini Table */
+        .mini-standings {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .mini-standings td {
+            padding: 12px 10px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Live Commentary */
+        .com-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .com-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .com-time { font-weight: 950; color: var(--primary); min-width: 40px; }
+        .com-text { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+
+        @media (max-width: 768px) {
+            .motd-body { flex-direction: column; gap: 40px; }
+            .motd-val { font-size: 4rem; }
+            .match-row-v3 { flex-direction: column; text-align: center; gap: 20px; }
+        }
+
+        /* Dynamic Modals & Backdrop Overlays */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 8, 20, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-container {
+            background: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 850px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            padding: 40px;
+        }
+        .modal-overlay.open .modal-container {
+            transform: scale(1);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 21000;
+        }
+        .modal-close-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .match-row-v3 {
+            cursor: pointer;
+        }
+
+        /* Modal Sub-elements styling */
+        .modal-report-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .modal-report-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            margin-top: 10px;
+        }
+        .modal-tab-content {
+            display: none;
+            margin-top: 20px;
+        }
+        .modal-tab-content.active {
+            display: block;
+        }
+        .stat-row {
+            margin-bottom: 20px;
+        }
+        .stat-labels {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 900;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .stat-bar-container {
+            height: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+        }
+        .stat-bar-fill {
+            height: 100%;
+        }
+        .goal-event {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: rgba(255,255,255,0.02);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+            margin-bottom: 10px;
+        }
+        .goal-event i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Top Header -->
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown active">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html" class="active">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+    <main class="ls-container">
+        
+        <!-- HEADER TABS -->
+        <div class="ls-tabs-v3">
+            <button class="ls-tab-v3 active" onclick="switchLiveScoresTab('live', this)">🔴 Live <span class="count-badge">2</span></button>
+            <button class="ls-tab-v3" onclick="switchLiveScoresTab('upcoming', this)">⏳ Upcoming <span class="count-badge">2</span></button>
+            <button class="ls-tab-v3" onclick="switchLiveScoresTab('finished', this)">✅ Finished <span class="count-badge">3</span></button>
+        </div>
+
+        <div style="display:flex; gap:10px; justify-content:center; margin-bottom:40px; flex-wrap:wrap;">
+            <select class="btn btn-outline" id="ls-comp-select" onchange="filterLiveScores()" style="border-radius:50px; font-size:0.75rem;">
+                <option value="all">All Competitions</option>
+                <option value="nbcpl" selected>NBC Premier League</option>
+            </select>
+            <input type="text" class="btn btn-outline" id="ls-search-input" oninput="filterLiveScores()" placeholder="🔍 Search match..." style="border-radius:50px; width:250px; text-align:left;">
+        </div>
+
+        <!-- MATCH OF THE DAY -->
+        <div class="motd-card">
+            <div class="motd-header">
+                <span>🔥 MATCH OF THE DAY</span>
+                <span>NBC PREMIER LEAGUE</span>
+            </div>
+            <div class="motd-body">
+                <div class="motd-team">
+                    <img src="images/yanga.jpg" alt="Yanga">
+                    <h2>YANGA SC</h2>
+                </div>
+                <div class="motd-score">
+                    <span class="motd-val">2 - 1</span>
+                    <span class="motd-time">78'</span>
+                </div>
+                <div class="motd-team">
+                    <img src="images/simba.jpg" alt="Simba">
+                    <h2>SIMBA SC</h2>
+                </div>
+            </div>
+            <div style="margin-top:40px; display:flex; justify-content:center; gap:30px; font-size:0.8rem; color:var(--text-muted); font-weight:800;">
+                <span>🏟 Benjamin Mkapa</span>
+                <span>👥 58,000</span>
+                <span>🌡 28°C</span>
+                <span>⭐ 9.1</span>
+            </div>
+            <button class="btn btn-primary" onclick="openMatchCenter('yanga-simba')" style="margin-top:30px; padding:15px 40px;">OPEN MATCH CENTER</button>
+        </div>
+
+        <!-- MATCH LIST TITLE -->
+        <h2 id="match-list-title" style="font-weight:950; font-size:1.2rem; margin-bottom:20px; display:flex; align-items:center; gap:10px;">
+            <span id="match-list-status-dot" style="color:var(--red); animation: blink 1s infinite; margin-right:5px;">🔴</span> <span id="match-list-status-text">LIVE MATCHES</span>
+        </h2>
+        
+        <div id="livescores-match-list">
+            <!-- Yanga SC vs Simba SC (Live) -->
+            <div class="match-row-v3" data-status="live" data-comp="nbcpl" data-teams="yanga simba young Africans" onclick="openMatchCenter('yanga-simba')">
+                <div style="font-weight:950; color:var(--red);">78'</div>
+                <div style="display:flex; align-items:center; gap:20px; font-weight:900;">
+                    <span>YANGA SC</span>
+                    <span style="background:var(--bg-main); padding:5px 15px; border-radius:10px; font-size:1.2rem;">2 - 1</span>
+                    <span>SIMBA SC</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.75rem; font-weight:800;">
+                    ⚽ Aziz Ki 45' <br> ⚽ Mzize 67'
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openMatchCenter('yanga-simba');">Match Center</button>
+            </div>
+
+            <!-- Azam FC vs KMC FC (Live) -->
+            <div class="match-row-v3" data-status="live" data-comp="nbcpl" data-teams="azam kmc" onclick="openMatchCenter('azam-kmc')">
+                <div style="font-weight:950; color:var(--red);">56'</div>
+                <div style="display:flex; align-items:center; gap:20px; font-weight:900;">
+                    <span>AZAM FC</span>
+                    <span style="background:var(--bg-main); padding:5px 15px; border-radius:10px; font-size:1.2rem;">1 - 0</span>
+                    <span>KMC FC</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.75rem; font-weight:800;">
+                    ⚽ Feisal Salum 34'
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openMatchCenter('azam-kmc');">Match Center</button>
+            </div>
+
+            <!-- Singida vs Namungo (Upcoming) -->
+            <div class="match-row-v3" data-status="upcoming" data-comp="nbcpl" data-teams="singida namungo" onclick="openMatchCenter('singida-namungo')" style="display:none;">
+                <div style="font-weight:950; color:var(--primary);">19:00</div>
+                <div style="display:flex; align-items:center; gap:20px; font-weight:900;">
+                    <span>SINGIDA BS</span>
+                    <span style="background:var(--bg-main); padding:5px 15px; border-radius:10px; font-size:1.2rem; color:var(--text-muted);">VS</span>
+                    <span>NAMUNGO FC</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.75rem; font-weight:800;">
+                    Tonight • Liti Stadium
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openMatchCenter('singida-namungo');">Match Center</button>
+            </div>
+
+            <!-- JKT vs Tabora (Upcoming) -->
+            <div class="match-row-v3" data-status="upcoming" data-comp="nbcpl" data-teams="jkt tabora" onclick="openMatchCenter('jkt-tabora')" style="display:none;">
+                <div style="font-weight:950; color:var(--primary);">21:00</div>
+                <div style="display:flex; align-items:center; gap:20px; font-weight:900;">
+                    <span>JKT TANZANIA</span>
+                    <span style="background:var(--bg-main); padding:5px 15px; border-radius:10px; font-size:1.2rem; color:var(--text-muted);">VS</span>
+                    <span>TABORA UNITED</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.75rem; font-weight:800;">
+                    Tonight • Isamuhyo
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openMatchCenter('jkt-tabora');">Match Center</button>
+            </div>
+
+            <!-- Mtibwa vs Kagera (Finished) -->
+            <div class="match-row-v3" data-status="finished" data-comp="nbcpl" data-teams="mtibwa kagera" onclick="openMatchCenter('mtibwa-kagera')" style="display:none;">
+                <div style="font-weight:950; color:var(--text-muted);">FT</div>
+                <div style="display:flex; align-items:center; gap:20px; font-weight:900;">
+                    <span>MTIBWA SUGAR</span>
+                    <span style="background:var(--bg-main); padding:5px 15px; border-radius:10px; font-size:1.2rem;">0 - 2</span>
+                    <span>KAGERA SUGAR</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.75rem; font-weight:800;">
+                    ⚽ Yusuph 19' <br> ⚽ Jabiri 54'
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openMatchCenter('mtibwa-kagera');">Match Center</button>
+            </div>
+
+            <!-- Prisons vs Dodoma (Finished) -->
+            <div class="match-row-v3" data-status="finished" data-comp="nbcpl" data-teams="prisons dodoma" onclick="openMatchCenter('prisons-dodoma')" style="display:none;">
+                <div style="font-weight:950; color:var(--text-muted);">FT</div>
+                <div style="display:flex; align-items:center; gap:20px; font-weight:900;">
+                    <span>TANZANIA PRISONS</span>
+                    <span style="background:var(--bg-main); padding:5px 15px; border-radius:10px; font-size:1.2rem;">2 - 2</span>
+                    <span>DODOMA JIJI</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:0.75rem; font-weight:800;">
+                    ⚽ Mbangula 22', 61' <br> ⚽ Hoza 35', Karihe 90+2'
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openMatchCenter('prisons-dodoma');">Match Center</button>
+            </div>
+        </div>
+
+        <!-- GOAL ALERT CENTER -->
+        <div class="goal-alert-banner">
+            <div>
+                <span style="font-size:0.75rem; opacity:0.8;">🚨 GOAL ALERT</span>
+                <h3 style="margin:5px 0;">YANGA SC 2 - 1 SIMBA SC (78')</h3>
+            </div>
+            <div style="text-align:right;">
+                <p style="margin:0;">⚽ Clement Mzize</p>
+                <p style="margin:0; font-size:0.75rem; opacity:0.8;">🎯 Assist: Aziz Ki</p>
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 350px; gap:40px;">
+            <div>
+                <!-- LIVE MATCH CENTER IN DEPTH -->
+                <div class="momentum-wrap">
+                    <h3 style="font-weight:950; font-size:1rem; margin-bottom:10px;">MATCH MOMENTUM</h3>
+                    <p style="font-size:0.75rem; color:var(--text-muted); font-weight:800;">Who is dominating the game?</p>
+                    <div class="m-bar">
+                        <div style="width:70%; background:var(--primary); display:flex; align-items:center; padding-left:15px; font-weight:950; font-size:0.7rem; color:#000;">YANGA</div>
+                        <div style="width:30%; background:var(--red); display:flex; align-items:center; justify-content:flex-end; padding-right:15px; font-weight:950; font-size:0.7rem;">SIMBA</div>
+                    </div>
+                </div>
+
+                <!-- LIVE COMMENTARY -->
+                <div style="background:var(--bg-card); padding:30px; border-radius:25px; border:1px solid var(--border-color);">
+                    <h3 style="font-weight:950; font-size:1rem; margin-bottom:30px;">LIVE COMMENTARY</h3>
+                    <div class="com-timeline">
+                        <div class="com-item"><span class="com-time">78'</span><span class="com-text"><strong>GOAL!</strong> Clement Mzize finishes clinically after a brilliant ball from Aziz Ki.</span></div>
+                        <div class="com-item"><span class="com-time">75'</span><span class="com-text">Substitution Simba: Mohammed Hussein replaced by Player B.</span></div>
+                        <div class="com-item"><span class="com-time">72'</span><span class="com-text">Corner for Yanga after a deflected shot from Aziz Ki.</span></div>
+                        <div class="com-item"><span class="com-time">68'</span><span class="com-text">Shot on Target by Clement Mzize, saved by the keeper.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <!-- LIVE PLAYER RATINGS -->
+                <div style="background:var(--bg-card); padding:25px; border-radius:25px; border:1px solid var(--border-color); margin-bottom:30px;">
+                    <h3 style="font-weight:950; font-size:0.9rem; margin-bottom:20px;">LIVE PLAYER RATINGS</h3>
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div style="display:flex; justify-content:space-between; font-weight:900;"><span>⭐ Aziz Ki</span> <span style="color:var(--primary);">9.3</span></div>
+                        <div style="display:flex; justify-content:space-between; font-weight:900;"><span>⭐ Mzize</span> <span style="color:var(--primary);">8.9</span></div>
+                        <div style="display:flex; justify-content:space-between; font-weight:900;"><span>⭐ Chama</span> <span style="color:var(--accent);">8.5</span></div>
+                        <div style="display:flex; justify-content:space-between; font-weight:900;"><span>⭐ Diarra</span> <span style="color:var(--primary);">8.2</span></div>
+                    </div>
+                </div>
+
+                <!-- LIVE LEAGUE TABLE -->
+                <div style="background:var(--bg-card); padding:25px; border-radius:25px; border:1px solid var(--border-color);">
+                    <h3 style="font-weight:950; font-size:0.9rem; margin-bottom:20px;">LIVE LEAGUE TABLE</h3>
+                    <table class="mini-standings">
+                        <thead><tr style="font-size:0.6rem; color:var(--text-muted);"><td>POS</td><td>TEAM</td><td style="text-align:right;">PTS</td></tr></thead>
+                        <tbody>
+                            <tr><td>1</td><td>Yanga SC</td><td style="text-align:right;">72</td></tr>
+                            <tr><td>2</td><td>Simba SC</td><td style="text-align:right;">68</td></tr>
+                            <tr><td>3</td><td>Azam FC</td><td style="text-align:right;">61</td></tr>
+                            <tr><td>4</td><td>Singida BS</td><td style="text-align:right;">55</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TODAY'S MATCHES GROUPED -->
+        <div style="margin-top:60px;">
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:30px;">
+                <!-- TODAY LIVE -->
+                <div>
+                    <h4 style="font-weight:950; font-size:0.8rem; letter-spacing:2px; color:var(--red); margin-bottom:20px;">TODAY LIVE</h4>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div style="background:var(--bg-card); padding:15px; border-radius:15px; display:flex; justify-content:space-between; font-weight:900; font-size:0.85rem;">
+                            <span>Yanga 2 - 1 Simba</span>
+                        </div>
+                        <div style="background:var(--bg-card); padding:15px; border-radius:15px; display:flex; justify-content:space-between; font-weight:900; font-size:0.85rem;">
+                            <span>Azam 1 - 0 KMC</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- UPCOMING -->
+                <div>
+                    <h4 style="font-weight:950; font-size:0.8rem; letter-spacing:2px; color:var(--primary); margin-bottom:20px;">UPCOMING</h4>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div style="background:var(--bg-card); padding:15px; border-radius:15px; display:flex; justify-content:space-between; font-weight:900; font-size:0.85rem; opacity:0.8;">
+                            <span>Singida vs Namungo</span> <span style="color:var(--accent);">19:00</span>
+                        </div>
+                        <div style="background:var(--bg-card); padding:15px; border-radius:15px; display:flex; justify-content:space-between; font-weight:900; font-size:0.85rem; opacity:0.8;">
+                            <span>JKT vs Tabora</span> <span style="color:var(--accent);">21:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>⏳ Upcoming Matches</span></div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+            <div style="background:var(--bg-card); padding:30px; border-radius:20px; text-align:center; border:1px solid var(--border-color);">
+                <p style="color:var(--primary); font-weight:950; font-size:0.7rem;">TOMORROW</p>
+                <h3 style="font-weight:950; margin:15px 0;">Yanga vs Azam</h3>
+                <span style="font-weight:900; color:var(--text-muted);">19:00</span>
+            </div>
+            <div style="background:var(--bg-card); padding:30px; border-radius:20px; text-align:center; border:1px solid var(--border-color);">
+                <p style="color:var(--primary); font-weight:950; font-size:0.7rem;">SATURDAY</p>
+                <h3 style="font-weight:950; margin:15px 0;">Simba vs KMC</h3>
+                <span style="font-weight:900; color:var(--text-muted);">16:00</span>
+            </div>
+        </div>
+
+        <div class="section-separator"><span>✅ Recent Results</span></div>
+
+        <div style="background:var(--bg-card); border-radius:30PX; padding:30px; border:1px solid var(--border-color);">
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <div style="display:flex; justify-content:space-between; font-weight:900;"><span>Yanga 2 - 1 Simba</span> <span style="color:var(--text-muted);">FINAL</span></div>
+                <div style="display:flex; justify-content:space-between; font-weight:900;"><span>Azam 3 - 0 KMC</span> <span style="color:var(--text-muted);">FINAL</span></div>
+                <div style="display:flex; justify-content:space-between; font-weight:900;"><span>Singida 1 - 1 Coastal</span> <span style="color:var(--text-muted);">FINAL</span></div>
+            </div>
+            <a href="results.html" style="display:block; text-align:center; margin-top:20px; font-weight:950; color:var(--primary);">View All Results →</a>
+        </div>
+
+        <!-- FAN POLL -->
+        <div style="margin-top:60px; background:linear-gradient(to right, #001d3d, #000); padding:40px; border-radius:30px; border:1px solid var(--primary-glow); text-align:center;">
+            <h3 style="font-weight:950; font-size:1.5rem; margin-bottom:10px;">FAN POLL: Who Will Win?</h3>
+            <p style="color:var(--text-muted); font-weight:800; margin-bottom:30px;">NBC Premier League Match Center</p>
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="btn btn-outline" style="flex:1; padding:20px; border-radius:20px;">🟢 Yanga 63%</button>
+                <button class="btn btn-outline" style="flex:1; padding:20px; border-radius:20px;">⚪ Draw 12%</button>
+                <button class="btn btn-outline" style="flex:1; padding:20px; border-radius:20px;">🔴 Simba 25%</button>
+            </div>
+        </div>
+
+    </main>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html" class="active"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+    <script>
+        function openMatchCenter(matchId) {
+            window.location.href = `match-details.html?id=${matchId}`;
+        }
+
+        // Tabs filtering
+        let currentTab = 'live';
+
+        function switchLiveScoresTab(status, element) {
+            currentTab = status;
+
+            // Toggles active button
+            const buttons = document.querySelectorAll('.ls-tab-v3');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            // Update list headers
+            const listTitleText = document.getElementById('match-list-status-text');
+            const listStatusDot = document.getElementById('match-list-status-dot');
+
+            if (status === 'live') {
+                listTitleText.innerText = 'LIVE MATCHES';
+                listStatusDot.innerText = '🔴';
+                listStatusDot.style.animation = 'blink 1s infinite';
+                listStatusDot.style.color = 'var(--red)';
+            } else if (status === 'upcoming') {
+                listTitleText.innerText = 'UPCOMING MATCHES';
+                listStatusDot.innerText = '⏳';
+                listStatusDot.style.animation = 'none';
+                listStatusDot.style.color = 'var(--primary)';
+            } else {
+                listTitleText.innerText = 'FINISHED MATCHES';
+                listStatusDot.innerText = '✅';
+                listStatusDot.style.animation = 'none';
+                listStatusDot.style.color = 'var(--green)';
+            }
+
+            filterLiveScores();
+        }
+
+        function filterLiveScores() {
+            const query = document.getElementById('ls-search-input').value.toLowerCase().trim();
+            const comp = document.getElementById('ls-comp-select').value;
+            const matches = document.querySelectorAll('#livescores-match-list .match-row-v3');
+
+            matches.forEach(match => {
+                const mStatus = match.getAttribute('data-status');
+                const mComp = match.getAttribute('data-comp');
+                const mTeams = match.getAttribute('data-teams').toLowerCase();
+
+                // Check if status fits
+                const statusMatch = (mStatus === currentTab);
+                // Check if comp fits
+                const compMatch = (comp === 'all' || mComp === comp);
+                // Check if search query fits
+                const queryMatch = (!query || mTeams.includes(query));
+
+                if (statusMatch && compMatch && queryMatch) {
+                    match.style.display = 'flex';
+                } else {
+                    match.style.display = 'none';
+                }
+            });
+        }
+
+        // Set initial display correct on load
+        document.addEventListener('DOMContentLoaded', () => {
+            filterLiveScores();
+        });
+    </script>
+
+    
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

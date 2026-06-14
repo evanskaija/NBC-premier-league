@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standings | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown active">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html" class="active">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+    <style>
+        /* Professional Standings Overhaul */
+        .standings-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .dashboard-main {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Pro League Tabs */
+        .league-navigation {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.02);
+            padding: 8px;
+            border-radius: 60px;
+            border: 1px solid var(--border-color);
+            width: fit-content;
+            margin-bottom: 20px;
+        }
+        .league-tab {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            background: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .league-tab.active {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+        }
+
+        /* The Pro Table */
+        .table-container-v2 {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        .pro-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 4px;
+        }
+        .pro-table th {
+            padding: 15px;
+            text-align: left;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 950;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .pro-table td {
+            padding: 14px 15px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            background: transparent;
+            transition: transform 0.2s;
+        }
+        .pro-table tr { 
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+        .pro-table tr:not(.header-row):hover {
+            background: rgba(255,255,255,0.03);
+            transform: scale(1.002);
+        }
+
+        /* Specialized Zones */
+        .rank-badge {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 950;
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.05);
+        }
+        .rank-green { background: #22c55e !important; color: #000 !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
+        .rank-blue { background: #00b4d8 !important; color: #fff !important; box-shadow: 0 0 15px rgba(0, 180, 216, 0.2); }
+        .rank-yellow { background: #eab308 !important; color: #000 !important; }
+        .rank-red { background: #ef4444 !important; color: #fff !important; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+
+        /* Sidebar Pro Widgets */
+        .sidebar-v2 {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .side-widget {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 20px;
+        }
+        .sw-title {
+            font-size: 0.65rem;
+            font-weight: 950;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sw-title::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+
+        .leader-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.02);
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+        }
+        .leader-item:hover { border-color: var(--primary); background: rgba(0,180,216,0.05); }
+
+        .form-pill-stack { display: flex; gap: 4px; }
+        .form-pill { width: 14px; height: 14px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 950; }
+
+        @media (max-width: 1100px) {
+            .standings-dashboard { grid-template-columns: 1fr; }
+        }
+
+        /* Dynamic Modals & Backdrop Overlays */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 8, 20, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-container {
+            background: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 850px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            padding: 40px;
+        }
+        .modal-overlay.open .modal-container {
+            transform: scale(1);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 21000;
+        }
+        .modal-close-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .profile-main-data h3 {
+            font-size: 0.75rem;
+            font-weight: 950;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+    </style>
+
+    <main class="container section-padding">
+        <!-- Dashboard Header -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--border-color); padding-bottom:20px; margin-bottom:30px;">
+            <div>
+                <span id="page-league-tag" style="font-size:0.6rem; text-transform:uppercase; font-weight:900; color:var(--primary); letter-spacing:3px;">NBC Premier League</span>
+                <h1 id="main-standings-title" style="margin:5px 0 0; font-size:1.8rem; font-weight:900;">NBC Premier Standings</h1>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:0.7rem; font-weight:800; color:var(--text-white);"><i class="fa-solid fa-circle" style="font-size:0.4rem; color:#22c55e; margin-right:5px; vertical-align:middle;"></i> LIVE UPDATES</div>
+                <div style="font-size:0.6rem; color:var(--text-muted); font-weight:700;">Season 2026/27 • Matchday 28</div>
+            </div>
+        </div>
+
+        <!-- Sleek League Navigation -->
+        <div class="league-navigation">
+            <button class="league-tab active" onclick="switchLeague('nbcpl', this)">NBC Premier</button>
+            <button class="league-tab" onclick="switchLeague('champ', this)">Championship</button>
+            <button class="league-tab" onclick="switchLeague('first', this)">First League</button>
+            <button class="league-tab" onclick="switchLeague('women', this)">Women's</button>
+        </div>
+
+        <div class="standings-dashboard">
+            
+            <div class="dashboard-main">
+                <div class="table-container-v2 reveal-element">
+                    
+                    <!-- 1. NBC PREMIER LEAGUE TABLE -->
+                    <div id="nbcpl" class="league-table-section active">
+                        <table class="pro-table">
+                            <thead>
+                                <tr class="header-row">
+                                    <th>Rank</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background:rgba(34, 197, 94, 0.05)" onclick="openTeamProfile('yanga')"><td><div class="rank-badge rank-green">01</div></td><td><div style="display:flex; align-items:center; gap:12px;"><img src="images/yanga.jpg" style="height:28px;"> <span style="color:var(--primary)">Yanga SC</span></div></td><td>28</td><td>22</td><td>4</td><td>2</td><td>65</td><td>12</td><td>+53</td><td>70</td></tr>
+                                <tr style="background:rgba(34, 197, 94, 0.05)" onclick="openTeamProfile('simba')"><td><div class="rank-badge rank-green">02</div></td><td><div style="display:flex; align-items:center; gap:12px;"><img src="images/simba.jpg" style="height:28px;"> <span>Simba SC</span></div></td><td>28</td><td>20</td><td>5</td><td>3</td><td>58</td><td>18</td><td>+40</td><td>65</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)" onclick="openTeamProfile('azam')"><td><div class="rank-badge rank-blue">03</div></td><td><div style="display:flex; align-items:center; gap:12px;"><img src="images/zam.png" style="height:28px; background:#fff; border-radius:50%;"> <span>Azam FC</span></div></td><td>28</td><td>18</td><td>6</td><td>4</td><td>52</td><td>22</td><td>+30</td><td>60</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)" onclick="openTeamProfile('singida')"><td><div class="rank-badge rank-blue">04</div></td><td><div style="display:flex; align-items:center; gap:12px;"><img src="images/nbc.png" style="height:28px;"> <span>Singida BS</span></div></td><td>28</td><td>15</td><td>8</td><td>5</td><td>42</td><td>28</td><td>+14</td><td>53</td></tr>
+                                <tr onclick="openTeamProfile('coastal')"><td><div class="rank-badge">05</div></td><td>Coastal Union</td><td>28</td><td>12</td><td>9</td><td>7</td><td>35</td><td>25</td><td>+10</td><td>45</td></tr>
+                                <tr onclick="openTeamProfile('kmc')"><td><div class="rank-badge">06</div></td><td>KMC FC</td><td>28</td><td>11</td><td>10</td><td>7</td><td>32</td><td>29</td><td>+3</td><td>43</td></tr>
+                                <tr onclick="openTeamProfile('prisons')"><td><div class="rank-badge">07</div></td><td>Tanzania Prisons</td><td>28</td><td>10</td><td>9</td><td>9</td><td>28</td><td>30</td><td>-2</td><td>39</td></tr>
+                                <tr onclick="openTeamProfile('mashujaa')"><td><div class="rank-badge">08</div></td><td>Mashujaa FC</td><td>28</td><td>9</td><td>10</td><td>9</td><td>30</td><td>32</td><td>-2</td><td>37</td></tr>
+                                <tr onclick="openTeamProfile('namungo')"><td><div class="rank-badge">09</div></td><td>Namungo FC</td><td>28</td><td>8</td><td>11</td><td>9</td><td>25</td><td>28</td><td>-3</td><td>35</td></tr>
+                                <tr onclick="openTeamProfile('dodoma')"><td><div class="rank-badge">10</div></td><td>Dodoma Jiji</td><td>28</td><td>8</td><td>10</td><td>10</td><td>26</td><td>30</td><td>-4</td><td>34</td></tr>
+                                <tr onclick="openTeamProfile('kagera')"><td><div class="rank-badge">11</div></td><td>Kagera Sugar</td><td>28</td><td>7</td><td>12</td><td>9</td><td>22</td><td>28</td><td>-6</td><td>33</td></tr>
+                                <tr onclick="openTeamProfile('ihefu')"><td><div class="rank-badge">12</div></td><td>Ihefu FC</td><td>28</td><td>7</td><td>10</td><td>11</td><td>24</td><td>32</td><td>-8</td><td>31</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)" onclick="openTeamProfile('jkt')"><td><div class="rank-badge rank-yellow">13</div></td><td>JKT Tanzania</td><td>28</td><td>6</td><td>10</td><td>12</td><td>20</td><td>35</td><td>-15</td><td>28</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)" onclick="openTeamProfile('tabora')"><td><div class="rank-badge rank-yellow">14</div></td><td>Tabora United</td><td>28</td><td>5</td><td>11</td><td>12</td><td>18</td><td>38</td><td>-20</td><td>26</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)" onclick="openTeamProfile('mtibwa')"><td><div class="rank-badge rank-red">15</div></td><td>Mtibwa Sugar</td><td>28</td><td>5</td><td>7</td><td>16</td><td>18</td><td>45</td><td>-27</td><td>22</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)" onclick="openTeamProfile('geita')"><td><div class="rank-badge rank-red">16</div></td><td>Geita Gold</td><td>28</td><td>4</td><td>7</td><td>17</td><td>15</td><td>48</td><td>-33</td><td>19</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 2. CHAMPIONSHIP LEAGUE TABLE -->
+                    <div id="champ" class="league-table-section">
+                        <table class="pro-table">
+                            <thead>
+                                <tr class="header-row">
+                                    <th>Rank</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background:rgba(34, 197, 94, 0.05)"><td><div class="rank-badge rank-green">01</div></td><td>Pamba SC</td><td>22</td><td>14</td><td>5</td><td>3</td><td>40</td><td>15</td><td>+25</td><td>47</td></tr>
+                                <tr style="background:rgba(34, 197, 94, 0.05)"><td><div class="rank-badge rank-green">02</div></td><td>Kengold FC</td><td>22</td><td>13</td><td>6</td><td>3</td><td>38</td><td>18</td><td>+20</td><td>45</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)"><td><div class="rank-badge rank-blue">03</div></td><td>Mbeya City</td><td>22</td><td>12</td><td>5</td><td>5</td><td>35</td><td>20</td><td>+15</td><td>41</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)"><td><div class="rank-badge rank-blue">04</div></td><td>Biashara Mara</td><td>22</td><td>11</td><td>6</td><td>5</td><td>33</td><td>22</td><td>+11</td><td>39</td></tr>
+                                <tr><td><div class="rank-badge">05</div></td><td>Mbeya Kwanza</td><td>22</td><td>10</td><td>6</td><td>6</td><td>30</td><td>25</td><td>+5</td><td>36</td></tr>
+                                <tr><td><div class="rank-badge">06</div></td><td>TMA Stars</td><td>22</td><td>9</td><td>7</td><td>6</td><td>28</td><td>25</td><td>+3</td><td>34</td></tr>
+                                <tr><td><div class="rank-badge">07</div></td><td>Stand United</td><td>22</td><td>8</td><td>6</td><td>8</td><td>26</td><td>26</td><td>0</td><td>30</td></tr>
+                                <tr><td><div class="rank-badge">08</div></td><td>Polisi Tanzania</td><td>22</td><td>7</td><td>8</td><td>7</td><td>24</td><td>24</td><td>0</td><td>29</td></tr>
+                                <tr><td><div class="rank-badge">09</div></td><td>Transit Camp</td><td>22</td><td>7</td><td>6</td><td>9</td><td>22</td><td>28</td><td>-6</td><td>27</td></tr>
+                                <tr><td><div class="rank-badge">10</div></td><td>Pan African</td><td>22</td><td>6</td><td>8</td><td>8</td><td>20</td><td>25</td><td>-5</td><td>26</td></tr>
+                                <tr><td><div class="rank-badge">11</div></td><td>Green Warriors</td><td>22</td><td>6</td><td>7</td><td>9</td><td>19</td><td>27</td><td>-8</td><td>25</td></tr>
+                                <tr><td><div class="rank-badge">12</div></td><td>Ruvu Shooting</td><td>22</td><td>5</td><td>7</td><td>10</td><td>18</td><td>30</td><td>-12</td><td>22</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)"><td><div class="rank-badge rank-yellow">13</div></td><td>Mwadui FC</td><td>22</td><td>4</td><td>8</td><td>10</td><td>16</td><td>28</td><td>-12</td><td>20</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)"><td><div class="rank-badge rank-yellow">14</div></td><td>Copco Veteran</td><td>22</td><td>4</td><td>6</td><td>12</td><td>15</td><td>32</td><td>-17</td><td>18</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)"><td><div class="rank-badge rank-red">15</div></td><td>Nyamongo FC</td><td>22</td><td>3</td><td>7</td><td>12</td><td>14</td><td>35</td><td>-21</td><td>16</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)"><td><div class="rank-badge rank-red">16</div></td><td>Mpanda United</td><td>22</td><td>2</td><td>6</td><td>14</td><td>12</td><td>38</td><td>-26</td><td>12</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 3. FIRST LEAGUE TABLE -->
+                    <div id="first" class="league-table-section">
+                        <table class="pro-table">
+                            <thead>
+                                <tr class="header-row">
+                                    <th>Rank</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background:rgba(34, 197, 94, 0.05)"><td><div class="rank-badge rank-green">01</div></td><td>Arusha FC</td><td>18</td><td>12</td><td>4</td><td>2</td><td>35</td><td>12</td><td>+23</td><td>40</td></tr>
+                                <tr style="background:rgba(34, 197, 94, 0.05)"><td><div class="rank-badge rank-green">02</div></td><td>Lake FC</td><td>18</td><td>11</td><td>3</td><td>4</td><td>32</td><td>15</td><td>+17</td><td>36</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)"><td><div class="rank-badge rank-blue">03</div></td><td>Dodoma FC</td><td>18</td><td>10</td><td>5</td><td>3</td><td>30</td><td>15</td><td>+15</td><td>35</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)"><td><div class="rank-badge rank-blue">04</div></td><td>Coastal B</td><td>18</td><td>9</td><td>6</td><td>3</td><td>28</td><td>18</td><td>+10</td><td>33</td></tr>
+                                <tr><td><div class="rank-badge">05</div></td><td>Morogoro FC</td><td>18</td><td>8</td><td>5</td><td>5</td><td>22</td><td>20</td><td>+2</td><td>29</td></tr>
+                                <tr><td><div class="rank-badge">06</div></td><td>Zanzibar U</td><td>18</td><td>7</td><td>6</td><td>5</td><td>20</td><td>18</td><td>+2</td><td>27</td></tr>
+                                <tr><td><div class="rank-badge">07</div></td><td>Songea FC</td><td>18</td><td>7</td><td>5</td><td>6</td><td>19</td><td>18</td><td>+1</td><td>26</td></tr>
+                                <tr><td><div class="rank-badge">08</div></td><td>Iringa Stars</td><td>18</td><td>6</td><td>6</td><td>6</td><td>18</td><td>19</td><td>-1</td><td>24</td></tr>
+                                <tr><td><div class="rank-badge">09</div></td><td>Kigoma FC</td><td>18</td><td>6</td><td>5</td><td>7</td><td>17</td><td>20</td><td>-3</td><td>23</td></tr>
+                                <tr><td><div class="rank-badge">10</div></td><td>Mwanza FC</td><td>18</td><td>5</td><td>6</td><td>7</td><td>16</td><td>22</td><td>-6</td><td>21</td></tr>
+                                <tr><td><div class="rank-badge">11</div></td><td>Shinyanga U</td><td>18</td><td>4</td><td>8</td><td>6</td><td>15</td><td>22</td><td>-7</td><td>20</td></tr>
+                                <tr><td><div class="rank-badge">12</div></td><td>Musoma FC</td><td>18</td><td>4</td><td>7</td><td>7</td><td>14</td><td>24</td><td>-10</td><td>19</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)"><td><div class="rank-badge rank-yellow">13</div></td><td>Tanga Stars</td><td>18</td><td>4</td><td>4</td><td>10</td><td>15</td><td>28</td><td>-13</td><td>16</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)"><td><div class="rank-badge rank-yellow">14</div></td><td>Kilimanjaro F</td><td>18</td><td>3</td><td>5</td><td>10</td><td>14</td><td>30</td><td>-16</td><td>14</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)"><td><div class="rank-badge rank-red">15</div></td><td>Singida B</td><td>18</td><td>2</td><td>5</td><td>11</td><td>12</td><td>35</td><td>-23</td><td>11</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)"><td><div class="rank-badge rank-red">16</div></td><td>Lindi United</td><td>18</td><td>1</td><td>4</td><td>13</td><td>10</td><td>40</td><td>-30</td><td>7</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 4. WOMEN'S LEAGUE TABLE -->
+                    <div id="women" class="league-table-section">
+                        <table class="pro-table">
+                            <thead>
+                                <tr class="header-row">
+                                    <th>Rank</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background:rgba(34, 197, 94, 0.05)"><td><div class="rank-badge rank-green">01</div></td><td>Simba Queens</td><td>18</td><td>16</td><td>2</td><td>0</td><td>65</td><td>5</td><td>+60</td><td>50</td></tr>
+                                <tr style="background:rgba(34, 197, 94, 0.05)"><td><div class="rank-badge rank-green">02</div></td><td>Yanga Princess</td><td>18</td><td>15</td><td>1</td><td>2</td><td>58</td><td>8</td><td>+50</td><td>46</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)"><td><div class="rank-badge rank-blue">03</div></td><td>JKT Queens</td><td>18</td><td>13</td><td>3</td><td>2</td><td>45</td><td>12</td><td>+33</td><td>42</td></tr>
+                                <tr style="background:rgba(0, 180, 216, 0.05)"><td><div class="rank-badge rank-blue">04</div></td><td>Fountain Gate</td><td>18</td><td>11</td><td>4</td><td>3</td><td>40</td><td>15</td><td>+25</td><td>37</td></tr>
+                                <tr><td><div class="rank-badge">05</div></td><td>Mlandizi Q</td><td>18</td><td>9</td><td>5</td><td>4</td><td>32</td><td>22</td><td>+10</td><td>32</td></tr>
+                                <tr><td><div class="rank-badge">06</div></td><td>Ceasiaa Q</td><td>18</td><td>8</td><td>4</td><td>6</td><td>28</td><td>25</td><td>+3</td><td>28</td></tr>
+                                <tr><td><div class="rank-badge">07</div></td><td>Evergreen Q</td><td>18</td><td>7</td><td>5</td><td>6</td><td>24</td><td>20</td><td>+4</td><td>26</td></tr>
+                                <tr><td><div class="rank-badge">08</div></td><td>Ruvuma Q</td><td>18</td><td>6</td><td>6</td><td>6</td><td>22</td><td>22</td><td>0</td><td>24</td></tr>
+                                <tr><td><div class="rank-badge">09</div></td><td>Tabora Q</td><td>18</td><td>6</td><td>4</td><td>8</td><td>20</td><td>25</td><td>-5</td><td>22</td></tr>
+                                <tr><td><div class="rank-badge">10</div></td><td>Dodoma Q</td><td>18</td><td>5</td><td>6</td><td>7</td><td>18</td><td>24</td><td>-6</td><td>21</td></tr>
+                                <tr><td><div class="rank-badge">11</div></td><td>Arusha Q</td><td>18</td><td>4</td><td>7</td><td>7</td><td>15</td><td>22</td><td>-7</td><td>19</td></tr>
+                                <tr><td><div class="rank-badge">12</div></td><td>Mwanza Q</td><td>18</td><td>4</td><td>5</td><td>9</td><td>14</td><td>30</td><td>-16</td><td>17</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)"><td><div class="rank-badge rank-yellow">13</div></td><td>Baobab Q</td><td>18</td><td>3</td><td>4</td><td>11</td><td>12</td><td>38</td><td>-26</td><td>13</td></tr>
+                                <tr style="background:rgba(234, 179, 8, 0.05)"><td><div class="rank-badge rank-yellow">14</div></td><td>The Tiger Q</td><td>18</td><td>2</td><td>5</td><td>11</td><td>10</td><td>42</td><td>-32</td><td>11</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)"><td><div class="rank-badge rank-red">15</div></td><td>Amani Queens</td><td>18</td><td>1</td><td>4</td><td>13</td><td>8</td><td>55</td><td>-47</td><td>7</td></tr>
+                                <tr style="background:rgba(239, 68, 68, 0.05)"><td><div class="rank-badge rank-red">16</div></td><td>Lindi Queens</td><td>18</td><td>0</td><td>3</td><td>15</td><td>5</td><td>78</td><td>-73</td><td>3</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:rgba(255,255,255,0.02); border-radius:12px; border:1px solid var(--border-color);">
+                   <div style="display:flex; gap:20px;">
+                        <span style="font-size:0.65rem; font-weight:800;"><i class="fa-solid fa-square" style="color:#22c55e;"></i> CL Slot</span>
+                        <span style="font-size:0.65rem; font-weight:800;"><i class="fa-solid fa-square" style="color:#00b4d8;"></i> Confed Cup</span>
+                        <span style="font-size:0.65rem; font-weight:800;"><i class="fa-solid fa-square" style="color:#ef4444;"></i> Relegation</span>
+                   </div>
+                   <button class="btn btn-sm" style="font-size:0.6rem; font-weight:900;">Rules & Regulations <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDEBAR (The Data Stack) -->
+            <aside class="sidebar-v2">
+                
+                <div class="side-widget reveal-element">
+                    <div class="sw-title"><i class="fa-solid fa-crown"></i> Table Leaders</div>
+                    <div class="leader-item">
+                        <img id="sidebar-leader-img" src="images/yanga.jpg" style="height:35px;">
+                        <div>
+                            <div id="sidebar-leader-name" style="font-weight:950; font-size:0.8rem;">Yanga SC</div>
+                            <div class="form-pill-stack">
+                                <div class="form-pill form-w">W</div><div class="form-pill form-w">W</div><div class="form-pill form-w">W</div><div class="form-pill form-w">W</div><div class="form-pill form-w">W</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-widget reveal-element">
+                    <div class="sw-title"><i class="fa-solid fa-calculator"></i> Efficiency Stats</div>
+                    <div class="stat-line"><span>Attack Rating</span> <strong>High (2.3)</strong></div>
+                    <div class="stat-line"><span>Def. Clean Sheets</span> <strong>18 (Diarra)</strong></div>
+                    <div class="stat-line"><span>Home Wins</span> <strong>14 Games</strong></div>
+                </div>
+
+                <div class="side-widget reveal-element" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), transparent);">
+                    <div class="sw-title" style="color:#ef4444;"><i class="fa-solid fa-circle-exclamation"></i> Danger Zone</div>
+                    <div style="font-size:0.75rem; font-weight:800; line-height:1.5;">
+                        Clubs in <strong style="color:#ef4444;">Positions 15 & 16</strong> will be automatically relegated to the Championship.
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+    </main>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html" class="active"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    <!-- Modal for Team Profile -->
+    <div id="team-profile-modal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:99999; overflow-y:auto; padding:50px 0;" onclick="closeTeamProfileOnOutsideClick(event)">
+        <div class="modal-container" style="background:var(--bg-card); border-radius:30px; border:1px solid var(--border-color); padding:60px; position:relative; box-shadow:0 30px 100px rgba(0,0,0,0.8); width:90%; max-width:1100px; margin:50px auto;">
+            <button onclick="closeTeamProfile()" style="position:absolute; right:30px; top:30px; background:none; border:none; color:var(--text-main); font-size:2.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+            <div id="profile-content"></div>
+        </div>
+    </div>
+
+    <script>
+        function openTeamProfile(teamId, teamName) {
+            let id = teamId;
+            if (teamName) {
+                const lowerName = teamName.toLowerCase();
+                if (lowerName.includes('yanga')) id = 'yanga';
+                else if (lowerName.includes('simba')) id = 'simba';
+                else if (lowerName.includes('azam')) id = 'azam';
+                else if (lowerName.includes('singida')) id = 'singida';
+                else if (lowerName.includes('coastal')) id = 'coastal';
+                else if (lowerName.includes('kmc')) id = 'kmc';
+                else if (lowerName.includes('prisons')) id = 'prisons';
+                else if (lowerName.includes('mashujaa')) id = 'mashujaa';
+                else if (lowerName.includes('namungo')) id = 'namungo';
+                else if (lowerName.includes('dodoma')) id = 'dodoma';
+                else if (lowerName.includes('kagera')) id = 'kagera';
+                else if (lowerName.includes('ihefu')) id = 'ihefu';
+                else if (lowerName.includes('jkt')) id = 'jkt';
+                else if (lowerName.includes('tabora')) id = 'tabora';
+                else if (lowerName.includes('mtibwa')) id = 'mtibwa';
+                else if (lowerName.includes('geita')) id = 'geita';
+            }
+            window.location.href = 'team-details.html?id=' + id;
+        }
+
+        function closeTeamProfile() {
+            // Stop any playing videos in the modal
+            const videos = document.querySelectorAll('#profile-content video');
+            videos.forEach(v => v.pause());
+
+            document.getElementById('team-profile-modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function closeTeamProfileOnOutsideClick(event) {
+            if (event.target === document.getElementById('team-profile-modal')) {
+                closeTeamProfile();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableRows = document.querySelectorAll('.pro-table tbody tr');
+            tableRows.forEach(row => {
+                row.style.cursor = 'pointer';
+                row.addEventListener('click', () => {
+                    const cell = row.cells[1];
+                    if (!cell) return;
+                    
+                    const nameSpan = cell.querySelector('span');
+                    const teamName = nameSpan ? nameSpan.innerText.trim() : cell.innerText.trim();
+                    
+                    let id = 'other';
+                    if (teamName.toLowerCase().includes('yanga')) id = 'yanga';
+                    else if (teamName.toLowerCase().includes('simba')) id = 'simba';
+                    else if (teamName.toLowerCase().includes('azam')) id = 'azam';
+                    
+                    openTeamProfile(id, teamName);
+                });
+            });
+        });
+    </script>
+
+    
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

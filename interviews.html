@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Interviews | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Shared News Header Box Styling */
+        .news-header-box {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .news-capsule-nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .news-capsule {
+            background: rgba(0, 180, 216, 0.05);
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .news-capsule:hover, .news-capsule.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* 1. Page Header & Filters */
+        .interviews-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .interviews-intro h2 {
+            font-size: 3rem;
+            font-weight: 950;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .interviews-intro p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .search-filter-bar {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+        }
+        .search-box-wrapper {
+            position: relative;
+            flex: 1.2;
+            min-width: 280px;
+        }
+        .search-box-wrapper input {
+            width: 100%;
+            padding: 10px 20px 10px 45px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: #fff;
+            font-family: inherit;
+            font-weight: 600;
+            outline: none;
+            transition: var(--transition);
+        }
+        .search-box-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+        .search-box-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .filter-dropdowns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-dropdowns select {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            outline: none;
+            transition: var(--transition);
+        }
+        .filter-dropdowns select:hover {
+            border-color: var(--primary);
+        }
+
+        /* 2. Featured Interview Spotlights */
+        .featured-interview-box {
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.15), rgba(0, 53, 102, 0.4));
+            border: 1px solid var(--primary-glow);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .featured-thumb-wrapper {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: #111;
+            border: 1px solid var(--border-color);
+        }
+        .featured-thumb-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .play-overlay-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--primary-glow);
+            transition: var(--transition);
+        }
+        .play-overlay-btn:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: var(--accent);
+        }
+        .featured-info-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .featured-tag {
+            background: var(--accent);
+            color: black;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 900;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 15px;
+        }
+        .featured-info-content h3 {
+            font-size: 2.2rem;
+            font-weight: 950;
+            line-height: 1.1;
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
+        }
+        .featured-info-content h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+        }
+        .featured-meta-row {
+            display: flex;
+            gap: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .featured-meta-row span i {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        /* 3. Latest Interviews List */
+        .latest-interviews-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .latest-int-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+        .latest-int-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .latest-int-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .microphone-badge {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(0, 180, 216, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+        }
+        .latest-int-meta h4 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin: 0 0 4px 0;
+        }
+        .latest-int-meta p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* 4. Post-Match Reactions */
+        .reactions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .reaction-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .reaction-card:hover {
+            border-color: var(--primary);
+            background: var(--bg-hover);
+        }
+        .reaction-card i {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .reaction-card h4 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin: 0 0 6px 0;
+        }
+        .reaction-card p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* 5. Press Conferences */
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .press-card {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('images/stadium.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .press-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.03);
+        }
+        .press-card h4 {
+            font-size: 1.15rem;
+            font-weight: 950;
+            margin: 0;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .press-card span {
+            font-size: 0.7rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        /* Split layout components */
+        .interviews-split {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        @media (max-width: 900px) {
+            .interviews-split {
+                grid-template-columns: 1fr;
+            }
+            .featured-interview-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 6. Player Stories grid */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        @media (max-width: 500px) {
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .story-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            transition: var(--transition);
+        }
+        .story-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .story-card h4 {
+            font-size: 1.05rem;
+            font-weight: 900;
+            margin: 0 0 5px 0;
+        }
+        .story-card p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* 7. Coach Corner */
+        .coach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .coach-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            transition: var(--transition);
+        }
+        .coach-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .coach-card h4 {
+            font-size: 1.15rem;
+            font-weight: 900;
+            margin: 0 0 6px 0;
+        }
+        .coach-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0 0 12px 0;
+            font-weight: 600;
+        }
+        .coach-card span.tactical-tag {
+            font-size: 0.65rem;
+            font-weight: 900;
+            background: rgba(0, 180, 216, 0.1);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 40px;
+            text-transform: uppercase;
+        }
+
+        /* 8. Trending List */
+        .trending-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .trending-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .trending-item:hover {
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+        .trending-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 900;
+        }
+        .trending-left span.rank {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .trending-item span.views-count {
+            background: rgba(255, 195, 0, 0.1);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 950;
+        }
+
+        /* 9. Video Interview Library */
+        .video-library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .video-lib-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .video-lib-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        .video-lib-thumb-wrapper {
+            position: relative;
+            height: 180px;
+            background: #111;
+        }
+        .video-lib-thumb-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-lib-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 2px 6px;
+            font-size: 0.65rem;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+        .video-lib-card-body {
+            padding: 15px 20px;
+        }
+        .video-lib-card-body h4 {
+            font-size: 0.95rem;
+            font-weight: 900;
+            margin: 0 0 6px 0;
+        }
+        .video-lib-meta-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .video-lib-watch-btn {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 0.75rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: inherit;
+        }
+        .video-lib-watch-btn:hover {
+            color: var(--accent);
+        }
+
+        /* 10. Audio Interviews Waveform */
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .audio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+        .audio-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .audio-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .audio-icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(0, 180, 216, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .audio-info h4 {
+            font-size: 1.05rem;
+            font-weight: 900;
+            margin: 0 0 3px 0;
+        }
+        .audio-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* 11. Written Q&As */
+        .written-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .written-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .written-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .written-card h4 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+        }
+        .written-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+            font-weight: 600;
+        }
+        .written-read-link {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* 12. Legends tribute series */
+        .legends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        .legend-card {
+            background: linear-gradient(135deg, rgba(255,195,0,0.05), rgba(0, 53, 102, 0.3));
+            border: 1px solid rgba(255, 195, 0, 0.2);
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .legend-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        .legend-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: block;
+        }
+        .legend-card h4 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin: 0 0 4px 0;
+        }
+        .legend-card p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Section Headings */
+        .section-header-pl h2 {
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 1.35rem;
+            font-weight: 950;
+            letter-spacing: -0.5px;
+        }
+
+        /* Dynamic Detail Viewer Modal Overlays */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 8, 20, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-container {
+            background: var(--bg-alt);
+            border: 1px solid var(--primary-glow);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 750px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+        }
+        .modal-overlay.open .modal-container {
+            transform: scale(1);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        .modal-close-btn:hover {
+            background: #ff3b30;
+            border-color: #ff3b30;
+        }
+        
+        .modal-media-wrapper {
+            padding: 30px 30px 15px 30px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(to right, rgba(0, 180, 216, 0.05), transparent);
+        }
+        .modal-media-title {
+            font-size: 1.6rem;
+            font-weight: 950;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+        .modal-media-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .modal-video-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: #111;
+            border: 1px solid var(--border-color);
+        }
+        .modal-video-container video {
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+        .modal-section-title {
+            font-size: 0.75rem;
+            font-weight: 950;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 25px 0 12px 0;
+            display: block;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 6px;
+        }
+        .modal-section-title:first-child {
+            margin-top: 0;
+        }
+        .modal-text-block {
+            background: rgba(255,255,255,0.02);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Comments design */
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .comment-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 12px 18px;
+            border-radius: 10px;
+        }
+        .comment-item-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .comment-item-content {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .comment-form textarea {
+            width: 100%;
+            height: 70px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            padding: 10px 15px;
+            outline: none;
+            resize: none;
+            font-family: inherit;
+            font-size: 0.8rem;
+        }
+        .comment-form textarea:focus {
+            border-color: var(--primary);
+        }
+        .comment-form button {
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown active">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html" class="active">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+    <div class="container">
+        <!-- 3. News Center Boxed Header -->
+        <header class="news-header-box fade-in">
+            <h1 style="font-weight: 950; font-size: 2rem; letter-spacing: -1px; margin-bottom: 10px;">NEWS CENTER</h1>
+            <div class="news-capsule-nav">
+                <a href="news.html" class="news-capsule">Latest</a>
+                <a href="transfers.html" class="news-capsule">Transfers</a>
+                <a href="interviews.html" class="news-capsule active">Interviews</a>
+                <a href="features.html" class="news-capsule">Features</a>
+                <a href="reports.html" class="news-capsule">Reports</a>
+                <a href="videos.html" class="news-capsule">Videos</a>
+            </div>
+        </header>
+
+        <!-- PAGE HEADER -->
+        <section class="interviews-intro reveal-element">
+            <h2>INTERVIEWS</h2>
+            <p>Exclusive interviews, press conferences, post-match reactions, and football stories from players, coaches, and legends.</p>
+            
+            <!-- Search & Filters -->
+            <div class="search-filter-bar">
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="interview-search" placeholder="Search Interview...">
+                </div>
+                <div class="filter-dropdowns">
+                    <select id="filter-type">
+                        <option value="all">All Interviews ▼</option>
+                        <option value="players">Players</option>
+                        <option value="coaches">Coaches</option>
+                        <option value="clubs">Clubs</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED INTERVIEW -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Featured Interview ⭐</h2>
+            </div>
+            <div class="featured-interview-box" onclick="openInterviewDetails('aziz-ki-exclusive')" style="cursor: pointer;">
+                <div class="featured-thumb-wrapper">
+                    <img src="images/matchday.jpg" alt="Aziz Ki">
+                    <div class="play-overlay-btn"><i class="fa-solid fa-play"></i></div>
+                </div>
+                <div class="featured-info-content">
+                    <div class="featured-tag">Aziz Ki Exclusive</div>
+                    <h3>"My Goal Is To Win More Trophies"</h3>
+                    <div class="featured-meta-row">
+                        <span><i class="fa-regular fa-clock"></i> 12 Min</span>
+                        <span><i class="fa-regular fa-calendar"></i> Today</span>
+                    </div>
+                    <button class="btn btn-primary" style="width:fit-content;">Watch Interview</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LATEST INTERVIEWS -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Latest Interviews 🎥</h2>
+            </div>
+            <div class="latest-interviews-list">
+                <div class="latest-int-card" onclick="openInterviewDetails('miguel-gamondi')" style="cursor: pointer;" data-title="Miguel Gamondi Post Match Yanga Simba" data-type="coaches">
+                    <div class="latest-int-left">
+                        <div class="microphone-badge"><i class="fa-solid fa-microphone"></i></div>
+                        <div class="latest-int-meta">
+                            <h4>Miguel Gamondi</h4>
+                            <p>Post-Match Interview — Yanga 2-1 Simba</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Watch</button>
+                </div>
+
+                <div class="latest-int-card" onclick="openInterviewDetails('feisal-salum')" style="cursor: pointer;" data-title="Feisal Salum Player Interview Azam FC" data-type="players">
+                    <div class="latest-int-left">
+                        <div class="microphone-badge"><i class="fa-solid fa-microphone"></i></div>
+                        <div class="latest-int-meta">
+                            <h4>Feisal Salum</h4>
+                            <p>Player Interview — Azam FC</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Watch</button>
+                </div>
+
+                <div class="latest-int-card" onclick="openInterviewDetails('clatous-chama')" style="cursor: pointer;" data-title="Clatous Chama Exclusive Interview Simba SC" data-type="players">
+                    <div class="latest-int-left">
+                        <div class="microphone-badge"><i class="fa-solid fa-microphone"></i></div>
+                        <div class="latest-int-meta">
+                            <h4>Clatous Chama</h4>
+                            <p>Exclusive Interview — Simba SC</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Watch</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- POST-MATCH REACTIONS -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Post-Match Reactions 🎤</h2>
+            </div>
+            <div class="reactions-grid">
+                <div class="reaction-card" onclick="openInterviewDetails('coach-reactions')" style="cursor: pointer;">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <h4>Coach Reactions</h4>
+                    <p>Post-Match tactics analyses</p>
+                </div>
+                <div class="reaction-card" onclick="openInterviewDetails('player-reactions')" style="cursor: pointer;">
+                    <i class="fa-solid fa-running"></i>
+                    <h4>Player Reactions</h4>
+                    <p>On-pitch feedback</p>
+                </div>
+                <div class="reaction-card" onclick="openInterviewDetails('motm-highlights')" style="cursor: pointer;">
+                    <i class="fa-solid fa-award"></i>
+                    <h4>Man of the Match</h4>
+                    <p>Exclusive highlights</p>
+                </div>
+                <div class="reaction-card" onclick="openInterviewDetails('fan-reactions')" style="cursor: pointer;">
+                    <i class="fa-solid fa-users"></i>
+                    <h4>Fan Reactions</h4>
+                    <p>Stadium atmosphere feedback</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRESS CONFERENCES -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Press Conferences 🏆</h2>
+            </div>
+            <div class="press-grid">
+                <div class="press-card" onclick="openInterviewDetails('yanga-press')">
+                    <span>Yanga SC</span>
+                    <h4>Pre-Match Briefing</h4>
+                </div>
+                <div class="press-card" onclick="openInterviewDetails('simba-press')">
+                    <span>Simba SC</span>
+                    <h4>Manager's Briefing</h4>
+                </div>
+                <div class="press-card" onclick="openInterviewDetails('azam-press')">
+                    <span>Azam FC</span>
+                    <h4>New Signing Conference</h4>
+                </div>
+                <div class="press-card" onclick="openInterviewDetails('tff-press')">
+                    <span>TFF Officials</span>
+                    <h4>Board Conferences</h4>
+                </div>
+            </div>
+            <div class="text-center mt-10" style="margin-bottom: 50px;">
+                <button class="btn btn-pill btn-sm">View All Press Conferences →</button>
+            </div>
+        </section>
+
+        <!-- PLAYER STORIES & COACH CORNER split -->
+        <div class="interviews-split">
+            <!-- Player Stories -->
+            <section class="reveal-element">
+                <div class="section-header-pl">
+                    <h2>Player Stories 👤</h2>
+                </div>
+                <div class="stories-grid">
+                    <div class="story-card" onclick="openInterviewDetails('aziz-ki-journey')" style="cursor: pointer;">
+                        <h4>Aziz Ki Journey</h4>
+                        <p>From Burkina Faso to Tanzania's top flight.</p>
+                    </div>
+                    <div class="story-card" onclick="openInterviewDetails('feisal-salum-story')" style="cursor: pointer;">
+                        <h4>Feisal Salum Story</h4>
+                        <p>Zanzibar's hero making moves on the mainland.</p>
+                    </div>
+                    <div class="story-card" onclick="openInterviewDetails('djigui-diarra-career')" style="cursor: pointer;">
+                        <h4>Djigui Diarra Career</h4>
+                        <p>Under the gloves of Yanga's champion stopper.</p>
+                    </div>
+                    <div class="story-card" onclick="openInterviewDetails('allan-okello-story')" style="cursor: pointer;">
+                        <h4>Allan Okello Interview</h4>
+                        <p>The Ugandan maestro on vision & creativity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coach Corner -->
+            <section class="reveal-element">
+                <div class="section-header-pl">
+                    <h2>Coach Corner 👨‍💼</h2>
+                </div>
+                <div class="trending-list">
+                    <div class="trending-item" onclick="openInterviewDetails('gamondi-corner')">
+                        <div class="trending-left">
+                            <span class="rank">⭐</span>
+                            <div>
+                                <h4 style="margin:0; font-size:1rem;">Miguel Gamondi</h4>
+                                <p style="margin:4px 0 0 0; font-size:0.75rem; color:var(--text-muted);">Season Reviews</p>
+                            </div>
+                        </div>
+                        <span class="views-count">Tactical</span>
+                    </div>
+                    <div class="trending-item" onclick="openInterviewDetails('benchikha-corner')">
+                        <div class="trending-left">
+                            <span class="rank">⭐</span>
+                            <div>
+                                <h4 style="margin:0; font-size:1rem;">Abdelhak Benchikha</h4>
+                                <p style="margin:4px 0 0 0; font-size:0.75rem; color:var(--text-muted);">Tactical Discussions</p>
+                            </div>
+                        </div>
+                        <span class="views-count">Tactical</span>
+                    </div>
+                    <div class="trending-item" onclick="openInterviewDetails('dabo-corner')">
+                        <div class="trending-left">
+                            <span class="rank">⭐</span>
+                            <div>
+                                <h4 style="margin:0; font-size:1rem;">Youssouph Dabo</h4>
+                                <p style="margin:4px 0 0 0; font-size:0.75rem; color:var(--text-muted);">Preparation & Philosophy</p>
+                            </div>
+                        </div>
+                        <span class="views-count">Tactical</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TRENDING INTERVIEWS -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Trending Now 🔥</h2>
+            </div>
+            <div class="latest-interviews-list">
+                <div class="latest-int-card" onclick="openInterviewDetails('aziz-ki-exclusive')">
+                    <div class="latest-int-left">
+                        <div class="microphone-badge" style="background:rgba(255, 195, 0, 0.1); color:var(--accent);"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                        <div class="latest-int-meta">
+                            <h4>1. Aziz Ki Exclusive</h4>
+                            <p>My Goal Is To Win More Trophies</p>
+                        </div>
+                    </div>
+                    <span class="views-count" style="font-weight:900; background:rgba(0,180,216,0.1); color:var(--primary); padding:4px 12px; border-radius:40px; font-size:0.75rem;">45K Views</span>
+                </div>
+
+                <div class="latest-int-card" onclick="openInterviewDetails('miguel-gamondi')">
+                    <div class="latest-int-left">
+                        <div class="microphone-badge" style="background:rgba(255, 195, 0, 0.1); color:var(--accent);"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                        <div class="latest-int-meta">
+                            <h4>2. Derby Post-Match</h4>
+                            <p>Miguel Gamondi reviews 2-1 Win</p>
+                        </div>
+                    </div>
+                    <span class="views-count" style="font-weight:900; background:rgba(0,180,216,0.1); color:var(--primary); padding:4px 12px; border-radius:40px; font-size:0.75rem;">32K Views</span>
+                </div>
+
+                <div class="latest-int-card" onclick="openInterviewDetails('feisal-salum')">
+                    <div class="latest-int-left">
+                        <div class="microphone-badge" style="background:rgba(255, 195, 0, 0.1); color:var(--accent);"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                        <div class="latest-int-meta">
+                            <h4>3. Feisal Salum Story</h4>
+                            <p>getBlockbuster transfer details</p>
+                        </div>
+                    </div>
+                    <span class="views-count" style="font-weight:900; background:rgba(0,180,216,0.1); color:var(--primary); padding:4px 12px; border-radius:40px; font-size:0.75rem;">28K Views</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIDEO INTERVIEW LIBRARY -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Video Library 📺</h2>
+            </div>
+            <div class="video-library-grid">
+                <div class="video-lib-card" data-title="Aziz Ki Yanga" data-type="players">
+                    <div class="video-lib-thumb-wrapper">
+                        <img src="images/feitoto.jpg" alt="Aziz Ki">
+                        <span class="video-lib-duration">12:15</span>
+                    </div>
+                    <div class="video-lib-card-body">
+                        <h4>Aziz Ki Exclusive Interview</h4>
+                        <div class="video-lib-meta-row">
+                            <span>Yanga SC</span>
+                            <span>45K Views</span>
+                        </div>
+                        <button class="video-lib-watch-btn" onclick="openInterviewDetails('aziz-ki-exclusive')"><i class="fa-solid fa-circle-play"></i> Watch →</button>
+                    </div>
+                </div>
+
+                <div class="video-lib-card" data-title="Miguel Gamondi Simba Yanga" data-type="coaches">
+                    <div class="video-lib-thumb-wrapper">
+                        <img src="images/gamondi.jpg" alt="Gamondi">
+                        <span class="video-lib-duration">06:40</span>
+                    </div>
+                    <div class="video-lib-card-body">
+                        <h4>Miguel Gamondi Post-Match</h4>
+                        <div class="video-lib-meta-row">
+                            <span>Yanga SC</span>
+                            <span>32K Views</span>
+                        </div>
+                        <button class="video-lib-watch-btn" onclick="openInterviewDetails('miguel-gamondi')"><i class="fa-solid fa-circle-play"></i> Watch →</button>
+                    </div>
+                </div>
+
+                <div class="video-lib-card" data-title="Feisal Salum Azam Simba" data-type="players">
+                    <div class="video-lib-thumb-wrapper">
+                        <img src="images/feitoto.jpg" alt="Feisal">
+                        <span class="video-lib-duration">08:20</span>
+                    </div>
+                    <div class="video-lib-card-body">
+                        <h4>Feisal Salum Player Interview</h4>
+                        <div class="video-lib-meta-row">
+                            <span>Azam FC</span>
+                            <span>28K Views</span>
+                        </div>
+                        <button class="video-lib-watch-btn" onclick="openInterviewDetails('feisal-salum')"><i class="fa-solid fa-circle-play"></i> Watch →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUDIO INTERVIEWS -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Podcasts & Audio 🎧</h2>
+            </div>
+            <div class="audio-grid">
+                <div class="audio-card" onclick="openInterviewDetails('aziz-ki-exclusive')">
+                    <div class="audio-left">
+                        <div class="audio-icon-btn"><i class="fa-solid fa-circle-play"></i></div>
+                        <div class="audio-info">
+                            <h4>Football Weekly</h4>
+                            <p>Tanzania Football Podcasts</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-podcast" style="color:var(--text-muted);"></i>
+                </div>
+                <div class="audio-card" onclick="openInterviewDetails('miguel-gamondi')">
+                    <div class="audio-left">
+                        <div class="audio-icon-btn"><i class="fa-solid fa-circle-play"></i></div>
+                        <div class="audio-info">
+                            <h4>Coach's Corner</h4>
+                            <p>Tactical Reviews</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-podcast" style="color:var(--text-muted);"></i>
+                </div>
+                <div class="audio-card" onclick="openInterviewDetails('feisal-salum')">
+                    <div class="audio-left">
+                        <div class="audio-icon-btn"><i class="fa-solid fa-circle-play"></i></div>
+                        <div class="audio-info">
+                            <h4>Transfer Talk</h4>
+                            <p>Done deals & Rumors</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-podcast" style="color:var(--text-muted);"></i>
+                </div>
+                <div class="audio-card" onclick="openInterviewDetails('clatous-chama')">
+                    <div class="audio-left">
+                        <div class="audio-icon-btn"><i class="fa-solid fa-circle-play"></i></div>
+                        <div class="audio-info">
+                            <h4>Match Analysis</h4>
+                            <p>Weekend Highlights</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-podcast" style="color:var(--text-muted);"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- WRITTEN INTERVIEWS -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Read Interviews 📰</h2>
+            </div>
+            <div class="written-grid">
+                <div class="written-card">
+                    <div>
+                        <h4>Q&A With Aziz Ki</h4>
+                        <p>A comprehensive session discussing his goals and style of play.</p>
+                    </div>
+                    <a href="javascript:void(0)" class="written-read-link" onclick="openInterviewDetails('aziz-ki-exclusive')">Read Q&A →</a>
+                </div>
+                <div class="written-card">
+                    <div>
+                        <h4>Exclusive Interview With Chama</h4>
+                        <p>Simba's midfielder explains his vision in the pitch.</p>
+                    </div>
+                    <a href="javascript:void(0)" class="written-read-link" onclick="openInterviewDetails('clatous-chama')">Read Interview →</a>
+                </div>
+                <div class="written-card">
+                    <div>
+                        <h4>TFF President Interview</h4>
+                        <p>Discussion on grassroots developments and infrastructure.</p>
+                    </div>
+                    <a href="javascript:void(0)" class="written-read-link" onclick="openInterviewDetails('miguel-gamondi')">Read Interview →</a>
+                </div>
+                <div class="written-card">
+                    <div>
+                        <h4>Women's Football Spotlight</h4>
+                        <p>Catching up with top scorers of the Women's League.</p>
+                    </div>
+                    <a href="javascript:void(0)" class="written-read-link" onclick="openInterviewDetails('feisal-salum')">Read Interview →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEGENDS SERIES -->
+        <section class="reveal-element">
+            <div class="section-header-pl">
+                <h2>Football Legends 🌟</h2>
+            </div>
+            <div class="legends-grid">
+                <div class="legend-card" onclick="openInterviewDetails('legend-historic')" style="cursor: pointer;">
+                    <i class="fa-solid fa-trophy"></i>
+                    <h4>Historic Interviews</h4>
+                    <p>Stories from old-generation derbies</p>
+                </div>
+                <div class="legend-card" onclick="openInterviewDetails('legend-retired')" style="cursor: pointer;">
+                    <i class="fa-solid fa-medal"></i>
+                    <h4>Retired Players</h4>
+                    <p>Where are they now?</p>
+                </div>
+                <div class="legend-card" onclick="openInterviewDetails('legend-coaches')" style="cursor: pointer;">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <h4>Former Coaches</h4>
+                    <p>Tactical memories of past leagues</p>
+                </div>
+                <div class="legend-card" onclick="openInterviewDetails('legend-icons')" style="cursor: pointer;">
+                    <i class="fa-solid fa-star"></i>
+                    <h4>Football Icons</h4>
+                    <p>Tanzania's hall of fame</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Dynamic Media Viewer Modal Overlay -->
+    <div class="modal-overlay" id="interview-details-modal" onclick="closeInterviewModalOnOutsideClick(event)">
+        <div class="modal-container">
+            <div class="modal-close-btn" onclick="closeInterviewModal()"><i class="fa-solid fa-xmark"></i></div>
+            
+            <div class="modal-media-wrapper">
+                <h3 id="modal-media-title" class="modal-media-title">Interview Title</h3>
+                <div class="modal-media-meta">
+                    <span id="modal-media-date">Date</span>
+                    <span id="modal-media-club">Club</span>
+                    <span id="modal-media-author">Name</span>
+                    <span id="modal-media-duration">Duration</span>
+                    <span id="modal-media-views" style="color:var(--accent);">Views</span>
+                </div>
+                <div class="modal-video-container">
+                    <video id="modal-video-element" controls poster="images/matchday.jpg">
+                        <source src="" id="modal-video-source" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <span class="modal-section-title">Interview Summary</span>
+                <div class="modal-text-block" id="modal-media-summary">
+                    Summary text...
+                </div>
+
+                <span class="modal-section-title">Full Transcript</span>
+                <div class="modal-text-block" id="modal-media-transcript" style="white-space: pre-line;">
+                    Full transcript...
+                </div>
+
+                <!-- Interactive Fan Comments -->
+                <span class="modal-section-title">Fan Comments (Interactive) 💬</span>
+                <div class="comments-list" id="modal-comments-feed">
+                    <div class="comment-item">
+                        <div class="comment-item-header">
+                            <span>Baraka J.</span>
+                            <span>2 mins ago</span>
+                        </div>
+                        <p class="comment-item-content">Aziz Ki is the absolute best! What a masterclass player.</p>
+                    </div>
+                </div>
+                <form class="comment-form" onsubmit="postFanComment(event)">
+                    <textarea id="fan-comment-input" placeholder="Add a public comment..." required></textarea>
+                    <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html" class="active"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+    <!-- JS Logic for Search, Filters, Video Player and Comments -->
+    <script>
+        // Data for Interviews details
+        const interviewsData = {
+            "aziz-ki-exclusive": {
+                title: "Aziz Ki Exclusive: \"My Goal Is To Win More Trophies\"",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "June 6, 2026",
+                club: "Yanga SC",
+                name: "Stephane Aziz Ki",
+                views: "45K Views",
+                duration: "12 Min",
+                summary: "Stephane Aziz Ki speaks about his incredible season in the NBC Premier League, winning the Golden Boot, and his ambitions for the next campaign. He addresses transfer speculation and pledges his commitment to Young Africans.",
+                transcript: "Q: Congratulations on an incredible season. How do you feel about your achievements?\n\nAziz Ki: Thank you. I am very happy. It was a long and hard season, but the team worked together to get these trophies. My main goal is always to help my club win and make the fans proud. We did that, and now we want even more next season.\n\nQ: There are rumors about your future. What can you tell the fans?\n\nAziz Ki: My focus is fully on Yanga. I have a contract here, I love the fans and Dar es Salaam. We have Champions League football and we want to go far."
+            },
+            "miguel-gamondi": {
+                title: "Miguel Gamondi: Post-Match Interview (Yanga 2-1 Simba)",
+                videoUrl: "images/short 1 (2).mp4",
+                date: "June 6, 2026",
+                club: "Yanga SC",
+                name: "Miguel Gamondi",
+                views: "32K Views",
+                duration: "6 Min",
+                summary: "Coach Miguel Gamondi reviews the tactical battle in the Dar es Salaam derby. He praises his team's resilience and tactical discipline in securing the 2-1 victory over Simba SC.",
+                transcript: "Q: Coach, a massive win in the derby. Your thoughts on the performance?\n\nGamondi: We played a very intelligent game today. Simba is a strong side, but we controlled the key areas of the pitch. Aziz Ki and Mzize were fantastic. The fans were our 12th man today. This victory is for them."
+            },
+            "feisal-salum": {
+                title: "Feisal Salum: First Simba SC Player Interview",
+                videoUrl: "images/short 1 (3).mp4",
+                date: "June 6, 2026",
+                club: "Simba SC",
+                name: "Feisal Salum",
+                views: "28K Views",
+                duration: "8 Min",
+                summary: "Feisal Salum speaks about his blockbuster transfer from Azam FC to Simba SC, his goals with his new club, and how he plans to fit into the team's tactical system.",
+                transcript: "Q: Feisal, welcome to Simba. How does it feel to join the club?\n\nFeisal Salum: I am very excited and proud to be here. Simba is a club with a great history and huge ambitions. I want to contribute to winning the league and doing well in Africa. I am ready to work hard for the coach and the fans."
+            },
+            "clatous-chama": {
+                title: "Clatous Chama: Exclusive Midfield Masterclass Interview",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "June 5, 2026",
+                club: "Simba SC",
+                name: "Clatous Chama",
+                views: "19K Views",
+                duration: "10 Min",
+                summary: "Clatous Chama breaks down his role in Simba SC's midfield, his relationship with the attackers, and his expectations for the upcoming CRDB FA Cup semi-finals.",
+                transcript: "Q: Clatous, you continue to make key assists. What is the secret to your vision?\n\nChama: It is about understanding the movement of my teammates. We train hard on these patterns. When I get the ball, I already know where the runs are being made. We hope to translate this to a trophy in the FA Cup."
+            },
+            "coach-reactions": {
+                title: "Post-Match Tactics & Coach Reactions",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "June 6, 2026",
+                club: "Multiple Clubs",
+                name: "NBC PL Coaches",
+                views: "15K Views",
+                duration: "5 Min",
+                summary: "Tanzanian Premier League coaches give their immediate reaction to the weekend match tactics, describing defensive shapes and offensive transitions.",
+                transcript: "Q: How do you evaluate the tactical shifts in today's fixture?\n\nCoaches: Today was all about control in transition. We set up in a mid-block to restrict half-spaces, but the opponent's individual quality broke the line in the second half. We need to improve communication in the final third."
+            },
+            "player-reactions": {
+                title: "On-Pitch Player Reactions & Feedback",
+                videoUrl: "images/short 1 (2).mp4",
+                date: "June 6, 2026",
+                club: "Multiple Clubs",
+                name: "Ligi Kuu Players",
+                views: "11K Views",
+                duration: "4 Min",
+                summary: "Key players share their pitchside reactions immediately after the final whistle, thanking fans and analyzing goalscoring opportunities.",
+                transcript: "Player: It was a very intense game. We followed the coach's plan. Scoring early helped us settle, and keeping a clean sheet in this stadium is a massive result for us. The support of our fans was incredible today!"
+            },
+            "motm-highlights": {
+                title: "Man of the Match - Exclusive Highlights & Interview",
+                videoUrl: "images/short 1 (3).mp4",
+                date: "June 6, 2026",
+                club: "Young Africans",
+                name: "Featured MVP",
+                views: "22K Views",
+                duration: "7 Min",
+                summary: "The MVP describes the match-winning moment and breaks down the build-up of the decisive goal.",
+                transcript: "MVP: The goal came from a tactical combination we practiced all week. I saw the fullback overlap, cut inside, and just hit it. I'm honored to get the Man of the Match, but the team's victory is what matters most."
+            },
+            "fan-reactions": {
+                title: "Stadium Fan Atmosphere & Live Reactions",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "June 6, 2026",
+                club: "Simba vs Yanga",
+                name: "Vocal Supporters",
+                views: "30K Views",
+                duration: "3 Min",
+                summary: "Supporters from Simba SC and Yanga SC display their unmatched passion, chants, and celebrations outside the Mkapa National Stadium.",
+                transcript: "Fans: Simba is our life! We sang for 90 minutes. Yanga can win today, but we will take the league. This is what football means to us in Dar es Salaam!"
+            },
+            "yanga-press": {
+                title: "Yanga SC Pre-Match Press Briefing",
+                videoUrl: "images/short 1 (2).mp4",
+                date: "June 5, 2026",
+                club: "Yanga SC",
+                name: "Miguel Gamondi",
+                views: "18K Views",
+                duration: "15 Min",
+                summary: "Miguel Gamondi presents Yanga's preparation ahead of the critical continental CAF Champions League home leg.",
+                transcript: "Gamondi: We are fully prepared. The squad is healthy. We know the opponent's strengths, but playing in front of our home crowd gives us a double advantage. We aim to secure a positive result before traveling."
+            },
+            "simba-press": {
+                title: "Simba SC Manager's Press Briefing",
+                videoUrl: "images/short 1 (3).mp4",
+                date: "June 4, 2026",
+                club: "Simba SC",
+                name: "Simba Head Coach",
+                views: "14K Views",
+                duration: "10 Min",
+                summary: "Simba SC management outlines the player rotation plans and tactical adjustments for the league matchday.",
+                transcript: "Coach: Squad rotation is essential with our congested schedule. Every player in this team is of high quality. We will make 3 to 4 changes to keep the team fresh and maintain our high-intensity pressing system."
+            },
+            "azam-press": {
+                title: "Azam FC New Signing Press Conference",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "June 3, 2026",
+                club: "Azam FC",
+                name: "Azam Spokesperson",
+                views: "12K Views",
+                duration: "9 Min",
+                summary: "Azam FC officially unveils their new international midfielder, outlining contract details and career aspirations.",
+                transcript: "Spokesperson: We are delighted to announce this addition. He brings great experience from international football. He will wear number 8 and is eligible to start in our next match."
+            },
+            "tff-press": {
+                title: "TFF Officials Board Press Conference",
+                videoUrl: "images/short 1 (2).mp4",
+                date: "June 2, 2026",
+                club: "TFF Board",
+                name: "TFF Spokesman",
+                views: "9K Views",
+                duration: "12 Min",
+                summary: "Tanzanian Football Federation outlines new regulations regarding youth academy integrations and refereeing standards.",
+                transcript: "TFF: We are committing to raising the standards of officiating across all tiers. A new referee training program begins next month. Additionally, we are mandating that clubs include youth team players in training camps."
+            },
+            "aziz-ki-journey": {
+                title: "Aziz Ki: From Burkina Faso to Tanzania's Top Flight",
+                videoUrl: "images/short 1 (3).mp4",
+                date: "May 20, 2026",
+                club: "Yanga SC",
+                name: "Stephane Aziz Ki",
+                views: "25K Views",
+                duration: "8 Min",
+                summary: "Aziz Ki shares his personal story of moving to Dar es Salaam, adapting to the local culture, and establishing himself as the league's MVP.",
+                transcript: "Aziz Ki: The transition was smooth because of the incredible warmth of the people. Tanzania is my second home now. Playing for Yanga has allowed me to express my football in the best possible way."
+            },
+            "feisal-salum-story": {
+                title: "Feisal Salum: Zanzibar's Hero Making Waves",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "May 22, 2026",
+                club: "Simba SC",
+                name: "Feisal Salum",
+                views: "20K Views",
+                duration: "7 Min",
+                summary: "Feisal Salum details his career development from Zanzibar football leagues to becoming a household name in the NBC Premier League.",
+                transcript: "Feisal Salum: Growing up in Zanzibar, we played on any patch of sand. Moving to the mainland league was a big challenge, but it helped me grow tactically. I am proud to represent Zanzibari talent at the highest level."
+            },
+            "djigui-diarra-career": {
+                title: "Djigui Diarra: Under the Gloves of the Champion Stopper",
+                videoUrl: "images/short 1 (2).mp4",
+                date: "May 25, 2026",
+                club: "Yanga SC",
+                name: "Djigui Diarra",
+                views: "17K Views",
+                duration: "6 Min",
+                summary: "The Malian international goalkeeper explains his shot-stopping reflexes, penalty-saving strategies, and backline communication.",
+                transcript: "Diarra: Communication is the most important skill for a goalkeeper. You must see the danger before it happens and guide your defenders. Winning titles with Yanga has been the highlight of my career."
+            },
+            "allan-okello-story": {
+                title: "Allan Okello: The Maestro on Vision & Creativity",
+                videoUrl: "images/short 1 (3).mp4",
+                date: "May 27, 2026",
+                club: "Singida Black Stars",
+                name: "Allan Okello",
+                views: "14K Views",
+                duration: "9 Min",
+                summary: "Allan Okello talks about Ugandan playmaking traditions, his favorite pass patterns, and the future of East African playmakers.",
+                transcript: "Okello: Playmaking is an art. You must have spatial awareness and know the speed of the grass. The NBC Premier League is highly physical, but intelligence and timing will always win the battle."
+            },
+            "gamondi-corner": {
+                title: "Coach Miguel Gamondi: Tactical Philosophy",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "June 1, 2026",
+                club: "Yanga SC",
+                name: "Miguel Gamondi",
+                views: "25K Views",
+                duration: "14 Min",
+                summary: "Coach Miguel Gamondi explains Yanga's tactical systems, high-pressing structures, and squad rotation methods.",
+                transcript: "Gamondi: We play to attack. Our team must dominate space and regain possession within five seconds. Squad rotation is not about replacing players; it is about sustaining our tactical energy across ninety minutes."
+            },
+            "benchikha-corner": {
+                title: "Coach Abdelhak Benchikha: Season Review",
+                videoUrl: "images/short 1 (2).mp4",
+                date: "May 28, 2026",
+                club: "Simba SC",
+                name: "Abdelhak Benchikha",
+                views: "18K Views",
+                duration: "11 Min",
+                summary: "Coach Benchikha reviews the lessons from the domestic cup battles and continental campaigns.",
+                transcript: "Benchikha: We faced very tough situations this season. Tactically, we showed great organization. Simba has the character of a champion. We need to work on attacking consistency in away legs."
+            },
+            "dabo-corner": {
+                title: "Coach Youssouph Dabo: Preparation & Philosophy",
+                videoUrl: "images/short 1 (3).mp4",
+                date: "May 29, 2026",
+                club: "Azam FC",
+                name: "Youssouph Dabo",
+                views: "16K Views",
+                duration: "10 Min",
+                summary: "Youssouph Dabo details Azam FC's development pathways and their transition systems from midfield to final third.",
+                transcript: "Dabo: Our philosophy is based on rapid transitions. Once we secure the ball, we aim to get it behind the opponent's defensive line within three passes. The players have adapted extremely well this season."
+            },
+            "legend-historic": {
+                title: "Legends Tribute: Historic Derby Interviews",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "May 15, 2026",
+                club: "Legends Circle",
+                name: "Former Stars",
+                views: "27K Views",
+                duration: "12 Min",
+                summary: "Tanzanian football legends recount their memories of the Dar es Salaam derbies in the 1990s and early 2000s.",
+                transcript: "Legends: The derby in our day was purely about pride. The stadium was packed six hours before kickoff. We didn't have the modern facilities, but the passion and physical battle on the pitch were incredible."
+            },
+            "legend-retired": {
+                title: "Legends Tribute: Where Are They Now?",
+                videoUrl: "images/short 1 (2).mp4",
+                date: "May 16, 2026",
+                club: "Legends Circle",
+                name: "Retired Heroes",
+                views: "21K Views",
+                duration: "8 Min",
+                summary: "A check-in with former top-scorers who are now coaching in grassroots academies and supporting the next generation.",
+                transcript: "Heroes: Retiring was tough, but coaching kids is highly rewarding. We want to pass down our experience. The league has improved financially, and these kids have a great opportunity ahead."
+            },
+            "legend-coaches": {
+                title: "Legends Tribute: Former Coaches Memories",
+                videoUrl: "images/short 1 (3).mp4",
+                date: "May 17, 2026",
+                club: "Legends Circle",
+                name: "Former Managers",
+                views: "15K Views",
+                duration: "10 Min",
+                summary: "A review of how the coaching styles and player conditioning standards have changed in Tanzania over three decades.",
+                transcript: "Coaches: Back then, tactical analysis was done on chalkboards, not video screens! But the principles remain identical: space, movement, discipline. We are happy to see Tanzanian football getting international recognition."
+            },
+            "legend-icons": {
+                title: "Legends Tribute: Tanzania's Football Hall of Fame",
+                videoUrl: "images/short 1 (1).mp4",
+                date: "May 18, 2026",
+                club: "Hall of Fame",
+                name: "Inducted Legends",
+                views: "32K Views",
+                duration: "15 Min",
+                summary: "An introduction to the inaugural members of Tanzania's Football Hall of Fame and their historic contributions.",
+                transcript: "Hall of Fame: Being recognized is a dream come true. We played for the flag and for our fans. We hope this Hall of Fame inspires the current generation to play with the same honor and dedication."
+            }
+        };
+
+        // Open Modal Handler
+        function openInterviewDetails(interviewId) {
+            const data = interviewsData[interviewId];
+            if (!data) return;
+
+            document.getElementById("modal-media-title").innerText = data.title;
+            document.getElementById("modal-media-date").innerHTML = `<i class="fa-regular fa-calendar"></i> ${data.date}`;
+            document.getElementById("modal-media-club").innerHTML = `<i class="fa-solid fa-shield-halved"></i> ${data.club}`;
+            document.getElementById("modal-media-author").innerHTML = `<i class="fa-regular fa-user"></i> ${data.name}`;
+            document.getElementById("modal-media-duration").innerHTML = `<i class="fa-regular fa-clock"></i> ${data.duration}`;
+            document.getElementById("modal-media-views").innerHTML = `<i class="fa-regular fa-eye"></i> ${data.views}`;
+            document.getElementById("modal-media-summary").innerText = data.summary;
+            document.getElementById("modal-media-transcript").innerText = data.transcript;
+
+            // Load video
+            const videoElement = document.getElementById("modal-video-element");
+            const videoSource = document.getElementById("modal-video-source");
+            videoSource.src = data.videoUrl;
+            videoElement.load();
+
+            document.getElementById("interview-details-modal").classList.add("open");
+            document.body.style.overflow = "hidden"; // Prevent background scroll
+        }
+
+        // Close Modal Handler
+        function closeInterviewModal() {
+            // Pause video
+            const videoElement = document.getElementById("modal-video-element");
+            videoElement.pause();
+
+            document.getElementById("interview-details-modal").classList.remove("open");
+            document.body.style.overflow = ""; // Re-enable background scroll
+        }
+
+        function closeInterviewModalOnOutsideClick(event) {
+            if (event.target === document.getElementById("interview-details-modal")) {
+                closeInterviewModal();
+            }
+        }
+
+        // Real-time Search and Dropdown Filter logic
+        const searchInput = document.getElementById("interview-search");
+        const filterType = document.getElementById("filter-type");
+
+        function filterInterviews() {
+            const query = searchInput.value.toLowerCase().trim();
+            const typeValue = filterType.value;
+            
+            // Filter latest list items
+            const listCards = document.querySelectorAll(".latest-int-card");
+            listCards.forEach(card => {
+                const title = card.getAttribute("data-title") ? card.getAttribute("data-title").toLowerCase() : "";
+                const type = card.getAttribute("data-type");
+
+                const matchesSearch = title.includes(query);
+                const matchesType = (typeValue === "all") || (type === typeValue);
+
+                if (matchesSearch && matchesType) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            // Filter video library cards
+            const videoCards = document.querySelectorAll(".video-lib-card");
+            videoCards.forEach(card => {
+                const title = card.getAttribute("data-title") ? card.getAttribute("data-title").toLowerCase() : "";
+                const type = card.getAttribute("data-type");
+
+                const matchesSearch = title.includes(query);
+                const matchesType = (typeValue === "all") || (type === typeValue);
+
+                if (matchesSearch && matchesType) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        searchInput.addEventListener("input", filterInterviews);
+        filterType.addEventListener("change", filterInterviews);
+
+        // Interactive Comment Posting
+        function postFanComment(event) {
+            event.preventDefault();
+            const commentInput = document.getElementById("fan-comment-input");
+            const commentText = commentInput.value.trim();
+            if (!commentText) return;
+
+            const commentsFeed = document.getElementById("modal-comments-feed");
+            const newComment = document.createElement("div");
+            newComment.className = "comment-item";
+            newComment.innerHTML = `
+                <div class="comment-item-header">
+                    <span>You</span>
+                    <span>Just now</span>
+                </div>
+                <p class="comment-item-content">${commentText}</p>
+            `;
+            commentsFeed.appendChild(newComment);
+            commentInput.value = "";
+            commentsFeed.scrollTop = commentsFeed.scrollHeight; // Scroll to bottom
+        }
+    </script>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

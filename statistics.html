@@ -1,0 +1,1607 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics Center | Tanzania Football Hub</title>
+    <meta name="description" content="Explore comprehensive NBC Premier League statistics including top scorers, assists, clean sheets, player ratings and team performance data.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- 1. Top Header -->
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown active">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html" class="active">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- STATISTICS CENTER -->
+    <!-- ═══════════════════════════════════════════════════ -->
+
+    <main class="stats-page">
+
+        <!-- STICKY NAV SIDEBAR -->
+        <div class="stats-sticky-nav desktop-only">
+            <a href="#top-scorers" class="sticky-nav-pill" data-label="Top Scorers"><i class="fa-solid fa-futbol"></i></a>
+            <a href="#top-assists" class="sticky-nav-pill" data-label="Top Assists"><i class="fa-solid fa-bullseye"></i></a>
+            <a href="#clean-sheets" class="sticky-nav-pill" data-label="Clean Sheets"><i class="fa-solid fa-hand"></i></a>
+            <a href="#team-stats" class="sticky-nav-pill" data-label="Team Stats"><i class="fa-solid fa-shield-halved"></i></a>
+            <a href="#tots" class="sticky-nav-pill" data-label="Team of the Season"><i class="fa-solid fa-users-rectangle"></i></a>
+            <a href="#analytics" class="sticky-nav-pill" data-label="Analytics Hub"><i class="fa-solid fa-microchip"></i></a>
+        </div>
+
+
+        <!-- ─── SECTION 1: BEST PLAYER OF THE YEAR ─── -->
+        <section class="stats-section" id="clean-sheets">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon gk-icon"><i class="fa-solid fa-futbol"></i></div>
+                    <div>
+                        <h2>Best player of the year</h2>
+                        <p>Best player leaders — NBC Premier League 2025/26</p>
+                    </div>
+                </div>
+
+                <div class="stats-podium">
+                    <div class="podium-card silver">
+                        <div class="podium-rank">2</div>
+                        <div class="podium-avatar"><img src="images/simba.jpg" alt="Mahamadou Kassaly"></div>
+                        <h3 class="podium-name">CHAMA CLEOTAS</h3>
+                        <span class="podium-team">Simba SC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">10/15</span>
+                            <span class="stat-label">G/A</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>28</span> Apps</div>
+                            <div><span>76%</span> G/A</div>
+                        </div>
+                    </div>
+                    <div class="podium-card gold">
+                        <div class="podium-crown"><i class="fa-solid fa-crown"></i></div>
+                        <div class="podium-rank">1</div>
+                        <div class="podium-avatar"><img src="images/azam.jpg" alt="Djigui Diarra"></div>
+                        <h3 class="podium-name">FEISAL SALUM</h3>
+                        <span class="podium-team">Azm fc</span>
+                        <div class="podium-stat">
+                            <span class="stat-number gold-text">13/17</span>
+                            <span class="stat-label">G/A</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>30</span> Apps</div>
+                            <div><span>82%</span> 15/15</div>
+                        </div>
+                    </div>
+                    <div class="podium-card bronze">
+                        <div class="podium-rank">3</div>
+                        <div class="podium-avatar"><img src="images/yanga.jpg" alt="Aishi Manula"></div>
+                        <h3 class="podium-name">PRINCE DUBE</h3>
+                        <span class="podium-team">YangFC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">13/10</span>
+                            <span class="stat-label">G/A</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>27</span> Apps</div>
+                            <div><span>74%</span> G/A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ─── SECTION 2: TOP SCORER ─── -->
+        <section class="stats-section" id="clean-sheets">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon gk-icon"><i class="fa-solid fa-hand"></i></div>
+                    <div>
+                        <h2>Best TOP SCORER</h2>
+                        <p>Goal scorer leaders — NBC Premier League 2025/26</p>
+                    </div>
+                </div>
+
+                <div class="stats-podium">
+                    <div class="podium-card silver">
+                        <div class="podium-rank">2</div>
+                        <div class="podium-avatar"><img src="images/simba.jpg" alt="Mahamadou Kassaly"></div>
+                        <h3 class="podium-name">Mahamadou Kassaly</h3>
+                        <span class="podium-team">Simba SC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>28</span> Apps</div>
+                            <div><span>76%</span> Save</div>
+                        </div>
+                    </div>
+                    <div class="podium-card gold">
+                        <div class="podium-crown"><i class="fa-solid fa-crown"></i></div>
+                        <div class="podium-rank">1</div>
+                        <div class="podium-avatar"><img src="images/yanga.jpg" alt="Djigui Diarra"></div>
+                        <h3 class="podium-name">Djigui Diarra</h3>
+                        <span class="podium-team">Yanga SC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number gold-text">13</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>30</span> Apps</div>
+                            <div><span>82%</span> Save</div>
+                        </div>
+                    </div>
+                    <div class="podium-card bronze">
+                        <div class="podium-rank">3</div>
+                        <div class="podium-avatar"><img src="images/azam.jpg" alt="Aishi Manula"></div>
+                        <h3 class="podium-name">Aishi Manula</h3>
+                        <span class="podium-team">Azam FC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">11</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>27</span> Apps</div>
+                            <div><span>74%</span> Save</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SECTION 4: CLEAN SHEETS ─── -->
+        <section class="stats-section" id="clean-sheets">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon gk-icon"><i class="fa-solid fa-hand"></i></div>
+                    <div>
+                        <h2>Best Goalkeepers</h2>
+                        <p>Clean sheet leaders — NBC Premier League 2025/26</p>
+                    </div>
+                </div>
+
+                <div class="stats-podium">
+                    <div class="podium-card silver">
+                        <div class="podium-rank">2</div>
+                        <div class="podium-avatar"><img src="images/simba.jpg" alt="Mahamadou Kassaly"></div>
+                        <h3 class="podium-name">Mahamadou Kassaly</h3>
+                        <span class="podium-team">Simba SC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>28</span> Apps</div>
+                            <div><span>76%</span> Save</div>
+                        </div>
+                    </div>
+                    <div class="podium-card gold">
+                        <div class="podium-crown"><i class="fa-solid fa-crown"></i></div>
+                        <div class="podium-rank">1</div>
+                        <div class="podium-avatar"><img src="images/yanga.jpg" alt="Djigui Diarra"></div>
+                        <h3 class="podium-name">Djigui Diarra</h3>
+                        <span class="podium-team">Yanga SC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number gold-text">13</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>30</span> Apps</div>
+                            <div><span>82%</span> Save</div>
+                        </div>
+                    </div>
+                    <div class="podium-card bronze">
+                        <div class="podium-rank">3</div>
+                        <div class="podium-avatar"><img src="images/azam.jpg" alt="Aishi Manula"></div>
+                        <h3 class="podium-name">Aishi Manula</h3>
+                        <span class="podium-team">Azam FC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">11</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>27</span> Apps</div>
+                            <div><span>74%</span> Save</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ─── SECTION 4: CLEAN SHEETS ─── -->
+        <section class="stats-section" id="clean-sheets">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon gk-icon"><i class="fa-solid fa-hand"></i></div>
+                    <div>
+                        <h2>Best Goalkeepers</h2>
+                        <p>Clean sheet leaders — NBC Premier League 2025/26</p>
+                    </div>
+                </div>
+
+                <div class="stats-podium">
+                    <div class="podium-card silver">
+                        <div class="podium-rank">2</div>
+                        <div class="podium-avatar"><img src="images/simba.jpg" alt="Mahamadou Kassaly"></div>
+                        <h3 class="podium-name">Mahamadou Kassaly</h3>
+                        <span class="podium-team">Simba SC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>28</span> Apps</div>
+                            <div><span>76%</span> Save</div>
+                        </div>
+                    </div>
+                    <div class="podium-card gold">
+                        <div class="podium-crown"><i class="fa-solid fa-crown"></i></div>
+                        <div class="podium-rank">1</div>
+                        <div class="podium-avatar"><img src="images/yanga.jpg" alt="Djigui Diarra"></div>
+                        <h3 class="podium-name">Djigui Diarra</h3>
+                        <span class="podium-team">Yanga SC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number gold-text">13</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>30</span> Apps</div>
+                            <div><span>82%</span> Save</div>
+                        </div>
+                    </div>
+                    <div class="podium-card bronze">
+                        <div class="podium-rank">3</div>
+                        <div class="podium-avatar"><img src="images/azam.jpg" alt="Aishi Manula"></div>
+                        <h3 class="podium-name">Aishi Manula</h3>
+                        <span class="podium-team">Azam FC</span>
+                        <div class="podium-stat">
+                            <span class="stat-number">11</span>
+                            <span class="stat-label">Clean Sheets</span>
+                        </div>
+                        <div class="podium-sub-stats">
+                            <div><span>27</span> Apps</div>
+                            <div><span>74%</span> Save</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SECTION 5: PLAYER OF THE SEASON RACE ─── -->
+        <section class="stats-section bg-alt" id="player-of-season">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon pots-icon"><i class="fa-solid fa-star"></i></div>
+                    <div>
+                        <h2>Player of the Season Race</h2>
+                        <p>Combined goals, assists & performance rating</p>
+                    </div>
+                </div>
+
+                <div class="pots-race-grid">
+                    <!-- Card 1 -->
+                    <div class="pots-card rank-1">
+                        <div class="pots-position">1</div>
+                        <div class="pots-player-info">
+                            <div class="pots-avatar"><img src="images/azam.jpg" alt="Feisal Salum"></div>
+                            <div>
+                                <h3>Feisal Salum</h3>
+                                <span class="pots-team">Azam FC</span>
+                            </div>
+                        </div>
+                        <div class="pots-stats-row">
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-futbol"></i>
+                                <span class="pots-val">14</span>
+                                <span class="pots-label">Goals</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-bullseye"></i>
+                                <span class="pots-val">8</span>
+                                <span class="pots-label">Assists</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-star"></i>
+                                <span class="pots-val">8.7</span>
+                                <span class="pots-label">Rating</span>
+                            </div>
+                        </div>
+                        <div class="pots-bar">
+                            <div class="pots-fill" style="width: 95%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="pots-card rank-2">
+                        <div class="pots-position">2</div>
+                        <div class="pots-player-info">
+                            <div class="pots-avatar"><img src="images/yanga.jpg" alt="Allan Okello"></div>
+                            <div>
+                                <h3>Allan Okello</h3>
+                                <span class="pots-team">Yanga SC</span>
+                            </div>
+                        </div>
+                        <div class="pots-stats-row">
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-futbol"></i>
+                                <span class="pots-val">11</span>
+                                <span class="pots-label">Goals</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-bullseye"></i>
+                                <span class="pots-val">7</span>
+                                <span class="pots-label">Assists</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-star"></i>
+                                <span class="pots-val">8.3</span>
+                                <span class="pots-label">Rating</span>
+                            </div>
+                        </div>
+                        <div class="pots-bar">
+                            <div class="pots-fill" style="width: 82%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="pots-card rank-3">
+                        <div class="pots-position">3</div>
+                        <div class="pots-player-info">
+                            <div class="pots-avatar"><img src="images/simba.jpg" alt="Clatous Chama"></div>
+                            <div>
+                                <h3>Clatous Chama</h3>
+                                <span class="pots-team">Simba SC</span>
+                            </div>
+                        </div>
+                        <div class="pots-stats-row">
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-futbol"></i>
+                                <span class="pots-val">8</span>
+                                <span class="pots-label">Goals</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-bullseye"></i>
+                                <span class="pots-val">6</span>
+                                <span class="pots-label">Assists</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-star"></i>
+                                <span class="pots-val">7.9</span>
+                                <span class="pots-label">Rating</span>
+                            </div>
+                        </div>
+                        <div class="pots-bar">
+                            <div class="pots-fill" style="width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="pots-card">
+                        <div class="pots-position">4</div>
+                        <div class="pots-player-info">
+                            <div class="pots-avatar"><img src="images/yanga.jpg" alt="Djigui Diarra"></div>
+                            <div>
+                                <h3>Djigui Diarra</h3>
+                                <span class="pots-team">Yanga SC</span>
+                            </div>
+                        </div>
+                        <div class="pots-stats-row">
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-hand"></i>
+                                <span class="pots-val">13</span>
+                                <span class="pots-label">CS</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span class="pots-val">82%</span>
+                                <span class="pots-label">Save</span>
+                            </div>
+                            <div class="pots-stat-item">
+                                <i class="fa-solid fa-star"></i>
+                                <span class="pots-val">7.8</span>
+                                <span class="pots-label">Rating</span>
+                            </div>
+                        </div>
+                        <div class="pots-bar">
+                            <div class="pots-fill" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SECTION 6: IN FORM PLAYERS ─── -->
+        <section class="stats-section" id="in-form">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon fire-icon"><i class="fa-solid fa-fire"></i></div>
+                    <div>
+                        <h2>In Form Players</h2>
+                        <p>Players on fire in the last 5 matches</p>
+                    </div>
+                </div>
+
+                <div class="inform-grid">
+                    <!-- Player 1 -->
+                    <div class="inform-card">
+                        <div class="inform-header">
+                            <div class="inform-avatar"><img src="images/azam.jpg" alt="Feisal Salum"></div>
+                            <div class="inform-info">
+                                <h3>Feisal Salum</h3>
+                                <span>Azam FC • Midfielder</span>
+                            </div>
+                            <div class="inform-fire">🔥</div>
+                        </div>
+                        <div class="inform-label">Last 5 Matches</div>
+                        <div class="inform-timeline">
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Simba SC<span>Goal (72')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Singida SC<span>Goal (34')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon assist">🎯</div>
+                                <div class="me-detail">vs Namungo FC<span>Assist (55')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Coastal Union<span>Goal (18')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon assist">🎯</div>
+                                <div class="me-detail">vs KMC FC<span>Assist (67')</span></div>
+                            </div>
+                        </div>
+                        <div class="inform-summary">
+                            <div><strong>3</strong> Goals</div>
+                            <div><strong>2</strong> Assists</div>
+                            <div><strong>8.4</strong> Avg Rating</div>
+                        </div>
+                    </div>
+
+                    <!-- Player 2 -->
+                    <div class="inform-card">
+                        <div class="inform-header">
+                            <div class="inform-avatar"><img src="images/yanga.jpg" alt="Allan Okello"></div>
+                            <div class="inform-info">
+                                <h3>Allan Okello</h3>
+                                <span>Yanga SC • Forward</span>
+                            </div>
+                            <div class="inform-fire">🔥</div>
+                        </div>
+                        <div class="inform-label">Last 5 Matches</div>
+                        <div class="inform-timeline">
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Azam FC<span>Goal (43')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs KMC FC<span>Goal (11')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Namungo FC<span>Goal (78')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Coastal Union<span>Goal (56')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon assist">🎯</div>
+                                <div class="me-detail">vs Singida SC<span>Assist (29')</span></div>
+                            </div>
+                        </div>
+                        <div class="inform-summary">
+                            <div><strong>4</strong> Goals</div>
+                            <div><strong>1</strong> Assist</div>
+                            <div><strong>8.1</strong> Avg Rating</div>
+                        </div>
+                    </div>
+
+                    <!-- Player 3 -->
+                    <div class="inform-card">
+                        <div class="inform-header">
+                            <div class="inform-avatar"><img src="images/simba.jpg" alt="Clatous Chama"></div>
+                            <div class="inform-info">
+                                <h3>Clatous Chama</h3>
+                                <span>Simba SC • Midfielder</span>
+                            </div>
+                            <div class="inform-fire">🔥</div>
+                        </div>
+                        <div class="inform-label">Last 5 Matches</div>
+                        <div class="inform-timeline">
+                            <div class="match-event">
+                                <div class="me-icon assist">🎯</div>
+                                <div class="me-detail">vs Azam FC<span>Assist (12')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Singida SC<span>Goal (65')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Namungo FC<span>Goal (32')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon assist">🎯</div>
+                                <div class="me-detail">vs KMC FC<span>Assist (88')</span></div>
+                            </div>
+                            <div class="match-event">
+                                <div class="me-icon goal">⚽</div>
+                                <div class="me-detail">vs Coastal Union<span>Goal (41')</span></div>
+                            </div>
+                        </div>
+                        <div class="inform-summary">
+                            <div><strong>3</strong> Goals</div>
+                            <div><strong>2</strong> Assists</div>
+                            <div><strong>7.9</strong> Avg Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SECTION 7: TEAM STATISTICS ─── -->
+        <section class="stats-section bg-alt" id="team-stats">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon team-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <h2>Team Statistics</h2>
+                        <p>Club performance leaders — NBC Premier League 2025/26</p>
+                    </div>
+                </div>
+
+                <div class="team-stats-grid">
+                    <!-- Most Goals -->
+                    <div class="team-stat-card glass-container">
+                        <div class="tsc-header">
+                            <i class="fa-solid fa-futbol"></i>
+                            <h3>Most Goals</h3>
+                        </div>
+                        <div class="tsc-list">
+                            <div class="tsc-item gold">
+                                <span class="tsc-rank">1</span>
+                                <img src="images/yanga.jpg" alt="">
+                                <span class="tsc-name">Yanga SC</span>
+                                <span class="tsc-val">71</span>
+                            </div>
+                            <div class="tsc-item silver">
+                                <span class="tsc-rank">2</span>
+                                <img src="images/azam.jpg" alt="">
+                                <span class="tsc-name">Azam FC</span>
+                                <span class="tsc-val">63</span>
+                            </div>
+                            <div class="tsc-item bronze">
+                                <span class="tsc-rank">3</span>
+                                <img src="images/simba.jpg" alt="">
+                                <span class="tsc-name">Simba SC</span>
+                                <span class="tsc-val">59</span>
+                            </div>
+                            <div class="tsc-item">
+                                <span class="tsc-rank">4</span>
+                                <img src="images/singida.jpg" alt="">
+                                <span class="tsc-name">Singida SC</span>
+                                <span class="tsc-val">45</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Best Defence -->
+                    <div class="team-stat-card glass-container">
+                        <div class="tsc-header">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <h3>Best Defence</h3>
+                        </div>
+                        <div class="tsc-list">
+                            <div class="tsc-item gold">
+                                <span class="tsc-rank">1</span>
+                                <img src="images/yanga.jpg" alt="">
+                                <span class="tsc-name">Yanga SC</span>
+                                <span class="tsc-val">14 GA</span>
+                            </div>
+                            <div class="tsc-item silver">
+                                <span class="tsc-rank">2</span>
+                                <img src="images/simba.jpg" alt="">
+                                <span class="tsc-name">Simba SC</span>
+                                <span class="tsc-val">25 GA</span>
+                            </div>
+                            <div class="tsc-item bronze">
+                                <span class="tsc-rank">3</span>
+                                <img src="images/azam.jpg" alt="">
+                                <span class="tsc-name">Azam FC</span>
+                                <span class="tsc-val">21 GA</span>
+                            </div>
+                            <div class="tsc-item">
+                                <span class="tsc-rank">4</span>
+                                <img src="images/singida.jpg" alt="">
+                                <span class="tsc-name">Singida SC</span>
+                                <span class="tsc-val">32 GA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Most Wins -->
+                    <div class="team-stat-card glass-container">
+                        <div class="tsc-header">
+                            <i class="fa-solid fa-trophy"></i>
+                            <h3>Most Wins</h3>
+                        </div>
+                        <div class="tsc-list">
+                            <div class="tsc-item gold">
+                                <span class="tsc-rank">1</span>
+                                <img src="images/yanga.jpg" alt="">
+                                <span class="tsc-name">Yanga SC</span>
+                                <span class="tsc-val">23</span>
+                            </div>
+                            <div class="tsc-item silver">
+                                <span class="tsc-rank">2</span>
+                                <img src="images/simba.jpg" alt="">
+                                <span class="tsc-name">Simba SC</span>
+                                <span class="tsc-val">21</span>
+                            </div>
+                            <div class="tsc-item bronze">
+                                <span class="tsc-rank">3</span>
+                                <img src="images/singida.jpg" alt="">
+                                <span class="tsc-name">Singida SC</span>
+                                <span class="tsc-val">20</span>
+                            </div>
+                            <div class="tsc-item">
+                                <span class="tsc-rank">4</span>
+                                <img src="images/azam.jpg" alt="">
+                                <span class="tsc-name">Azam FC</span>
+                                <span class="tsc-val">18</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Most Possession -->
+                    <div class="team-stat-card glass-container">
+                        <div class="tsc-header">
+                            <i class="fa-solid fa-percent"></i>
+                            <h3>Avg Possession</h3>
+                        </div>
+                        <div class="tsc-list">
+                            <div class="tsc-item gold">
+                                <span class="tsc-rank">1</span>
+                                <img src="images/yanga.jpg" alt="">
+                                <span class="tsc-name">Yanga SC</span>
+                                <span class="tsc-val">62%</span>
+                            </div>
+                            <div class="tsc-item silver">
+                                <span class="tsc-rank">2</span>
+                                <img src="images/simba.jpg" alt="">
+                                <span class="tsc-name">Simba SC</span>
+                                <span class="tsc-val">58%</span>
+                            </div>
+                            <div class="tsc-item bronze">
+                                <span class="tsc-rank">3</span>
+                                <img src="images/azam.jpg" alt="">
+                                <span class="tsc-name">Azam FC</span>
+                                <span class="tsc-val">55%</span>
+                            </div>
+                            <div class="tsc-item">
+                                <span class="tsc-rank">4</span>
+                                <img src="images/singida.jpg" alt="">
+                                <span class="tsc-name">Singida SC</span>
+                                <span class="tsc-val">51%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fair Play Table -->
+                    <div class="team-stat-card glass-container">
+                        <div class="tsc-header">
+                            <i class="fa-solid fa-handshake-angle"></i>
+                            <h3>Fair Play Kings</h3>
+                        </div>
+                        <div class="tsc-list">
+                            <div class="tsc-item gold">
+                                <span class="tsc-rank">1</span>
+                                <img src="images/nbc.png" style="background:#fff; border-radius:50%;" alt="">
+                                <span class="tsc-name">KMC FC</span>
+                                <span class="tsc-val">32 <i class="fa-solid fa-square" style="color:yellow; font-size:0.7rem;"></i></span>
+                            </div>
+                            <div class="tsc-item silver">
+                                <span class="tsc-rank">2</span>
+                                <img src="images/mtibwa suger.jpg" alt="">
+                                <span class="tsc-name">Mtibwa Sugar</span>
+                                <span class="tsc-val">35 <i class="fa-solid fa-square" style="color:yellow; font-size:0.7rem;"></i></span>
+                            </div>
+                            <div class="tsc-item bronze">
+                                <span class="tsc-rank">3</span>
+                                <img src="images/dodoma jiji.jpg" alt="">
+                                <span class="tsc-name">Dodoma Jiji</span>
+                                <span class="tsc-val">41 <i class="fa-solid fa-square" style="color:yellow; font-size:0.7rem;"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Home Fortress -->
+                    <div class="team-stat-card glass-container">
+                        <div class="tsc-header">
+                            <i class="fa-solid fa-castle"></i>
+                            <h3>Home Fortress</h3>
+                        </div>
+                        <div class="tsc-list">
+                            <div class="tsc-item gold">
+                                <span class="tsc-rank">1</span>
+                                <img src="images/yanga.jpg" alt="">
+                                <span class="tsc-name">Yanga SC</span>
+                                <span class="tsc-val">100% Wins</span>
+                            </div>
+                            <div class="tsc-item silver">
+                                <span class="tsc-rank">2</span>
+                                <img src="images/simba.jpg" alt="">
+                                <span class="tsc-name">Simba SC</span>
+                                <span class="tsc-val">85% Wins</span>
+                            </div>
+                            <div class="tsc-item bronze">
+                                <span class="tsc-rank">3</span>
+                                <img src="images/azam.jpg" alt="">
+                                <span class="tsc-name">Azam FC</span>
+                                <span class="tsc-val">79% Wins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SECTION 8: POSITION LEADERS ─── -->
+        <section class="stats-section" id="position-leaders">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon pos-icon"><i class="fa-solid fa-users-rectangle"></i></div>
+                    <div>
+                        <h2>Position Leaders</h2>
+                        <p>Best performers by position</p>
+                    </div>
+                </div>
+
+                <div class="position-tabs">
+                    <button class="pos-tab active" data-pos="forwards">⚡ Forwards</button>
+                    <button class="pos-tab" data-pos="midfielders">🎯 Midfielders</button>
+                    <button class="pos-tab" data-pos="defenders">🛡️ Defenders</button>
+                    <button class="pos-tab" data-pos="goalkeepers">🧤 Goalkeepers</button>
+                </div>
+
+                <div class="position-content" id="position-content">
+                    <!-- Forwards (Default visible) -->
+                    <div class="pos-panel active" data-pos="forwards">
+                        <div class="pos-leaders-grid">
+                            <div class="pos-leader-card">
+                                <div class="plc-rank gold">1</div>
+                                <img src="images/yanga.jpg" alt="" class="plc-img">
+                                <h4>Prince Dube</h4>
+                                <span class="plc-team">Yanga SC</span>
+                                <div class="plc-stats">
+                                    <div>⚽ <strong>9</strong></div>
+                                    <div>🎯 <strong>4</strong></div>
+                                    <div>⭐ <strong>7.8</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank silver">2</div>
+                                <img src="images/simba.jpg" alt="" class="plc-img">
+                                <h4>Chris Mugalu</h4>
+                                <span class="plc-team">Simba SC</span>
+                                <div class="plc-stats">
+                                    <div>⚽ <strong>8</strong></div>
+                                    <div>🎯 <strong>2</strong></div>
+                                    <div>⭐ <strong>7.4</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank bronze">3</div>
+                                <img src="images/singida.jpg" alt="" class="plc-img">
+                                <h4>John Bocco</h4>
+                                <span class="plc-team">Singida SC</span>
+                                <div class="plc-stats">
+                                    <div>⚽ <strong>7</strong></div>
+                                    <div>🎯 <strong>3</strong></div>
+                                    <div>⭐ <strong>7.2</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Midfielders -->
+                    <div class="pos-panel" data-pos="midfielders">
+                        <div class="pos-leaders-grid">
+                            <div class="pos-leader-card">
+                                <div class="plc-rank gold">1</div>
+                                <img src="images/azam.jpg" alt="" class="plc-img">
+                                <h4>Feisal Salum</h4>
+                                <span class="plc-team">Azam FC</span>
+                                <div class="plc-stats">
+                                    <div>⚽ <strong>14</strong></div>
+                                    <div>🎯 <strong>8</strong></div>
+                                    <div>⭐ <strong>8.7</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank silver">2</div>
+                                <img src="images/simba.jpg" alt="" class="plc-img">
+                                <h4>Clatous Chama</h4>
+                                <span class="plc-team">Simba SC</span>
+                                <div class="plc-stats">
+                                    <div>⚽ <strong>8</strong></div>
+                                    <div>🎯 <strong>6</strong></div>
+                                    <div>⭐ <strong>7.9</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank bronze">3</div>
+                                <img src="images/simba.jpg" alt="" class="plc-img">
+                                <h4>Elie Mpanzu</h4>
+                                <span class="plc-team">Simba SC</span>
+                                <div class="plc-stats">
+                                    <div>⚽ <strong>3</strong></div>
+                                    <div>🎯 <strong>8</strong></div>
+                                    <div>⭐ <strong>7.6</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Defenders -->
+                    <div class="pos-panel" data-pos="defenders">
+                        <div class="pos-leaders-grid">
+                            <div class="pos-leader-card">
+                                <div class="plc-rank gold">1</div>
+                                <img src="images/yanga.jpg" alt="" class="plc-img">
+                                <h4>Kelvin Yondani</h4>
+                                <span class="plc-team">Yanga SC</span>
+                                <div class="plc-stats">
+                                    <div>🛡️ <strong>92%</strong></div>
+                                    <div>📊 <strong>5.2</strong> Int/G</div>
+                                    <div>⭐ <strong>7.5</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank silver">2</div>
+                                <img src="images/simba.jpg" alt="" class="plc-img">
+                                <h4>Pascal Wawa</h4>
+                                <span class="plc-team">Simba SC</span>
+                                <div class="plc-stats">
+                                    <div>🛡️ <strong>89%</strong></div>
+                                    <div>📊 <strong>4.8</strong> Int/G</div>
+                                    <div>⭐ <strong>7.3</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank bronze">3</div>
+                                <img src="images/azam.jpg" alt="" class="plc-img">
+                                <h4>Hussein Dewji</h4>
+                                <span class="plc-team">Azam FC</span>
+                                <div class="plc-stats">
+                                    <div>🛡️ <strong>87%</strong></div>
+                                    <div>📊 <strong>4.5</strong> Int/G</div>
+                                    <div>⭐ <strong>7.1</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Goalkeepers -->
+                    <div class="pos-panel" data-pos="goalkeepers">
+                        <div class="pos-leaders-grid">
+                            <div class="pos-leader-card">
+                                <div class="plc-rank gold">1</div>
+                                <img src="images/yanga.jpg" alt="" class="plc-img">
+                                <h4>Djigui Diarra</h4>
+                                <span class="plc-team">Yanga SC</span>
+                                <div class="plc-stats">
+                                    <div>🧤 <strong>13</strong> CS</div>
+                                    <div>📊 <strong>82%</strong> Sv</div>
+                                    <div>⭐ <strong>7.8</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank silver">2</div>
+                                <img src="images/simba.jpg" alt="" class="plc-img">
+                                <h4>Mahamadou Kassaly</h4>
+                                <span class="plc-team">Simba SC</span>
+                                <div class="plc-stats">
+                                    <div>🧤 <strong>12</strong> CS</div>
+                                    <div>📊 <strong>76%</strong> Sv</div>
+                                    <div>⭐ <strong>7.4</strong></div>
+                                </div>
+                            </div>
+                            <div class="pos-leader-card">
+                                <div class="plc-rank bronze">3</div>
+                                <img src="images/azam.jpg" alt="" class="plc-img">
+                                <h4>Aishi Manula</h4>
+                                <span class="plc-team">Azam FC</span>
+                                <div class="plc-stats">
+                                    <div>🧤 <strong>11</strong> CS</div>
+                                    <div>📊 <strong>74%</strong> Sv</div>
+                                    <div>⭐ <strong>7.1</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SECTION 9: PLAYER OF THE WEEK ─── -->
+        <section class="stats-section bg-alt" id="player-of-week">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon potw-icon"><i class="fa-solid fa-calendar-star"></i></div>
+                    <div>
+                        <h2>Player of the Week</h2>
+                        <p>Matchday 30 — Best individual performance</p>
+                    </div>
+                </div>
+
+                <div class="potw-showcase">
+                    <div class="potw-card">
+                        <div class="potw-glow"></div>
+                        <div class="potw-badge">⭐ PLAYER OF THE WEEK</div>
+                        <div class="potw-content">
+                            <div class="potw-avatar-area">
+                                <div class="potw-avatar-ring">
+                                    <img src="images/azam.jpg" alt="Feisal Salum">
+                                </div>
+                                <div class="potw-rating">9.5</div>
+                            </div>
+                            <div class="potw-info">
+                                <h3>Feisal Salum</h3>
+                                <span class="potw-team">Azam FC • Midfielder</span>
+                                <div class="potw-match">Azam FC 3 — 1 Simba SC</div>
+                                <div class="potw-stats">
+                                    <div class="potw-stat">
+                                        <div class="potw-stat-val">2</div>
+                                        <div class="potw-stat-label">Goals</div>
+                                    </div>
+                                    <div class="potw-stat">
+                                        <div class="potw-stat-val">1</div>
+                                        <div class="potw-stat-label">Assist</div>
+                                    </div>
+                                    <div class="potw-stat">
+                                        <div class="potw-stat-val">92%</div>
+                                        <div class="potw-stat-label">Pass Acc.</div>
+                                    </div>
+                                    <div class="potw-stat">
+                                        <div class="potw-stat-val">4</div>
+                                        <div class="potw-stat-label">Key Passes</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Previous Winners -->
+                        <div class="potw-previous">
+                            <h4>Previous Winners</h4>
+                            <div class="potw-prev-list">
+                                <div class="potw-prev-item">
+                                    <img src="images/yanga.jpg" alt="">
+                                    <div>
+                                        <strong>Allan Okello</strong>
+                                        <span>Matchday 29</span>
+                                    </div>
+                                </div>
+                                <div class="potw-prev-item">
+                                    <img src="images/simba.jpg" alt="">
+                                    <div>
+                                        <strong>Clatous Chama</strong>
+                                        <span>Matchday 28</span>
+                                    </div>
+                                </div>
+                                <div class="potw-prev-item">
+                                    <img src="images/yanga.jpg" alt="">
+                                    <div>
+                                        <strong>Djigui Diarra</strong>
+                                        <span>Matchday 27</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SECTION 10: RECORD WATCH ─── -->
+        <section class="stats-section" id="record-watch">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon record-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div>
+                        <h2>Record Watch</h2>
+                        <p>Players chasing all-time league records</p>
+                    </div>
+                </div>
+
+                <div class="records-grid-stats">
+                    <div class="record-chase-card glass-container">
+                        <div class="rcc-header">
+                            <div class="rcc-avatar"><img src="images/azam.jpg" alt="Feisal Salum"></div>
+                            <div class="rcc-info">
+                                <h3>Feisal Salum</h3>
+                                <span>Azam FC</span>
+                            </div>
+                            <div class="rcc-badge">🔥 Active Chase</div>
+                        </div>
+                        <div class="rcc-record">
+                            <div class="rcc-current">
+                                <span class="rcc-stat-val">14</span>
+                                <span class="rcc-stat-label">Goals This Season</span>
+                            </div>
+                            <div class="rcc-target-line">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div class="rcc-target">
+                                <span class="rcc-stat-val">17</span>
+                                <span class="rcc-stat-label">Season Record</span>
+                            </div>
+                        </div>
+                        <div class="rcc-bar">
+                            <div class="rcc-fill" style="width: 82%"></div>
+                        </div>
+                        <p class="rcc-note"><strong>3 more goals</strong> needed to become all-time top scorer in a single season.</p>
+                        <div class="rcc-holder">
+                            <i class="fa-solid fa-medal"></i> Current record: Mbwana Samatta (2018/19)
+                        </div>
+                    </div>
+
+                    <div class="record-chase-card glass-container">
+                        <div class="rcc-header">
+                            <div class="rcc-avatar"><img src="images/yanga.jpg" alt="Djigui Diarra"></div>
+                            <div class="rcc-info">
+                                <h3>Djigui Diarra</h3>
+                                <span>Yanga SC</span>
+                            </div>
+                            <div class="rcc-badge">🔥 Active Chase</div>
+                        </div>
+                        <div class="rcc-record">
+                            <div class="rcc-current">
+                                <span class="rcc-stat-val">13</span>
+                                <span class="rcc-stat-label">Clean Sheets</span>
+                            </div>
+                            <div class="rcc-target-line">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div class="rcc-target">
+                                <span class="rcc-stat-val">15</span>
+                                <span class="rcc-stat-label">Season Record</span>
+                            </div>
+                        </div>
+                        <div class="rcc-bar">
+                            <div class="rcc-fill" style="width: 87%"></div>
+                        </div>
+                        <p class="rcc-note"><strong>2 more clean sheets</strong> needed to equal the all-time league record.</p>
+                        <div class="rcc-holder">
+                            <i class="fa-solid fa-medal"></i> Current record: Metacha Mnata (2016/17)
+                        </div>
+                    </div>
+
+                    <div class="record-chase-card glass-container">
+                        <div class="rcc-header">
+                            <div class="rcc-avatar"><img src="images/yanga.jpg" alt="Yanga SC"></div>
+                            <div class="rcc-info">
+                                <h3>Yanga SC</h3>
+                                <span>Team Record</span>
+                            </div>
+                            <div class="rcc-badge">📊 Team Record</div>
+                        </div>
+                        <div class="rcc-record">
+                            <div class="rcc-current">
+                                <span class="rcc-stat-val">23</span>
+                                <span class="rcc-stat-label">Wins This Season</span>
+                            </div>
+                            <div class="rcc-target-line">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div class="rcc-target">
+                                <span class="rcc-stat-val">25</span>
+                                <span class="rcc-stat-label">Season Record</span>
+                            </div>
+                        </div>
+                        <div class="rcc-bar">
+                            <div class="rcc-fill" style="width: 92%"></div>
+                        </div>
+                        <p class="rcc-note"><strong>2 more wins</strong> to beat the all-time single-season win record.</p>
+                        <div class="rcc-holder">
+                            <i class="fa-solid fa-medal"></i> Current record: Simba SC (2019/20)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── NEW SECTION: ANALYTICS & INSIGHTS ─── -->
+        <section class="analytics-dashboard" id="analytics">
+            <div class="container">
+                <div class="stats-section-header">
+                    <div class="ssh-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <div>
+                        <h2>Analytics & Insights</h2>
+                        <p>Deep-dive data visualizations and league benchmarks</p>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <!-- Referee Stats -->
+                    <div class="ana-card reveal-element">
+                        <div class="ana-header">
+                            <h3>Official Watch</h3>
+                            <div class="ana-icon"><i class="fa-solid fa-gavel"></i></div>
+                        </div>
+                        <div class="ana-list">
+                            <div class="ana-item">
+                                <div class="name-row">
+                                    <img src="images/player.png" alt="">
+                                    <span>Jonesia Rukyaa</span>
+                                </div>
+                                <span class="val">42 Cards</span>
+                            </div>
+                            <div class="ana-item">
+                                <div class="name-row">
+                                    <img src="images/player.png" alt="">
+                                    <span>Hery Sasii</span>
+                                </div>
+                                <span class="val">38 Cards</span>
+                            </div>
+                            <div class="ana-item">
+                                <div class="name-row">
+                                    <img src="images/player.png" alt="">
+                                    <span>Ahmed Gea</span>
+                                </div>
+                                <span class="val">31 Cards</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stadium Attendance -->
+                    <div class="ana-card reveal-element">
+                        <div class="ana-header">
+                            <h3>Venue Traffic</h3>
+                            <div class="ana-icon"><i class="fa-solid fa-building-columns"></i></div>
+                        </div>
+                        <div class="stadium-visual">
+                            <span class="label">B. MKAPA STADIUM • 94% FULL</span>
+                        </div>
+                        <div class="ana-list">
+                            <div class="ana-item">
+                                <span>1. Benjamin Mkapa</span>
+                                <span class="val">45.2k Avg</span>
+                            </div>
+                            <div class="ana-item">
+                                <span>2. CCM Kirumba</span>
+                                <span class="val">18.5k Avg</span>
+                            </div>
+                            <div class="ana-item">
+                                <span>3. Azam Complex</span>
+                                <span class="val">7.2k Avg</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shooting Efficiency -->
+                    <div class="ana-card reveal-element">
+                        <div class="ana-header">
+                            <h3>Shot Conversion</h3>
+                            <div class="ana-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                        </div>
+                        <div class="ana-list">
+                            <div class="ana-item">
+                                <span>Team Best (Yanga)</span>
+                                <span class="val">24.5%</span>
+                            </div>
+                            <div class="ana-item">
+                                <span>League Avg</span>
+                                <span class="val">14.2%</span>
+                            </div>
+                            <div class="ana-item">
+                                <span>Player Best (Fei Toto)</span>
+                                <span class="val">31.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone Benchmarks -->
+                <div class="milestone-strip">
+                    <div class="mile-card reveal-element">
+                        <i class="fa-solid fa-hourglass-start"></i>
+                        <h4>Time to First Goal</h4>
+                        <div class="count">24m</div>
+                        <p class="rcc-note">Average minutes until first goal is scored in NBCPL.</p>
+                    </div>
+                    <div class="mile-card reveal-element">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h4>Quickest Goal</h4>
+                        <div class="count">12s</div>
+                        <p class="rcc-note">Scored by Clement Mzize vs Coastal Union.</p>
+                    </div>
+                    <div class="mile-card reveal-element">
+                        <i class="fa-solid fa-flag"></i>
+                        <h4>Offsides / Match</h4>
+                        <div class="count">4.2</div>
+                        <p class="rcc-note">Highest discipline for defensive traps this year.</p>
+                    </div>
+                </div>
+            </div>
+        <!-- ─── NEW: TEAM OF THE SEASON PITCH ─── -->
+        <section class="stats-section tots-section" id="tots">
+            <div class="container">
+                <div class="stats-section-header text-center" style="display:block;">
+                    <div class="ssh-icon m-auto"><i class="fa-solid fa-users-rectangle"></i></div>
+                    <h2 class="mt-15">Team of the Season</h2>
+                    <p>The best XI players based on statistical ratings — Formation 4-3-3</p>
+                </div>
+
+                <div class="soccer-pitch reveal-element">
+                    <div class="pitch-line center-circle"></div>
+                    <div class="pitch-line center-line"></div>
+                    <div class="pitch-line penalty-box p-top"></div>
+                    <div class="pitch-line penalty-box p-bottom"></div>
+
+                    <!-- Players -->
+                    <div class="pitch-player pos-gk"><div class="pp-img"><img src="images/yanga.jpg" alt=""></div><div class="pp-name">Diarra</div></div>
+                    
+                    <div class="pitch-player pos-lb"><div class="pp-img"><img src="images/simba.jpg" alt=""></div><div class="pp-name">Hussein</div></div>
+                    <div class="pitch-player pos-cb1"><div class="pp-img"><img src="images/yanga.jpg" alt=""></div><div class="pp-name">Job</div></div>
+                    <div class="pitch-player pos-cb2"><div class="pp-img"><img src="images/simba.jpg" alt=""></div><div class="pp-name">Inonga</div></div>
+                    <div class="pitch-player pos-rb"><div class="pp-img"><img src="images/yanga.jpg" alt=""></div><div class="pp-name">Kibabage</div></div>
+
+                    <div class="pitch-player pos-lm"><div class="pp-img"><img src="images/simba.jpg" alt=""></div><div class="pp-name">Chama</div></div>
+                    <div class="pitch-player pos-cm"><div class="pp-img"><img src="images/yanga.jpg" alt=""></div><div class="pp-name">Mudathir</div></div>
+                    <div class="pitch-player pos-rm"><div class="pp-img"><img src="images/azam.jpg" alt=""></div><div class="pp-name">Feisal</div></div>
+
+                    <div class="pitch-player pos-lw"><div class="pp-img"><img src="images/yanga.jpg" alt=""></div><div class="pp-name">Aziz Ki</div></div>
+                    <div class="pitch-player pos-cf"><div class="pp-img"><img src="images/yanga.jpg" alt=""></div><div class="pp-name">Mzize</div></div>
+                    <div class="pitch-player pos-rw"><div class="pp-img"><img src="images/yanga.jpg" alt=""></div><div class="pp-name">Okello</div></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 17. Professional Footer -->
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html" class="active"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+    
+    <script>
+        // Position Leaders Tab Switching
+        document.querySelectorAll('.pos-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.pos-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.pos-panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelector(`.pos-panel[data-pos="${tab.dataset.pos}"]`).classList.add('active');
+            });
+        });
+
+        // Smooth scroll for nav pills
+        document.querySelectorAll('.stat-pill').forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.stat-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                const target = document.querySelector(pill.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animate stat numbers on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.stats-podium, .pots-card, .inform-card, .team-stat-card, .record-chase-card, .potw-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(el => observer.observe(el));
+        };
+        animateOnScroll();
+
+        // Active pill on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.stats-section[id]');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 200;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('.stat-pill').forEach(pill => {
+                pill.classList.remove('active');
+                if (pill.getAttribute('href') === '#' + current) {
+                    pill.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

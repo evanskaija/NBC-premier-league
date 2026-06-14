@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Quizzes | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        .quiz-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/nbc\ ball.jpg');
+            background-size: cover;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .quiz-hero h1 { font-size: 3.5rem; font-weight: 950; text-transform: uppercase; color: #fff; }
+
+        .quiz-portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 80px 0;
+        }
+
+        .qz-p-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .qz-p-card:hover { transform: scale(1.05); border-color: var(--primary); }
+
+        .qz-p-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .qz-p-info { padding: 25px; }
+
+        .qz-p-info h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 15px; }
+
+        .qz-p-info .btn { width: 100%; border-radius: 50px; }
+
+        /* --- Interactive Quiz Options --- */
+        .quiz-option-btn {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 22px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quiz-option-btn:hover {
+            border-color: var(--primary);
+            background: rgba(0, 180, 216, 0.05);
+            transform: translateX(4px);
+        }
+
+        .quiz-option-btn.selected {
+            border-color: var(--primary);
+            background: rgba(0, 180, 216, 0.15);
+        }
+
+        .quiz-option-btn.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .quiz-option-btn.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .option-marker {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 900;
+        }
+
+        .quiz-option-btn.selected .option-marker {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #000;
+        }
+
+        .quiz-option-btn.correct .option-marker {
+            border-color: #22c55e;
+            background: #22c55e;
+            color: #fff;
+        }
+
+        .quiz-option-btn.incorrect .option-marker {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: #fff;
+        }
+
+        #quiz-review-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        #quiz-review-list::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+            border-radius: 10px;
+        }
+        #quiz-review-list::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+        #quiz-review-list::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+    <!-- Nav (Same as awards) -->
+    <header class="quiz-hero">
+        <div class="container">
+            <h1>FAN QUIZ CENTRAL</h1>
+            <p style="font-weight: 700; color: #fff;">Are you the ultimate Tanzanian football fan? Prove it!</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 1. CATEGORY SELECTION VIEW -->
+        <div id="quiz-categories-view" class="quiz-portal-grid">
+            <div class="qz-p-card" onclick="startQuiz('past')">
+                <div class="qz-p-img" style="background-image: url('images/Tuzo.JPG');"></div>
+                <div class="qz-p-info">
+                    <span style="font-size:0.65rem; color:var(--primary); font-weight:950; letter-spacing:2px; display:block; margin-bottom:5px;">HISTORICAL SENSATION</span>
+                    <h3>The Moment Past</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 15px;">Test your knowledge on Tanzanian football history, past champions, and legends.</p>
+                    <button class="btn btn-primary" onclick="event.stopPropagation(); startQuiz('past');">Start Quiz (10 Questions)</button>
+                </div>
+            </div>
+            
+            <div class="qz-p-card" onclick="startQuiz('ahead')">
+                <div class="qz-p-img" style="background-image: url('images/nbc\ ball.jpg');"></div>
+                <div class="qz-p-info">
+                    <span style="font-size:0.65rem; color:var(--primary); font-weight:950; letter-spacing:2px; display:block; margin-bottom:5px;">FUTURE PROSPECTS</span>
+                    <h3>The Moment Ahead</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 15px;">How much do you know about the upcoming 2026/27 season, transfers, and predictions?</p>
+                    <button class="btn btn-primary" onclick="event.stopPropagation(); startQuiz('ahead');">Start Quiz (10 Questions)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. QUIZ ACTIVE PLAYER VIEW -->
+        <div id="quiz-active-view" style="display:none; max-width: 800px; margin: 40px auto; padding: 40px; background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 15px 40px rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <span id="quiz-category-badge" style="font-size:0.65rem; color:var(--primary); font-weight:950; text-transform:uppercase; letter-spacing:2px;">The Moment Past</span>
+                <span id="quiz-progress-text" style="font-size:0.8rem; font-weight:800; color:var(--text-muted);">Question 1 of 10</span>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; margin-bottom: 35px;">
+                <div id="quiz-progress-bar" style="height: 100%; width: 10%; background: var(--primary); transition: width 0.3s ease;"></div>
+            </div>
+            
+            <!-- Question Box -->
+            <div style="margin-bottom: 35px;">
+                <h2 id="quiz-question-text" style="font-size: 1.6rem; font-weight:900; line-height:1.4; color:var(--text-main);">What is the capacity of the Benjamin Mkapa National Stadium?</h2>
+            </div>
+            
+            <!-- Options List -->
+            <div id="quiz-options-list" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;">
+                <!-- Dynamically filled option buttons -->
+            </div>
+            
+            <!-- Navigation buttons -->
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button id="btn-quiz-quit" class="btn btn-outline" style="border-radius: 50px; padding: 10px 25px;" onclick="quitQuiz()">Quit Quiz</button>
+                <button id="btn-quiz-next" class="btn btn-primary" style="border-radius: 50px; padding: 10px 30px; display: none;" onclick="nextQuestion()">Next Question <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i></button>
+            </div>
+        </div>
+
+        <!-- 3. QUIZ RESULTS SUMMARY VIEW -->
+        <div id="quiz-results-view" style="display:none; max-width: 800px; margin: 40px auto; padding: 50px 40px; background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 15px 40px rgba(0,0,0,0.5); text-align: center;">
+            <div style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"><i class="fa-solid fa-circle-check"></i></div>
+            <h2 style="font-size: 2.2rem; font-weight:950; margin-bottom: 10px;">Quiz Completed!</h2>
+            <p id="quiz-feedback-text" style="color:var(--text-muted); font-weight:700; font-size:1.1rem; margin-bottom: 35px;">Spectacular! You are a true Tanzanian football connoisseur.</p>
+            
+            <!-- Score Ring / Box -->
+            <div style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 180, 216, 0.08); border: 2px solid rgba(0, 180, 216, 0.2); border-radius: 50%; width: 160px; height: 160px; margin-bottom: 40px;">
+                <span id="quiz-score-val" style="font-size: 3.5rem; font-weight: 950; color: var(--text-main); line-height: 1;">8</span>
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-top: 5px;">out of 10</span>
+            </div>
+
+            <!-- Review Section -->
+            <div style="text-align: left; margin-bottom: 45px;">
+                <h3 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Review Answers</h3>
+                <div id="quiz-review-list" style="display: flex; flex-direction: column; gap: 15px; max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+            
+            <!-- Controls -->
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <button class="btn btn-primary" style="border-radius: 50px; padding: 12px 30px;" onclick="restartQuiz()">Try Again</button>
+                <button class="btn btn-outline" style="border-radius: 50px; padding: 12px 30px;" onclick="showCategories()">Other Categories</button>
+            </div>
+        </div>
+    </main>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+    
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// ===================================================
+//  QUIZ DATA ENGINE
+// ===================================================
+const quizData = {
+    'past': {
+        name: 'The Moment Past',
+        questions: [
+            {
+                q: "Which team won the NBC Premier League title in the 2024/25 season?",
+                options: ["Yanga SC", "Simba SC", "Azam FC", "Coastal Union"],
+                ans: 0,
+                desc: "Yanga SC won the Ligi Kuu title in 2024/25 under Miguel Gamondi."
+            },
+            {
+                q: "Who holds the record for the most goals in a single Tanzanian Premier League season?",
+                options: ["Fiston Mayele", "Meddie Kagere", "Mbwana Samatta", "Stephane Aziz Ki"],
+                ans: 2,
+                desc: "Mbwana Samatta holds the record with 30 goals during the 2018/19 season."
+            },
+            {
+                q: "In what year was the Tanzania Premier League Board (TPLB) established?",
+                options: ["2004", "2012", "2018", "1999"],
+                ans: 1,
+                desc: "The TPLB was officially established in 2012 to oversee professional leagues."
+            },
+            {
+                q: "Which Tanzanian club has won the most Premier League titles in history?",
+                options: ["Simba SC", "Azam FC", "Mtibwa Sugar", "Yanga SC"],
+                ans: 3,
+                desc: "Yanga SC holds the record for the most championships in history."
+            },
+            {
+                q: "Which player won the Ligi Kuu Goal of the Season award for 2025/26?",
+                options: ["Feisal Salum", "Stephane Aziz Ki", "Clement Mzize", "Clatous Chama"],
+                ans: 0,
+                desc: "Feisal Salum won the Goal of the Season award for Azam FC."
+            },
+            {
+                q: "In which city is the club Coastal Union based?",
+                options: ["Mwanza", "Arusha", "Tanga", "Dar es Salaam"],
+                ans: 2,
+                desc: "Coastal Union is based in Tanga and plays at the Mkwakwani Stadium."
+            },
+            {
+                q: "Who was the top goalkeeper with 16 clean sheets in the 2024/25 season?",
+                options: ["Aishi Manula", "Djigui Diarra", "Ally Salim", "Musa Kamala"],
+                ans: 1,
+                desc: "Djigui Diarra recorded 16 clean sheets for Yanga SC."
+            },
+            {
+                q: "Which team won the Mapinduzi Cup in 2022?",
+                options: ["Yanga SC", "Simba SC", "Azam FC", "KMKM"],
+                ans: 1,
+                desc: "Simba SC defeated Yanga SC in the final to claim the 2022 Mapinduzi Cup."
+            },
+            {
+                q: "Which famous Tanzanian striker played for Aston Villa in the English Premier League?",
+                options: ["Simon Msuva", "John Bocco", "Mbwana Samatta", "Thomas Ulimwengu"],
+                ans: 2,
+                desc: "Mbwana Samatta played for Aston Villa in 2020, scoring in the League Cup final."
+            },
+            {
+                q: "What is the capacity of the Benjamin Mkapa National Stadium in Dar es Salaam?",
+                options: ["60,000", "45,000", "80,000", "50,000"],
+                ans: 0,
+                desc: "The Benjamin Mkapa Stadium is a state-of-the-art stadium with a capacity of 60,000."
+            }
+        ]
+    },
+    'ahead': {
+        name: 'The Moment Ahead',
+        questions: [
+            {
+                q: "Which countries will host the FIFA World Cup 2026 where former Tanzanian league players are projected to appear?",
+                options: ["Qatar & UAE", "Morocco & Spain", "Germany & France", "USA, Canada & Mexico"],
+                ans: 3,
+                desc: "The 2026 FIFA World Cup will be hosted in North America across USA, Canada, and Mexico."
+            },
+            {
+                q: "Which player is linked with a high-confidence transfer to Simba SC for the upcoming 2026/27 season?",
+                options: ["Prince Dube", "Lameck Lawi", "Allan Okello", "Pacome Zouzua"],
+                ans: 1,
+                desc: "Defending star Lameck Lawi is strongly linked with Simba SC (75% confidence)."
+            },
+            {
+                q: "What is the scheduled start month for the upcoming 2026/27 NBC Premier League season?",
+                options: ["August 2026", "October 2026", "December 2026", "September 2026"],
+                ans: 0,
+                desc: "The NBC Premier League 2026/27 season is scheduled to kick off in August 2026."
+            },
+            {
+                q: "Yanga SC is currently chasing Mbwana Samatta's record of 30 goals. Who is only 2 goals away as of June 2026?",
+                options: ["Stephane Aziz Ki", "Clement Mzize", "Jean Charles Ahoua", "Feisal Salum"],
+                ans: 0,
+                desc: "Stephane Aziz Ki scored 28 goals this season, placing him 2 goals away from Samatta's record."
+            },
+            {
+                q: "Which tournament will represent the major upcoming continental challenge for Tanzanian clubs in late 2026?",
+                options: ["CAF Confederation Cup", "CAF Champions League", "UEFA Champions League", "AFC Champions League"],
+                ans: 1,
+                desc: "Yanga SC and Simba SC will compete in the premium CAF Champions League starting in late 2026."
+            },
+            {
+                q: "If Yanga SC extends their winning streak, they are projected to break the record of 18 consecutive wins set in:",
+                options: ["2014/15", "2018/19", "2020/21", "2022/23"],
+                ans: 0,
+                desc: "Yanga set the record with 18 wins in 2014/15, and is currently trailing it closely."
+            },
+            {
+                q: "Which club is confirmed to have signed Azam FC star Prince Dube for the upcoming season?",
+                options: ["Singida BS", "Simba SC", "Yanga SC", "Coastal Union"],
+                ans: 2,
+                desc: "Yanga SC officially confirmed the signing of Prince Dube from rivals Azam FC."
+            },
+            {
+                q: "In the upcoming 2026/27 season, how many teams will be automatically relegated from the NBC Premier League?",
+                options: ["1 team", "2 teams", "3 teams", "4 teams"],
+                ans: 1,
+                desc: "As per rules, the bottom two teams (15th and 16th) face direct relegation to the Championship."
+            },
+            {
+                q: "Which new sponsor was recently added to the FA Cup (CRDB Cup) for the upcoming tournaments?",
+                options: ["NBC Bank", "NMB Bank", "CRDB Bank", "Tigo"],
+                ans: 2,
+                desc: "CRDB Bank is the official title sponsor of the Federation Cup (CRDB Cup)."
+            },
+            {
+                q: "The upcoming Dar es Salaam Derby in the 2026 season calendar is scheduled to be played at which iconic venue?",
+                options: ["Benjamin Mkapa Stadium", "Chamazi Complex", "Uhuru Stadium", "CCM Kirumba Stadium"],
+                ans: 0,
+                desc: "The premium derby matches are played at the 60,000 capacity Benjamin Mkapa National Stadium."
+            }
+        ]
+    }
+};
+
+// ===================================================
+//  QUIZ ENGINE STATE
+// ===================================================
+let activeCategory = '';
+let currentQuestionIndex = 0;
+let userAnswers = [];
+
+function startQuiz(category) {
+    activeCategory = category;
+    currentQuestionIndex = 0;
+    userAnswers = new Array(quizData[category].questions.length).fill(null);
+
+    // Hide categories panel, show active quiz panel
+    document.getElementById('quiz-categories-view').style.display = 'none';
+    document.getElementById('quiz-results-view').style.display = 'none';
+    document.getElementById('quiz-active-view').style.display = 'block';
+
+    document.getElementById('quiz-category-badge').textContent = quizData[category].name;
+    
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qList = quizData[activeCategory].questions;
+    const q = qList[currentQuestionIndex];
+
+    // Update progress elements
+    document.getElementById('quiz-progress-text').textContent = `Question ${currentQuestionIndex + 1} of ${qList.length}`;
+    const pct = ((currentQuestionIndex + 1) / qList.length) * 100;
+    document.getElementById('quiz-progress-bar').style.width = `${pct}%`;
+
+    // Question text
+    document.getElementById('quiz-question-text').textContent = q.q;
+
+    // Options list
+    const optionsList = document.getElementById('quiz-options-list');
+    optionsList.innerHTML = q.options.map((opt, idx) => `
+        <button class="quiz-option-btn ${userAnswers[currentQuestionIndex] === idx ? 'selected' : ''}" onclick="selectOption(${idx})">
+            <span>${opt}</span>
+            <span class="option-marker">${String.fromCharCode(65 + idx)}</span>
+        </button>
+    `).join('');
+
+    // Update navigation controls
+    const nextBtn = document.getElementById('btn-quiz-next');
+    if (userAnswers[currentQuestionIndex] !== null) {
+        nextBtn.style.display = 'block';
+        if (currentQuestionIndex === qList.length - 1) {
+            nextBtn.innerHTML = `Submit Quiz <i class="fa-solid fa-square-check" style="margin-left:8px;"></i>`;
+        } else {
+            nextBtn.innerHTML = `Next Question <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>`;
+        }
+    } else {
+        nextBtn.style.display = 'none';
+    }
+}
+
+function selectOption(index) {
+    userAnswers[currentQuestionIndex] = index;
+    
+    // Refresh selection highlights
+    const btns = document.querySelectorAll('.quiz-option-btn');
+    btns.forEach((btn, idx) => {
+        btn.classList.toggle('selected', idx === index);
+    });
+
+    // Show Next button
+    const nextBtn = document.getElementById('btn-quiz-next');
+    nextBtn.style.display = 'block';
+    const qList = quizData[activeCategory].questions;
+    if (currentQuestionIndex === qList.length - 1) {
+        nextBtn.innerHTML = `Submit Quiz <i class="fa-solid fa-square-check" style="margin-left:8px;"></i>`;
+    } else {
+        nextBtn.innerHTML = `Next Question <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>`;
+    }
+}
+
+function nextQuestion() {
+    const qList = quizData[activeCategory].questions;
+    if (currentQuestionIndex < qList.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    } else {
+        submitQuiz();
+    }
+}
+
+function quitQuiz() {
+    if (confirm("Are you sure you want to quit this quiz? Your progress will be lost.")) {
+        showCategories();
+    }
+}
+
+function showCategories() {
+    document.getElementById('quiz-active-view').style.display = 'none';
+    document.getElementById('quiz-results-view').style.display = 'none';
+    document.getElementById('quiz-categories-view').style.display = 'grid';
+}
+
+function restartQuiz() {
+    startQuiz(activeCategory);
+}
+
+function submitQuiz() {
+    const qList = quizData[activeCategory].questions;
+    let score = 0;
+    
+    qList.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) {
+            score++;
+        }
+    });
+
+    // Populate score details
+    document.getElementById('quiz-score-val').textContent = score;
+
+    // Display custom feedback
+    const feedback = document.getElementById('quiz-feedback-text');
+    if (score === 10) {
+        feedback.innerHTML = "🏆 Perfect Score! You are an ultimate Tanzanian football legend!";
+    } else if (score >= 8) {
+        feedback.innerHTML = "🌟 Spectacular! You have excellent knowledge of the leagues.";
+    } else if (score >= 5) {
+        feedback.innerHTML = "👍 Good job! You know your stuff, but there's room to grow.";
+    } else {
+        feedback.innerHTML = "👟 Keep training! Read some more news articles and try again.";
+    }
+
+    // Populate review list
+    const reviewList = document.getElementById('quiz-review-list');
+    reviewList.innerHTML = qList.map((q, idx) => {
+        const isCorrect = userAnswers[idx] === q.ans;
+        return `
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid ${isCorrect ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)'}; border-radius: 16px; padding: 20px; border-left: 5px solid ${isCorrect ? '#22c55e' : '#ef4444'};">
+                <h4 style="font-weight: 800; font-size: 0.95rem; margin-bottom: 10px; color:var(--text-main);">Question ${idx + 1}: ${q.q}</h4>
+                <div style="font-size: 0.82rem; margin-bottom: 8px;">
+                    <span style="color:var(--text-muted);">Your Answer:</span> 
+                    <strong style="color: ${isCorrect ? '#22c55e' : '#ef4444'};">${userAnswers[idx] !== null ? q.options[userAnswers[idx]] : 'None'}</strong>
+                    ${!isCorrect ? `<span style="color:var(--text-muted); margin-left: 10px;">• Correct:</span> <strong style="color: #22c55e;">${q.options[q.ans]}</strong>` : ''}
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; line-height: 1.4;">${q.desc}</p>
+            </div>
+        `;
+    }).join('');
+
+    // Toggle views
+    document.getElementById('quiz-active-view').style.display = 'none';
+    document.getElementById('quiz-results-view').style.display = 'block';
+    
+    document.getElementById('quiz-results-view').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

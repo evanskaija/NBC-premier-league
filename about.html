@@ -1,0 +1,698 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT BOARD | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --board-glow: rgba(0, 180, 216, 0.2);
+        }
+
+        /* Hero Styling */
+        .board-hero {
+            background: linear-gradient(rgba(0, 8, 20, 0.85), rgba(0, 8, 20, 0.85)), url('images/stadium.png');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 80px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .board-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 950;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            color: #fff;
+        }
+
+        /* History Section */
+        .history-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 50px;
+            border-radius: 30px;
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .history-card::before {
+            content: '\f1da';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 15rem;
+            opacity: 0.03;
+            color: var(--primary);
+        }
+
+        .history-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            font-weight: 500;
+            color: var(--text-muted);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Board Members Grid */
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .executive-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .board-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .board-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px var(--board-glow);
+        }
+
+        .member-photo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--primary), transparent);
+            position: relative;
+        }
+
+        .member-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #fff;
+            border: 3px solid var(--bg-card);
+        }
+
+        .member-info h3 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .member-info p {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+        }
+
+        /* Secretariat Tree Visualizer */
+        .org-tree {
+            text-align: center;
+            padding: 40px 0;
+            overflow-x: auto;
+        }
+
+        .tree-level {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        /* Level Connector Lines */
+        .tree-level::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            width: 2px;
+            height: 30px;
+            background: var(--border-color);
+            display: none; /* Managed by JS/Specific IDs */
+        }
+
+        .tree-node {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .tree-node .member-photo-container {
+            width: 80px;
+            height: 80px;
+        }
+
+        .tree-node h4 { font-size: 0.9rem; font-weight: 900; margin-bottom: 3px; }
+        .tree-node span { font-size: 0.6rem; font-weight: 800; color: var(--primary); text-transform: uppercase; }
+
+        /* Assistant Node Styling */
+        .assistant-level {
+            display: flex;
+            justify-content: center;
+            margin-top: -30px;
+            margin-bottom: 60px;
+        }
+
+        .connector-vertical {
+            width: 2px;
+            height: 40px;
+            background: var(--border-color);
+            margin: 0 auto;
+        }
+
+        .connector-horizontal {
+            width: 600px;
+            height: 2px;
+            background: var(--border-color);
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1200px) {
+            .board-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .board-grid { grid-template-columns: repeat(2, 1fr); }
+            .executive-pair { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown active">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html" class="active">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Hero -->
+    <header class="board-hero">
+        <div class="container fade-in">
+            <h1>TPLB BOARD & MANAGEMENT</h1>
+            <p>Governing the Elite Tiers of Tanzanian Football with Excellence and Integrity.</p>
+        </div>
+    </header>
+
+    <main class="container section-padding">
+        
+        <!-- 1. History Section -->
+        <section id="history" class="history-card reveal-element">
+            <div class="section-title-wrapper" style="text-align: left; margin-bottom: 30px;">
+                <h2 style="font-weight: 950; color: var(--primary);">HISTORY OF TPLB</h2>
+                <div class="title-underline"></div>
+            </div>
+            <p class="history-text">
+                The Tanzania Premier League Board (TPLB) is a body created by the Tanzania Football Federation (TFF) with the consent of its general meeting held on March 24 to 25, 2012. The board has been assigned the authority to run and manage the Premier League, Championship League and First League under Article 55 of the TFF Constitution.
+            </p>
+        </section>
+
+        <!-- 2. Board Members Section -->
+        <section id="board" class="section-padding">
+            <div class="section-title-wrapper">
+                <h2 style="font-weight: 950; font-size: 2.5rem;">BOARD MEMBERS</h2>
+                <p style="color: var(--text-muted); font-weight: 700; margin-top: 10px;">Executive Leadership & Committee Members</p>
+                <div class="title-underline" style="margin: 15px auto;"></div>
+            </div>
+
+            <!-- Leadership Pair -->
+            <div class="executive-pair reveal-element">
+                <div class="board-card">
+                    <div class="member-photo-container">
+                        <img src="images/Nassor Idrissa.png" alt="Nassor Idrissa" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <h3>NASSOR IDRISSA</h3>
+                        <p>Mwenyekiti - Bodi ya Ligi Kuu</p>
+                    </div>
+                </div>
+                <div class="board-card">
+                    <div class="member-photo-container">
+                        <img src="images/Hassan Muhsin.png" alt="Hassan Muhsin" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <h3>HASSAN MUHSIN</h3>
+                        <p>Makamu Mwenyekiti - Bodi ya Ligi Kuu</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Management Support -->
+            <div class="executive-pair reveal-element" style="margin-bottom: 80px;">
+                <div class="board-card" style="border-color: var(--primary-glow);">
+                    <div class="member-photo-container">
+                        <img src="images/Corner l . Barnabas.png" alt="Cornel Barnabas" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <h3>CORNEL L. BARNABAS</h3>
+                        <p>Afisa Mtendaji Mkuu - Bodi ya Ligi Kuu</p>
+                    </div>
+                </div>
+                <div class="board-card">
+                    <div class="member-photo-container">
+                        <img src="images/Oscar Mirambo.png" alt="Oscar Mirambo" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <h3>OSCAR MIRAMBO</h3>
+                        <p>Kaimu Katibu Mkuu - TFF</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Members Grid -->
+            <div class="board-grid">
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Japhet Makau.png" class="member-photo"></div>
+                    <div class="member-info"><h3>JAPHET MAKAU</h3><p>Mjumbe Mwakilishi - Ligi Kuu</p></div>
+                </div>
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Gilbert Nkoronko.png" class="member-photo"></div>
+                    <div class="member-info"><h3>GILBERT NKORONKO</h3><p>Mjumbe Mwakilishi - Ligi Kuu</p></div>
+                </div>
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Premier league.png" class="member-photo"></div>
+                    <div class="member-info"><h3>MJUMBE MWAKILISHI</h3><p>Ligi Kuu</p></div>
+                </div>
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Hillary Ndumbaro.png" class="member-photo"></div>
+                    <div class="member-info"><h3>HILLARY NDUMBARO</h3><p>Mwakilishi Championship</p></div>
+                </div>
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Ahmed Gao.png" class="member-photo"></div>
+                    <div class="member-info"><h3>AHMED GAO</h3><p>Mwakilishi Championship</p></div>
+                </div>
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Azimkhan Akber.png" class="member-photo"></div>
+                    <div class="member-info"><h3>AZIMKHAN AKBER</h3><p>Mwakilishi First League</p></div>
+                </div>
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Kheri Misinga.png" class="member-photo"></div>
+                    <div class="member-info"><h3>KHERI MISINGA</h3><p>Mjumbe wa Kuteuliwa</p></div>
+                </div>
+                <div class="board-card reveal-element">
+                    <div class="member-photo-container"><img src="images/Shani Christoms.png" class="member-photo"></div>
+                    <div class="member-info"><h3>SHANI CHRISTOMS</h3><p>Mjumbe wa Kuteuliwa</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Secretariat Section (Tree View) -->
+        <section id="secretariat" class="section-padding reveal-element" style="background: rgba(0,0,0,0.2); border-radius: 40px; border: 1px solid var(--border-color); padding: 60px 40px;">
+            <div class="section-title-wrapper">
+                <h2 style="font-weight: 950; font-size: 2.5rem;">SECRETARIAT HUB</h2>
+                <p style="color: var(--text-muted); font-weight: 700; margin-top: 10px;">Operational Structure & Department Heads</p>
+                <div class="title-underline" style="margin: 15px auto;"></div>
+            </div>
+
+            <div class="org-tree">
+                <!-- CEO Level -->
+                <div class="tree-level">
+                    <div class="tree-node" style="border-color: var(--primary);">
+                        <div class="member-photo-container"><img src="images/Corner l . Barnabas.png" class="member-photo"></div>
+                        <h4>CORNEL L. BARNABAS</h4>
+                        <span>Afisa Mtendaji Mkuu</span>
+                    </div>
+                </div>
+
+                <div class="connector-vertical"></div>
+
+                <!-- Assistant Level -->
+                <div class="assistant-level">
+                    <div style="width: 2px; height: 20px; background: var(--border-color); position: absolute; left: 50%;"></div>
+                    <div style="width: 200px; height: 2px; background: var(--border-color); margin-top: 20px; margin-right: -200px;"></div>
+                    <div class="tree-node" style="margin-top: -10px; margin-left: 200px;">
+                        <div class="member-photo-container"><img src="images/Maua Rubibi.png" class="member-photo"></div>
+                        <h4>MAUA RUBIBI</h4>
+                        <span>Msaidizi Binafsi wa CEO</span>
+                    </div>
+                </div>
+
+                <div class="connector-vertical"></div>
+                <div class="connector-horizontal" style="width: 80%;"></div>
+                
+                <!-- Department Heads - Level 2 -->
+                <div class="tree-level" style="margin-top: 0;">
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/ACPA(T). IBRAHIM MWAYELA.png" class="member-photo"></div>
+                        <h4>IBRAHIM MWAYELA</h4>
+                        <span>Idara ya Fedha</span>
+                    </div>
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/HASSAN ABDALLAH.png" class="member-photo"></div>
+                        <h4>HASSAN ABDALLAH</h4>
+                        <span>Idara ya Ligi</span>
+                    </div>
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/FATMA ABDALLAH.png" class="member-photo"></div>
+                        <h4>FATMA ABDALLAH</h4>
+                        <span>Idara ya Uendeshaji</span>
+                    </div>
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/FATMA NHONOLI.png" class="member-photo"></div>
+                        <h4>SOPHIA NHONOLI</h4>
+                        <span>Idara ya Rasilimali Watu</span>
+                    </div>
+                </div>
+
+                <!-- Level 3 Distribution -->
+                <div class="tree-level">
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/KARIM BOIMANDA.png" class="member-photo"></div>
+                        <h4>KARIM BOIMANDA</h4>
+                        <span>Habari na Mawasiliano</span>
+                    </div>
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/JERRY TEMU.png" class="member-photo"></div>
+                        <h4>JERRY TEMU</h4>
+                        <span>Idara ya Masoko</span>
+                    </div>
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/NEEMA HASSAN.png" class="member-photo"></div>
+                        <h4>NEEMA HASSAN</h4>
+                        <span>Udhibiti na Ukaguzi</span>
+                    </div>
+                    <div class="tree-node">
+                        <div class="member-photo-container"><img src="images/ABDU MGUDE.png" class="member-photo"></div>
+                        <h4>ABDU MGUDE</h4>
+                        <span>Manunuzi na Ugavi</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 17. Professional Footer -->
+    
+    
+    
+    
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html" class="active"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+
+</html>

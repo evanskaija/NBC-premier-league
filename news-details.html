@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Details | Tanzania Football Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .news-details-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+        .article-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+        }
+        .article-tag {
+            background: var(--primary);
+            color: #000;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            border-radius: 4px;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 20px;
+        }
+        .article-title {
+            font-size: 2.2rem;
+            font-weight: 950;
+            line-height: 1.25;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        .article-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .article-meta i {
+            color: var(--primary);
+        }
+        .article-img-wrapper {
+            width: 100%;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 35px;
+        }
+        .article-img {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+        }
+        .article-body {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            font-weight: 400;
+        }
+        .article-body p {
+            margin-bottom: 20px;
+        }
+        .article-body blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 850;
+            font-size: 0.9rem;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+        .back-btn:hover {
+            color: var(--accent);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+
+    
+    
+    
+    
+    <div class="portal-header-container">
+        <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
+        <div class="header-top-tier">
+            <a href="index.html" class="brand-section">
+                <img src="images/Premier league.png" alt="Logo">
+                <span class="site-title">Tanzania Football Hub</span>
+            </a>
+
+            <div class="header-search-box desktop-only">
+                <i class="fa-solid fa-magnifying-glass" style="color:#aaa; margin-right:12px;"></i>
+                <input type="text" placeholder="Search for players, matches, or news...">
+            </div>
+
+            <div class="utility-section">
+                <!-- Language Selector -->
+                <div class="lang-selector-mini">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="sw">Kiswahili</option>
+                    </select>
+                </div>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="nav-utility-btn" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="header-login-btn">Member Login</a>
+                <div class="mobile-toggle-btn" id="mobile-toggle-btn">☰</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TIER: ELITE NAVIGATION -->
+        <nav class="header-nav-tier desktop-only">
+            <ul class="nav-strip">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="news.html"><i class="fa-solid fa-newspaper"></i> News <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="news.html">Latest News</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="interviews.html">Interviews</a>
+                        <a href="features.html">Features</a>
+                        <a href="reports.html">Reports</a>
+                        <a href="videos.html">Videos</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-calendar-check"></i> Matches <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="fixtures.html">Fixtures</a>
+                        <a href="results.html">Results</a>
+                        <a href="standings.html">Standings</a>
+                        <a href="livescores.html">Live Scores</a>
+                    </div>
+                </li>
+                <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Calendar</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-users-viewfinder"></i> Hub <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="teams.html">Teams</a>
+                        <a href="players.html">Players</a>
+                        <a href="transfers.html">Transfers</a>
+                        <a href="statistics.html">Statistics</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-trophy"></i> Ligi Kuu <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="nbcpremierleague.html">NBC Premier League</a>
+                        <a href="championship.html">Championship</a>
+                        <a href="firstleague.html">First League</a>
+                        <a href="womensleague.html">Women's League</a>
+                        <a href="kanuni.html"><i class="fa-solid fa-scale-balanced" style="margin-right:6px;"></i> Kanuni</a>
+                    </div>
+                </li>
+                <li class="nav-item-dropdown">
+                    <a href="#"><i class="fa-solid fa-landmark"></i> Board <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">About Board</a>
+                        <a href="about.html#history">History</a>
+                        <a href="about.html#board">Members</a>
+                        <a href="about.html#secretariat">Secretariat</a>
+                    </div>
+                </li>
+                <li><a href="contact.html"><i class="fa-solid fa-headset"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+    <!-- MAIN BODY -->
+    <main class="news-details-container" style="margin-top: 40px;">
+        <a href="news.html" class="back-btn"><i class="fa-solid fa-arrow-left-long"></i> Back to News Center</a>
+        
+        <article class="article-card">
+            <span class="article-tag" id="article-tag">HEADLINE</span>
+            <h1 class="article-title" id="article-title">Article Title Loading...</h1>
+            
+            <div class="article-meta">
+                <span><i class="fa-regular fa-calendar"></i> <span id="article-date">Date Loading...</span></span>
+                <span><i class="fa-regular fa-user"></i> By Tanzania Football Hub Staff</span>
+            </div>
+
+            <div class="article-img-wrapper">
+                <img src="" id="article-image" class="article-img" alt="Article Image">
+            </div>
+
+            <div class="article-body" id="article-body">
+                Article content is loading...
+            </div>
+        </article>
+    </main>
+
+    <!-- SITE FOOTER -->
+    
+    
+    
+    
+    <footer class="site-footer reveal-element">
+        <!-- Partner / Sponsor Bar -->
+        <div class="footer-partners">
+            <div class="container">
+                <div class="partners-grid-v2">
+                    <div class="partner-logo"><img src="images/nbc.png" alt="NBC"></div>
+                    <div class="partner-logo"><img src="images/Premier league.png" alt="TFF"></div>
+                    <div class="partner-logo"><img src="images/crdb cup.jpg" alt="CRDB"></div>
+                    <div class="partner-logo"><img src="images/championship.png" alt="Puma"></div>
+                    <div class="partner-logo"><img src="images/confidaration.png" alt="CAF"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-main-grid">
+                <!-- Column 1: Brand -->
+                <div class="f-col branding">
+                    <div class="f-logo">
+                        <img src="images/Premier league.png" alt="Logo">
+                        <span>Tanzania Football Hub</span>
+                    </div>
+                    <p class="f-desc">The official digital portal for the NBC Premier League and Tanzanian football.
+                        Stay connected with every goal, every moment, and every hero.</p>
+                    <div class="f-social-v2">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Competitions -->
+                <div class="f-col">
+                    <h4>Competitions</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="nbcpremierleague.html">NBC Premier League</a></li>
+                        <li><a href="championship.html">Championship</a></li>
+                        <li><a href="firstleague.html">First League</a></li>
+                        <li><a href="womensleague.html">Women's League</a></li>
+                        <li><a href="facup.html">FA Cup</a></li>
+                        <li><a href="cafmatches.html">CAF Matches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="f-col">
+                    <h4>Resources</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="fixtures.html">Official Fixtures</a></li>
+                        <li><a href="results.html">Live Results</a></li>
+                        <li><a href="standings.html">League Standings</a></li>
+                        <li><a href="livescores.html">Live Scores</a></li>
+                        <li><a href="statistics.html">Player Statistics</a></li>
+                        <li><a href="transfers.html">Transfers Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: The Hub -->
+                <div class="f-col">
+                    <h4>The Hub</h4>
+                    <ul class="f-nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">Latest News</a></li>
+                        <li><a href="interviews.html">Interviews</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="about.html">About TPLB</a></li>
+                        <li><a href="about.html#history">History of TPLB</a></li>
+                        <li><a href="about.html#board">Board Members</a></li>
+                        <li><a href="about.html#secretariat">Secretariat</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="copy">
+                    &copy; 2026 Tanzania Football Federation (TFF). All rights reserved.
+                </div>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ARTICLES_DB = {
+                "1": {
+                    title: "OKELLO KINARA WA MABAO YA MGUU YA KUSHOTO LIGI KUU YA NBC",
+                    tag: "NBC PL",
+                    date: "June 2, 2026",
+                    image: "images/Ki azizi.webp",
+                    content: `
+                        <p>Kiungo mchezaji wa Singida Black Stars, Allan Okello, ameendelea kuandika rekodi tamu kwenye Ligi Kuu ya NBC kwa msimu wa 2025/26. Okello ameibuka kinara wa mabao yaliyofungwa kwa mguu wa kushoto, jambo linalomweka katika nafasi ya pekee kama mmoja wa wachezaji hatari zaidi ligini.</p>
+                        <blockquote>"Kucheza kwa kutumia mguu wa kushoto kuna upekee wake, na ninamshukuru Mungu kuwa uwezo wangu unaisaidia timu kupata matokeo chanya," alisema Okello.</blockquote>
+                        <p>Takwimu zinaonesha kuwa kiungo huyo amehusika katika mabao 20 ya timu yake msimu huu, akifunga mabao na kutoa pasi za magoli. Kiwango chake bora kimewavutia wadau wengi wa soka nchini, wakimtaja kama kiungo mbunifu na mwenye maono ya mbali anapokuwa uwanjani.</p>
+                        <p>Ufanisi wa Okello uwanjani unatoa somo zuri kwa wachezaji wachanga wanaochipukia nchini kufanya kazi kwa bidii ili kufikia viwango vya juu vya kimataifa.</p>
+                    `
+                },
+                "2": {
+                    title: "GEITA ‘WAKALI’ WA KUTUPIA NBC CHAMPIONSHIP",
+                    tag: "Championship",
+                    date: "June 2, 2026",
+                    image: "images/kamala.jpg",
+                    content: `
+                        <p>Klabu ya Geita Gold imejipambanua kama timu yenye safu hatari zaidi ya ushambuliaji kwenye ligi ya NBC Championship. Geita Gold wamekuwa wakiongoza kwa kufunga mabao mengi msimu huu, jambo linalowapa nafasi kubwa ya kurejea Ligi Kuu msimu ujao.</p>
+                        <blockquote>"Malengo yetu ni wazi: tunataka kurejea Ligi Kuu, na safu yetu ya ushambuliaji inafanya kazi usiku na mchana kuhakikisha tunafikia malengo hayo," alisema msemaji wa klabu.</blockquote>
+                        <p>Kupitia mbinu thabiti za ushambuliaji na ushirikiano mzuri uwanjani, wachezaji wa Geita wamefanikiwa kuzitikisa nyavu za wapinzani wao karibu kila mechi. Hii inawafanya kuwa timu ya kuogopwa zaidi katika mashindano ya Championship mwaka huu.</p>
+                    `
+                },
+                "3": {
+                    title: "CHIRWA HAKAMATIKI NBC CHAMPIONSHIP",
+                    tag: "Championship",
+                    date: "June 1, 2026",
+                    image: "images/feitoto.jpg",
+                    content: `
+                        <p>Mshambuliaji nguli Obrey Chirwa amekuwa mwiba mkali kwa mabeki kwenye ligi ya NBC Championship. Chirwa, ambaye ana uzoefu mkubwa wa soka la Tanzania, ameonekana kuwa nguzo muhimu katika ufungaji wa magoli msimu huu.</p>
+                        <blockquote>"Uzoefu unanisaidia sana kujua wapi pa kusimama na jinsi ya kuwahadaa walinzi wa timu pinzani," alieleza Chirwa baada ya mchezo wa mwisho.</blockquote>
+                        <p>Uwezo wa Chirwa kumiliki mpira, nguvu zake mwilini, na umaliziaji wa hali ya juu unampa nafasi kubwa ya kuwania tuzo ya mfungaji bora wa Championship. Mashabiki wa soka wanamtazama kama mchezaji anayeweza kubeba timu yake katika nyakati ngumu.</p>
+                    `
+                },
+                "4": {
+                    title: "‘WALINDA LANGO’ LA AZAM NI MOTO WA KUOTEA MBALI LIGI KUU YA NBC",
+                    tag: "NBC PL",
+                    date: "June 1, 2026",
+                    image: "images/gamondi.jpg",
+                    content: `
+                        <p>Klabu ya Azam FC imeweka rekodi bora ya ulinzi msimu huu, shukrani zikienda kwa safu yao imara ya makipa na walinzi. Klabu hiyo ya Chamazi imeruhusu idadi ndogo zaidi ya mabao, na kuifanya kuwa moja ya timu ngumu zaidi kufungika kwenye Ligi Kuu ya NBC.</p>
+                        <blockquote>"Tuna makipa wenye viwango vikubwa ambao wamekuwa wakiokoa michomo hatari kila mechi. Hii inawapa walinzi wetu amani ya akili kufanya majukumu yao," alisema kocha wa Azam FC.</blockquote>
+                        <p>Ushindani wa namba kati ya walinda mlango wa Azam FC umekuwa chachu ya kuongeza ufanisi uwanjani, na kuifanya timu hiyo kuwa mshindani wa kweli wa taji la Ligi Kuu msimu huu.</p>
+                    `
+                },
+                "5": {
+                    title: "YOUNG AFRICANS, AZAM ZATAKATA NYUMBANI LIGI KUU YA NBC",
+                    tag: "NBC PL",
+                    date: "May 26, 2026",
+                    image: "images/mzize.webp",
+                    content: `
+                        <p>Klabu za Young Africans (Yanga SC) na Azam FC zimeendeleza wimbi lao la ushindi kwenye viwanja vyao vya nyumbani katika mechi za hivi karibuni za Ligi Kuu ya NBC. Timu zote mbili zilionyesha kiwango safi cha soka na kuzoa pointi zote tatu muhimu.</p>
+                        <blockquote>"Kupata ushindi nyumbani ni jambo muhimu sana ili kulinda malengo yetu ya kutetea ubingwa," alisema kocha wa Yanga SC Miguel Gamondi.</blockquote>
+                        <p>Yanga ilipata ushindi mnono wa mabao 2-1 dhidi ya wapinzani wao wa jadi Simba SC katika dabi iliyopigwa Benjamin Mkapa Stadium, huku Azam FC wakipata ushindi mnono wa mabao 3-0 dhidi ya KMC FC katika dimba la Chamazi Complex, na kuendelea kujikita kwenye nafasi za juu za msimamo.</p>
+                    `
+                },
+                "6": {
+                    title: "LIGI KUU YA NBC YAENDELEA KUTIMUA ‘VUMBI’",
+                    tag: "NBC PL",
+                    date: "May 25, 2026",
+                    image: "images/Ki azizi.webp",
+                    content: `
+                        <p>Ligi Kuu ya NBC imeendelea kuwa na ushindani mkali msimu huu, huku timu zote zikionyesha upinzani mkubwa katika mechi zilizochezwa mwishoni mwa wiki. Pambano la kuwania ubingwa pamoja na lile la kuepuka kushuka daraja yamekuwa ya kusisimua mno.</p>
+                        <blockquote>"Ligi ya msimu huu ni ngumu zaidi kuliko miaka iliyopita. Kila timu imejipanga vizuri na hakuna mechi rahisi uwanjani," walisema wachambuzi wa soka nchini.</blockquote>
+                        <p>Mechi zijazo zitakuwa za maamuzi makubwa kwa timu zinazowania nafasi za juu na zile zinazopambana kubaki kwenye ligi msimu ujao, jambo linalofanya kila mchezo kuwa fainali.</p>
+                    `
+                }
+            };
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get("id");
+            const article = ARTICLES_DB[articleId] || ARTICLES_DB["1"]; // Default to 1 if not found
+
+            document.getElementById("article-tag").innerText = article.tag;
+            document.getElementById("article-title").innerText = article.title;
+            document.getElementById("article-date").innerText = article.date;
+            document.getElementById("article-image").src = article.image;
+            document.getElementById("article-body").innerHTML = article.content;
+        });
+    </script>
+
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    
+    <!-- Professional Sliding Mobile Menu -->
+    <nav class="full-screen-menu" id="full-menu">
+        <div class="menu-drawer">
+            <div class="menu-close-area" id="close-menu-btn">✕</div>
+
+            <div class="menu-header">
+                <img src="images/Premier league.png" alt="Hub Logo">
+                <h2>MENU</h2>
+            </div>
+
+            <ul class="main-nav-links" id="mobile-nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
+                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
+                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
+                <li><a href="teams.html"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
+                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
+                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
+                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
+                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
