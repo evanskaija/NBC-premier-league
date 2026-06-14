@@ -1067,6 +1067,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- GLOBAL SEARCH ENGINE ---
     const GLOBAL_SEARCH_INDEX = [
+        // Featured Competitions (Rich Cards - shown first with logo images)
+        { name: "NBC Premier League", category: "Competition", url: "nbcpremierleague.html",
+          desc: "Tanzania's top-flight professional league · 16 clubs competing · 2025/26 season",
+          image: "images/NBC.png", richCard: true, featured: true,
+          keywords: ["nbc", "premier", "league", "tanzania", "tplb", "ligi kuu", "top flight"] },
+        { name: "NBC Championship", category: "Competition", url: "championship.html",
+          desc: "Tanzania second-tier league · promotion and relegation battle",
+          image: "images/championship.png", richCard: true,
+          keywords: ["nbc", "championship", "second tier", "daraja"] },
+        { name: "First League", category: "Competition", url: "firstleague.html",
+          desc: "Tanzania third-tier league · development-level clubs",
+          image: "images/Premier league.png", richCard: true,
+          keywords: ["first", "league", "third tier"] },
+        { name: "Women's League", category: "Competition", url: "womensleague.html",
+          desc: "Tanzania Women's Premier League · top women's football",
+          image: "images/NBC.png", richCard: true,
+          keywords: ["women", "wanawake", "ladies"] },
+        { name: "CRDB FA Cup", category: "Competition", url: "facup.html",
+          desc: "Tanzania knockout cup competition · open to all divisions",
+          image: "images/crdb cup.jpg", richCard: true,
+          keywords: ["crdb", "cup", "fa", "knockout", "kombe"] },
+        { name: "CAF Matches", category: "Competition", url: "cafmatches.html",
+          desc: "African continental competitions · Champions League and Confederation Cup",
+          image: "images/caf.jpg", richCard: true,
+          keywords: ["caf", "africa", "continental", "champions"] },
+
         // Players
         { name: "Stephane Aziz Ki", category: "Player", url: "player-details.html?id=aziz-ki", desc: "Yanga SC - Attacking Midfielder" },
         { name: "Feisal Salum", category: "Player", url: "player-details.html?id=feisal-salum", desc: "Azam FC - Midfielder" },
@@ -1124,18 +1150,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let matches = [];
             if (query.length === 0) {
-                matches = GLOBAL_SEARCH_INDEX;
+                // Show default: all competitions + first few general items
+                matches = GLOBAL_SEARCH_INDEX.filter(i => i.richCard);
+                const others = GLOBAL_SEARCH_INDEX.filter(i => !i.richCard).slice(0, 6);
+                matches = [...matches, ...others];
             } else {
-                matches = GLOBAL_SEARCH_INDEX.filter(item => 
-                    item.name.toLowerCase().includes(query) || 
-                    item.desc.toLowerCase().includes(query)
-                );
+                // Score-based matching with keyword support
+                matches = GLOBAL_SEARCH_INDEX.filter(item => {
+                    const nameMatch = item.name.toLowerCase().includes(query);
+                    const descMatch = item.desc.toLowerCase().includes(query);
+                    const catMatch = item.category.toLowerCase().includes(query);
+                    const kwMatch = item.keywords && item.keywords.some(kw => kw.includes(query) || query.includes(kw));
+                    return nameMatch || descMatch || catMatch || kwMatch;
+                });
+                // Sort: featured first, then richCard, then exact-name-start matches
+                matches.sort((a, b) => {
+                    const aFeat = a.featured ? 2 : (a.richCard ? 1 : 0);
+                    const bFeat = b.featured ? 2 : (b.richCard ? 1 : 0);
+                    if (aFeat !== bFeat) return bFeat - aFeat;
+                    const aName = a.name.toLowerCase().startsWith(query) ? 1 : 0;
+                    const bName = b.name.toLowerCase().startsWith(query) ? 1 : 0;
+                    return bName - aName;
+                });
             }
 
             if (matches.length === 0) {
                 resultsDropdown.classList.add('active');
                 resultsDropdown.innerHTML = `
-                    <div style="padding:15px; text-align:center; font-size:0.8rem; color:var(--text-muted); font-weight:700;">
+                    <div style="padding:20px; text-align:center; font-size:0.8rem; color:var(--text-muted); font-weight:700;">
+                        <i class="fa-solid fa-magnifying-glass" style="font-size:1.4rem; margin-bottom:8px; display:block; opacity:0.4;"></i>
                         No results found for "${input.value}"
                     </div>
                 `;
@@ -1143,19 +1186,65 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             resultsDropdown.classList.add('active');
-            matches.forEach(item => {
-                const el = document.createElement('a');
-                el.href = item.url;
-                el.className = 'global-search-item';
-                el.innerHTML = `
-                    <span class="item-title">${item.name}</span>
-                    <div class="item-meta">
-                        <span>${item.desc}</span>
-                        <span class="item-cat">${item.category}</span>
-                    </div>
-                `;
-                resultsDropdown.appendChild(el);
-            });
+
+            // Separate rich cards from regular items
+            const richMatches = matches.filter(i => i.richCard);
+            const plainMatches = matches.filter(i => !i.richCard);
+
+            // Render rich cards first
+            if (richMatches.length > 0) {
+                if (plainMatches.length > 0 || query.length === 0) {
+                    const label = document.createElement('div');
+                    label.className = 'search-section-label';
+                    label.textContent = 'Competitions';
+                    resultsDropdown.appendChild(label);
+                }
+                richMatches.forEach(item => {
+                    const el = document.createElement('a');
+                    el.href = item.url;
+                    el.className = item.featured ? 'search-rich-card search-rich-card--featured' : 'search-rich-card';
+                    const verifiedBadge = item.featured
+                        ? `<span class="src-verified"><i class="fa-solid fa-shield-halved"></i> Official</span>`
+                        : '';
+                    el.innerHTML = `
+                        <div class="src-img-wrap">
+                            <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+                        </div>
+                        <div class="src-body">
+                            <div class="src-title-row">
+                                <span class="src-title">${item.name}</span>
+                                ${verifiedBadge}
+                            </div>
+                            <div class="src-desc">${item.desc}</div>
+                            <span class="src-badge">${item.category}</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right src-chevron"></i>
+                    `;
+                    resultsDropdown.appendChild(el);
+                });
+            }
+
+            // Render regular items with section label
+            if (plainMatches.length > 0) {
+                const label = document.createElement('div');
+                label.className = 'search-section-label';
+                label.textContent = richMatches.length > 0 ? 'Other Results' : 'Results';
+                resultsDropdown.appendChild(label);
+
+                plainMatches.forEach(item => {
+                    const el = document.createElement('a');
+                    el.href = item.url;
+                    el.className = 'global-search-item';
+                    el.innerHTML = `
+                        <span class="item-title">${item.name}</span>
+                        <div class="item-meta">
+                            <span>${item.desc}</span>
+                            <span class="item-cat">${item.category}</span>
+                        </div>
+                    `;
+                    resultsDropdown.appendChild(el);
+                });
+            }
         }
 
         input.addEventListener('input', performSearch);
