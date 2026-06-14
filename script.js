@@ -1070,7 +1070,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Featured Competitions (Rich Cards - shown first with logo images)
         { name: "NBC Premier League", category: "Competition", url: "nbcpremierleague.html",
           desc: "Tanzania's top-flight professional league · 16 clubs competing · 2025/26 season",
-          image: "images/NBC.png", richCard: true, featured: true,
+          image: "images/Premier league.png", richCard: true, featured: true,
           keywords: ["nbc", "premier", "league", "tanzania", "tplb", "ligi kuu", "top flight"] },
         { name: "NBC Championship", category: "Competition", url: "championship.html",
           desc: "Tanzania second-tier league · promotion and relegation battle",
@@ -1082,7 +1082,7 @@ document.addEventListener('DOMContentLoaded', () => {
           keywords: ["first", "league", "third tier"] },
         { name: "Women's League", category: "Competition", url: "womensleague.html",
           desc: "Tanzania Women's Premier League · top women's football",
-          image: "images/NBC.png", richCard: true,
+          image: "images/Premier league.png", richCard: true,
           keywords: ["women", "wanawake", "ladies"] },
         { name: "CRDB FA Cup", category: "Competition", url: "facup.html",
           desc: "Tanzania knockout cup competition · open to all divisions",
