@@ -316,37 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // 3. Robust Hero Slideshow (Unified & Fixed)
-    const heroSlideshow = document.getElementById('hero-slideshow');
-    const heroImages = [
-        'images/Tuzo.JPG',
-        'images/tuzo1.JPG',
-        'images/tuzo2.JPG',
-        'images/tuzo3.JPG'
-    ];
 
-    if (heroSlideshow) {
-        // Create slide elements
-        heroImages.forEach((imgUrl, index) => {
-            const slide = document.createElement('div');
-            slide.classList.add('hero-slide');
-            if (index === 0) slide.classList.add('active');
-            slide.style.backgroundImage = `url('${imgUrl}')`;
-            heroSlideshow.appendChild(slide);
-        });
-
-        const slides = heroSlideshow.querySelectorAll('.hero-slide');
-        let currentSlideIdx = 0;
-
-        function nextSlide() {
-            slides[currentSlideIdx].classList.remove('active');
-            currentSlideIdx = (currentSlideIdx + 1) % slides.length;
-            slides[currentSlideIdx].classList.add('active');
-        }
-
-        // Cycle through slides every 5 seconds
-        setInterval(nextSlide, 5000);
-    }
 
     // 4. Full-Screen Modern Mobile Menu Logic
     const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
@@ -368,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         closeMenuBtn.addEventListener('click', toggleMenu);
 
         // Close menu when a link is clicked
-        const menuLinks = fullMenu.querySelectorAll('.main-nav-links a');
+        const menuLinks = fullMenu.querySelectorAll('a');
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 fullMenu.classList.remove('active');
@@ -385,8 +355,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Countdown Timer for Next Big Match
-    const countdownElement = document.getElementById('countdown-timer');
-    if (countdownElement) {
+    const countdownElements = document.querySelectorAll('#countdown-timer, #mobile-countdown-timer');
+    if (countdownElements.length > 0) {
         // Set target date (e.g., 2 days from now for demo)
         const targetDate = new Date();
         targetDate.setDate(targetDate.getDate() + 2);
@@ -400,21 +370,68 @@ document.addEventListener('DOMContentLoaded', () => {
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-            countdownElement.innerHTML = `
+            const htmlContent = `
                 <div class="time-block"><span>${days}</span>Days</div>
                 <div class="time-block"><span>${hours}</span>Hours</div>
                 <div class="time-block"><span>${minutes}</span>Min</div>
             `;
 
+            countdownElements.forEach(el => {
+                if (distance < 0) {
+                    el.innerHTML = "MATCH LIVE";
+                } else {
+                    el.innerHTML = htmlContent;
+                }
+            });
+
             if (distance < 0) {
                 clearInterval(timerInterval);
-                countdownElement.innerHTML = "MATCH LIVE";
             }
         }
 
         const timerInterval = setInterval(updateCountdown, 60000); // Update every minute
         updateCountdown(); // Initial call
     }
+
+    // --- Mobile Match Center Tabs Logic ---
+    const matchGrid = document.querySelector('.live-matches-grid');
+    const tabButtons = document.querySelectorAll('.match-tab-btn');
+    if (matchGrid && tabButtons.length > 0) {
+        // Set default view on mobile
+        matchGrid.classList.add('show-live');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all tab buttons
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Remove all display classes from the grid
+                matchGrid.classList.remove('show-live', 'show-upcoming', 'show-finished');
+
+                // Add active type class
+                const matchType = btn.getAttribute('data-match-type');
+                if (matchType === 'live') {
+                    matchGrid.classList.add('show-live');
+                } else if (matchType === 'upcoming') {
+                    matchGrid.classList.add('show-upcoming');
+                } else if (matchType === 'finished') {
+                    matchGrid.classList.add('show-finished');
+                }
+            });
+        });
+    }
+
+    // --- Mobile Footer Accordions Logic ---
+    const footerHeaders = document.querySelectorAll('.site-footer .f-col h4');
+    footerHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                const col = header.parentElement;
+                col.classList.toggle('active');
+            }
+        });
+    });
     // 6. TikTok Style Video Playback Logic
     const momentVideos = document.querySelectorAll('.moment-video');
 
@@ -579,6 +596,19 @@ document.addEventListener('DOMContentLoaded', () => {
         "subscribe": "Jiunge",
         "enter email": "Ingiza Barua Pepe",
         "tanzania football federation (tff). all rights reserved.": "Shirikisho la Mpira wa Miguu Tanzania (TFF). Haki zote zimehifadhiwa.",
+        "table": "Msimamo",
+        "form guide": "Mwenendo wa Timu",
+        "top scorers": "Wafungaji Bora",
+        "top assists": "Watoa Pasi za Magoli",
+        "clean sheets": "Kuzuia Magoli",
+        "goalkeeper": "Mlinda Lango",
+        "player": "Mchezaji",
+        "goals": "Mabao",
+        "assists": "Pasi za Goli",
+        "pts": "Alama",
+        "pos": "Nafasi",
+        "club": "Klabu",
+        "form": "Fomu",
 
         // index.html
         "welcome to tanzania football hub": "KARIBU KITUO CHA SOKA TANZANIA",
@@ -929,7 +959,84 @@ document.addEventListener('DOMContentLoaded', () => {
         "fa cup": "CRDB FA Cup",
         "caf competitions": "Mashindano ya CAF",
         "international": "Kimataifa",
-        "friendly": "Kirafiki"
+        "friendly": "Kirafiki",
+        "live match center": "Kituo cha Mechi Mubashara",
+        "view all matches": "Angalia Mechi Zote",
+        "explore competition": "Gundua Mashindano",
+        "breaking news": "Habari Muhimu",
+        "featured story": "Habari Inayoangaziwa",
+        "summer 2026: key football dates": "Msimu wa Joto 2026: Tarehe Muhimu za Soka",
+        "2026/27 fixture release date": "Tarehe ya Kutoa Ratiba ya 2026/27",
+        "most competitive season ever": "Msimu wa Ushindani Zaidi Kupata Kutokea",
+        "fan team of the season": "Timu ya Msimu ya Mashabiki",
+        "view all news": "Angalia Habari Zote",
+        "full season awards 2025/26 🏆": "Tuzo za Msimu Mzima 2025/26 🏆",
+        "full season awards 2025/26": "Tuzo za Msimu Mzima 2025/26",
+        "coach of the season": "Kocha Bora wa Msimu",
+        "view all awards": "Angalia Tuzo Zote",
+        "nbc premier league table": "Msimamo wa Ligi Kuu ya NBC",
+        "full table": "Msimamo Kamili",
+        "golden boot race": "Kinyang'anyiro cha Kiatu cha Dhahabu",
+        "match prediction center": "Kituo cha Utabiri wa Mechi",
+        "match of the week: cast your prediction on who will win the dar es salaam derby!": "Mechi ya Wiki: Piga kura ya utabiri wako nani atashinda Dabi ya Dar es Salaam!",
+        "yanga sc win": "Yanga SC Kushinda",
+        "simba sc win": "Simba SC Kushinda",
+        "vote yanga win": "Piga Kura Yanga SC Kushinda",
+        "vote draw": "Piga Kura Droo",
+        "vote simba win": "Piga Kura Simba SC Kushinda",
+        "thank you! your prediction has been recorded.": "Asante! Utabiri wako umerekodiwa.",
+        "fans voted": "mashabiki wamepiga kura",
+        "upcoming fixtures": "Ratiba Inayofuata",
+        "trending now 🔥": "Inayovuma Sasa 🔥",
+        "football quiz arena": "Uwanja wa Maswali ya Soka",
+        "can you spot the ball?": "Je, unaweza kuuona mpira?",
+        "guess the player": "Mvue mchezaji",
+        "baby photo challenge": "Changamoto ya picha ya utotoni",
+        "match the celebration": "Linganisha sherehe",
+        "think you know tanzanian football?": "Unafikiri unajua soka la Tanzania?",
+        "put your knowledge to the test against thousands of fans and climb the leaderboard!": "Pima maarifa yako dhidi ya maelfu ya mashabiki na upande ubao wa wanaoongoza!",
+        "play quiz": "Cheza Maswali",
+        "transfer watch": "Ufuatiliaji wa Uhamisho",
+        "on this day": "Siku kama ya Leo",
+        "in tanzanian football": "Katika Soka la Tanzania",
+        "football calendar 📅": "Kalenda ya Soka 📅",
+        "all competitions": "Mashindano Yote",
+        "all clubs": "Klabu Zote",
+        "all months": "Miezi Yote",
+        "january 2026": "Januari 2026",
+        "february 2026": "Februari 2026",
+        "march 2026": "Machi 2026",
+        "april 2026": "Aprili 2026",
+        "may 2026": "Mei 2026",
+        "june 2026": "Juni 2026",
+        "july 2026": "Julai 2026",
+        "august 2026": "Agosti 2026",
+        "september 2026": "Septemba 2026",
+        "october 2026": "Oktoba 2026",
+        "november 2026": "Novemba 2026",
+        "december 2026": "Desemba 2026",
+        "chasing history 🏅": "Kukimbilia Historia 🏅",
+        "chasing history": "Kukimbilia Historia",
+        "consecutive wins": "Ushindi Mfululizo",
+        "record: 30 goals. 2 goals away!": "Rekodi: Mabao 30. Mabao 2 yamebaki!",
+        "record: 22 clean sheets. 3 away!": "Rekodi: Mechi 22 bila kuruhusu bao. Mechi 3 zimebaki!",
+        "record: 18 wins. 4 wins away!": "Rekodi: Ushindi 18. Ushindi 4 umebaki!",
+        "stay updated": "Pata Habari Mpya",
+        "get the latest football news, fixtures, transfers and results.": "Pata habari za hivi karibuni za soka, ratiba, uhamisho na matokeo.",
+        "subscribe": "Jiunge",
+        "tanzania football hub": "Kituo cha Soka cha Tanzania",
+        "the official digital portal of tanzanian football.": "Tovuti rasmi ya kidijitali ya soka la Tanzania.",
+        "resources": "Rasilimali",
+        "the hub": "Kituo",
+        "tplb": "Bodi (TPLB)",
+        "current champions": "Mabingwa wa Sasa",
+        "top scorer": "Mfungaji Bora",
+        "upcoming big match": "Mechi Kubwa Inayofuata",
+        "tanzanian football highlights": "Vivutio vya Soka la Tanzania",
+        "days": "Siku",
+        "hours": "Masaa",
+        "min": "Dk",
+        "yanga sc vs simba sc": "Yanga SC dhidi ya Simba SC"
     };
 
     function translatePhrase(text) {
@@ -1258,6 +1365,315 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Initialize Upcoming Fixtures Carousel scrolling
+    const carousel = document.getElementById('fixtures-carousel');
+    const prevBtn = document.getElementById('fixtures-carousel-prev');
+    const nextBtn = document.getElementById('fixtures-carousel-next');
+
+    if (carousel && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -340, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: 340, behavior: 'smooth' });
+        });
+    }
+
+    // Initialize Home Poll
+    initHomePoll();
+
+    // Nav Scroll Transition & Scroll Animations
+    const headerContainer = document.querySelector('.portal-header-container');
+    const handleScroll = () => {
+        if (headerContainer) {
+            if (window.scrollY > 50) {
+                headerContainer.classList.add('scrolled');
+            } else {
+                headerContainer.classList.remove('scrolled');
+            }
+        }
+        
+        const scrollY = window.scrollY;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
+        
+        document.documentElement.style.setProperty('--scroll-y', `${scrollY}px`);
+        document.documentElement.style.setProperty('--scroll-progress', scrollPercent);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    // Active link highlighting on scroll based on viewport sections
+    const navItems = document.querySelectorAll('.nav-strip a');
+    const pageSections = document.querySelectorAll('section, header.hero-section');
+    if (navItems.length > 0 && pageSections.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '-30% 0px -50% 0px',
+            threshold: 0
+        };
+
+        const activeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    const className = entry.target.className;
+                }
+            });
+        }, observerOptions);
+
+        pageSections.forEach(sec => activeObserver.observe(sec));
+    }
+
+    // Stats Count Up Animation
+    const animateStatsNumbers = () => {
+        const numElements = document.querySelectorAll('.animate-number');
+        
+        const countUp = (el) => {
+            const target = parseInt(el.getAttribute('data-value') || '0', 10);
+            if (target === 0) return;
+            const duration = 1200; // ms
+            const startTime = performance.now();
+            
+            const step = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const ease = progress * (2 - progress);
+                const currentVal = Math.floor(ease * target);
+                
+                el.textContent = currentVal;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = target;
+                }
+            };
+            
+            requestAnimationFrame(step);
+        };
+
+        const obsOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const numObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    countUp(entry.target);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, obsOptions);
+
+        numElements.forEach(el => numObserver.observe(el));
+    };
+
+    animateStatsNumbers();
+
+    // Homepage Interactive Table Tabs switcher
+    const homepageTabs = document.querySelectorAll('.homepage-table-tabs .table-tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-content-panel');
+    
+    if (homepageTabs.length > 0) {
+        homepageTabs.forEach(btn => {
+            btn.addEventListener('click', () => {
+                homepageTabs.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const targetTab = btn.getAttribute('data-tab');
+                
+                tabPanels.forEach(panel => {
+                    panel.classList.remove('active');
+                    panel.style.display = 'none';
+                });
+                
+                const targetPanel = document.getElementById(`tab-${targetTab}`);
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                    targetPanel.style.display = 'block';
+                    
+                    // Trigger count-up for this panel
+                    const nums = targetPanel.querySelectorAll('.animate-number');
+                    nums.forEach(num => {
+                        const targetVal = parseInt(num.getAttribute('data-value') || '0', 10);
+                        num.textContent = '0';
+                        
+                        let start = 0;
+                        const duration = 800;
+                        const stepTime = Math.abs(Math.floor(duration / targetVal)) || 15;
+                        const timer = setInterval(() => {
+                            start += 1;
+                            num.textContent = start;
+                            if (start >= targetVal) {
+                                num.textContent = targetVal;
+                                clearInterval(timer);
+                            }
+                        }, stepTime);
+                    });
+                }
+            });
+        });
+    }
+
+    // Hero Slideshow Dynamic Generation
+    const slideshowContainer = document.getElementById('hero-slideshow');
+    if (slideshowContainer) {
+        const slidesData = [
+            { image: 'images/mkapa.jpg', title: 'TANZANIA FOOTBALL HUB' },
+            { image: 'images/Mashabiki-wa-simba.jpg', title: 'DAR ES SALAAM DERBY ENERGY' },
+            { image: 'images/nbc ball.jpg', title: 'FEEL THE PASSION' }
+        ];
+
+        slidesData.forEach((slide, idx) => {
+            const slideEl = document.createElement('div');
+            slideEl.className = `hero-slide ${idx === 0 ? 'active' : ''}`;
+            slideEl.style.backgroundImage = `url('${slide.image}')`;
+            slideshowContainer.appendChild(slideEl);
+        });
+
+        let currentSlideIdx = 0;
+        const slides = slideshowContainer.querySelectorAll('.hero-slide');
+        
+        setInterval(() => {
+            if (slides.length > 0) {
+                slides[currentSlideIdx].classList.remove('active');
+                currentSlideIdx = (currentSlideIdx + 1) % slides.length;
+                slides[currentSlideIdx].classList.add('active');
+            }
+        }, 6000);
+    }
+
+    // Countdown Timer logic for upcoming match
+    const countdownTimerEl = document.getElementById('countdown-timer');
+    if (countdownTimerEl) {
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 30);
+        targetDate.setHours(19, 0, 0, 0);
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate.getTime() - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const lang = localStorage.getItem('lang') || 'en';
+            if (lang === 'sw') {
+                countdownTimerEl.innerHTML = `<span>${days}Siku</span> <span>${hours}Masaa</span> <span>${minutes}Dk</span> <span>${seconds}Sek</span>`;
+            } else {
+                countdownTimerEl.innerHTML = `<span>${days}d</span> <span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
+            }
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                countdownTimerEl.innerHTML = "Matchday Active!";
+            }
+        };
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    }
+
 });
+
+// ===================================================
+//  INTERACTIVE FAN POLL
+// ===================================================
+function initHomePoll() {
+    const pollContainer = document.getElementById('vote-options-row');
+    if (!pollContainer) return; // Only run on pages that have the poll
+
+    const voted = localStorage.getItem('home-poll-voted');
+    const yangaVotes = parseInt(localStorage.getItem('home-poll-yanga') || '120');
+    const drawVotes = parseInt(localStorage.getItem('home-poll-draw') || '55');
+    const simbaVotes = parseInt(localStorage.getItem('home-poll-simba') || '75');
+    
+    updatePollUI(yangaVotes, drawVotes, simbaVotes, voted);
+}
+
+function castHomeVote(choice) {
+    if (localStorage.getItem('home-poll-voted')) {
+        alert("You have already voted in this matchday poll!");
+        return;
+    }
+    
+    let yangaVotes = parseInt(localStorage.getItem('home-poll-yanga') || '120');
+    let drawVotes = parseInt(localStorage.getItem('home-poll-draw') || '55');
+    let simbaVotes = parseInt(localStorage.getItem('home-poll-simba') || '75');
+    
+    if (choice === 'yanga') yangaVotes++;
+    else if (choice === 'draw') drawVotes++;
+    else if (choice === 'simba') simbaVotes++;
+    
+    localStorage.setItem('home-poll-yanga', yangaVotes);
+    localStorage.setItem('home-poll-draw', drawVotes);
+    localStorage.setItem('home-poll-simba', simbaVotes);
+    localStorage.setItem('home-poll-voted', choice);
+    
+    updatePollUI(yangaVotes, drawVotes, simbaVotes, choice);
+}
+
+function updatePollUI(yanga, draw, simba, chosenChoice) {
+    const total = yanga + draw + simba;
+    const yangaPct = Math.round((yanga / total) * 100);
+    const drawPct = Math.round((draw / total) * 100);
+    const simbaPct = 100 - yangaPct - drawPct; // Ensure they sum to 100
+    
+    // Update labels
+    const pctYangaEl = document.getElementById('vote-pct-yanga');
+    const pctDrawEl = document.getElementById('vote-pct-draw');
+    const pctSimbaEl = document.getElementById('vote-pct-simba');
+    
+    if (pctYangaEl) pctYangaEl.textContent = `${yangaPct}%`;
+    if (pctDrawEl) pctDrawEl.textContent = `${drawPct}%`;
+    if (pctSimbaEl) pctSimbaEl.textContent = `${simbaPct}%`;
+    
+    // Update bars
+    const barYangaEl = document.getElementById('vote-bar-yanga');
+    const barDrawEl = document.getElementById('vote-bar-draw');
+    const barSimbaEl = document.getElementById('vote-bar-simba');
+    
+    if (barYangaEl) barYangaEl.style.width = `${yangaPct}%`;
+    if (barDrawEl) barDrawEl.style.width = `${drawPct}%`;
+    if (barSimbaEl) barSimbaEl.style.width = `${simbaPct}%`;
+    
+    if (chosenChoice) {
+        // Disable buttons / show selected choice
+        const optionsRow = document.getElementById('vote-options-row');
+        if (optionsRow) {
+            optionsRow.style.pointerEvents = 'none';
+            optionsRow.style.opacity = '0.6';
+            
+            const buttons = optionsRow.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline');
+                // Remove existing checkmarks
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = 'fa-solid fa-chevron-right';
+                }
+            });
+            
+            const choices = { 'yanga': 0, 'draw': 1, 'simba': 2 };
+            const selectedBtn = buttons[choices[chosenChoice]];
+            if (selectedBtn) {
+                selectedBtn.classList.remove('btn-outline');
+                selectedBtn.classList.add('btn-primary');
+                const span = selectedBtn.querySelector('span');
+                const btnText = span ? span.innerText : selectedBtn.innerText;
+                selectedBtn.innerHTML = `<span>Selected: ${btnText}</span> <i class="fa-solid fa-circle-check"></i>`;
+            }
+        }
+        
+        const statusMsg = document.getElementById('vote-status-msg');
+        if (statusMsg) statusMsg.style.display = 'block';
+    }
+}
 
 

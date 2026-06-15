@@ -1,0 +1,24 @@
+{
+  "name": "Tanzania Football Hub",
+  "short_name": "TPL Hub",
+  "description": "Official digital portal for NBC Premier League and Tanzanian football.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000814",
+  "theme_color": "#000814",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/Premier league.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/Premier league.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

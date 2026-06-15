@@ -1,10 +1,7 @@
-import os
-import re
+$files = Get-ChildItem -Path . -Filter *.html
 
-# Dynamically resolve directory path relative to the script location
-workspace_dir = os.path.dirname(os.path.abspath(__file__))
-
-HEADER_TEMPLATE = """    <div class="portal-header-container">
+$HEADER_TEMPLATE = @"
+    <div class="portal-header-container">
         <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
         <div class="header-top-tier">
             <a href="index.html" class="brand-section">
@@ -193,9 +190,11 @@ HEADER_TEMPLATE = """    <div class="portal-header-container">
                 <li><a href="contact.html"__ACTIVE_CONTACT__><i class="fa-solid fa-headset"></i> Contact</a></li>
             </ul>
         </nav>
-    </div>"""
+    </div>
+"@
 
-FOOTER_TEMPLATE = """    <footer class="site-footer reveal-element">
+$FOOTER_TEMPLATE = @"
+    <footer class="site-footer reveal-element">
         <div class="footer-bg-overlay"></div>
 
         <div class="container">
@@ -267,9 +266,11 @@ FOOTER_TEMPLATE = """    <footer class="site-footer reveal-element">
                 </div>
             </div>
         </div>
-    </footer>"""
+    </footer>
+"@
 
-MOBILE_MENU_TEMPLATE = """    <!-- Professional Sliding Mobile Menu -->
+$MOBILE_MENU_TEMPLATE = @"
+    <!-- Professional Sliding Mobile Menu -->
     <nav class="full-screen-menu" id="full-menu">
         <div class="menu-drawer">
             <div class="menu-close-area" id="close-menu-btn">✕</div>
@@ -298,238 +299,271 @@ MOBILE_MENU_TEMPLATE = """    <!-- Professional Sliding Mobile Menu -->
                 <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
             </ul>
         </div>
-    </nav>"""
+    </nav>
+"@
 
+$active_news = @("news.html", "transfers.html", "interviews.html", "features.html", "reports.html", "videos.html")
+$active_matches = @("fixtures.html", "results.html", "standings.html", "livescores.html", "match-details.html")
+$active_hub = @("teams.html", "players.html", "transfers.html", "statistics.html", "coach-details.html", "player-details.html", "team-details.html")
+$active_ligikuu = @("nbcpremierleague.html", "championship.html", "firstleague.html", "womensleague.html")
+$active_board = @("about.html")
+$active_contact = @("contact.html")
+$active_home = @("index.html")
 
-active_news = ["news.html", "transfers.html", "interviews.html", "features.html", "reports.html", "videos.html"]
-active_matches = ["fixtures.html", "results.html", "standings.html", "livescores.html", "match-details.html"]
-active_hub = ["teams.html", "players.html", "transfers.html", "statistics.html", "coach-details.html", "player-details.html", "team-details.html"]
-active_ligikuu = ["nbcpremierleague.html", "championship.html", "firstleague.html", "womensleague.html"]
-active_board = ["about.html"]
-active_contact = ["contact.html"]
-active_home = ["index.html"]
+function Get-ActiveHeader($filename) {
+    $hdr = $HEADER_TEMPLATE
+    
+    $isHome = ""
+    if ($active_home -contains $filename) { $isHome = ' class="active"' }
+    
+    $isNews = ""
+    if ($active_news -contains $filename) { $isNews = ' active' }
+    
+    $isNewsL = ""
+    if ($filename -eq "news.html") { $isNewsL = ' class="active"' }
+    
+    $isTrans = ""
+    if ($filename -eq "transfers.html") { $isTrans = ' class="active"' }
+    
+    $isInt = ""
+    if ($filename -eq "interviews.html") { $isInt = ' class="active"' }
+    
+    $isFeat = ""
+    if ($filename -eq "features.html") { $isFeat = ' class="active"' }
+    
+    $isRep = ""
+    if ($filename -eq "reports.html") { $isRep = ' class="active"' }
+    
+    $isVid = ""
+    if ($filename -eq "videos.html") { $isVid = ' class="active"' }
+    
+    $isMatches = ""
+    if ($active_matches -contains $filename) { $isMatches = ' active' }
+    
+    $isFix = ""
+    if ($filename -eq "fixtures.html") { $isFix = ' class="active"' }
+    
+    $isCal = ""
+    if ($filename -eq "calendar.html") { $isCal = ' class="active"' }
+    
+    $isRes = ""
+    if ($filename -eq "results.html") { $isRes = ' class="active"' }
+    
+    $isStd = ""
+    if ($filename -eq "standings.html") { $isStd = ' class="active"' }
+    
+    $isLive = ""
+    if ($filename -eq "livescores.html") { $isLive = ' class="active"' }
+    
+    $isHub = ""
+    if ($active_hub -contains $filename) { $isHub = ' active' }
+    
+    $isTeams = ""
+    if (@("teams.html", "team-details.html", "coach-details.html") -contains $filename) { $isTeams = ' class="active"' }
+    
+    $isPlr = ""
+    if (@("players.html", "player-details.html") -contains $filename) { $isPlr = ' class="active"' }
+    
+    $isStat = ""
+    if ($filename -eq "statistics.html") { $isStat = ' class="active"' }
+    
+    $isLigi = ""
+    if ($active_ligikuu -contains $filename) { $isLigi = ' active' }
+    
+    $isNbc = ""
+    if ($filename -eq "nbcpremierleague.html") { $isNbc = ' class="active"' }
+    
+    $isChmp = ""
+    if ($filename -eq "championship.html") { $isChmp = ' class="active"' }
+    
+    $isFst = ""
+    if ($filename -eq "firstleague.html") { $isFst = ' class="active"' }
+    
+    $isWmn = ""
+    if ($filename -eq "womensleague.html") { $isWmn = ' class="active"' }
+    
+    $isBrd = ""
+    if ($active_board -contains $filename) { $isBrd = ' active' }
+    
+    $isAbout = ""
+    if ($filename -eq "about.html") { $isAbout = ' class="active"' }
+    
+    $isContact = ""
+    if ($active_contact -contains $filename) { $isContact = ' class="active"' }
+    
+    $hdr = $hdr.Replace("__ACTIVE_HOME__", $isHome)
+    $hdr = $hdr.Replace("__ACTIVE_NEWS_PARENT__", $isNews)
+    $hdr = $hdr.Replace("__ACTIVE_NEWS_LATEST__", $isNewsL)
+    $hdr = $hdr.Replace("__ACTIVE_TRANSFERS_NEWS__", $isTrans)
+    $hdr = $hdr.Replace("__ACTIVE_INTERVIEWS__", $isInt)
+    $hdr = $hdr.Replace("__ACTIVE_FEATURES__", $isFeat)
+    $hdr = $hdr.Replace("__ACTIVE_REPORTS__", $isRep)
+    $hdr = $hdr.Replace("__ACTIVE_VIDEOS__", $isVid)
+    
+    $hdr = $hdr.Replace("__ACTIVE_MATCHES_PARENT__", $isMatches)
+    $hdr = $hdr.Replace("__ACTIVE_FIXTURES__", $isFix)
+    $hdr = $hdr.Replace("__ACTIVE_CALENDAR__", $isCal)
+    $hdr = $hdr.Replace("__ACTIVE_RESULTS__", $isRes)
+    $hdr = $hdr.Replace("__ACTIVE_STANDINGS__", $isStd)
+    $hdr = $hdr.Replace("__ACTIVE_LIVESCORES__", $isLive)
+    
+    $hdr = $hdr.Replace("__ACTIVE_HUB_PARENT__", $isHub)
+    $hdr = $hdr.Replace("__ACTIVE_TEAMS__", $isTeams)
+    $hdr = $hdr.Replace("__ACTIVE_PLAYERS__", $isPlr)
+    $hdr = $hdr.Replace("__ACTIVE_TRANSFERS_HUB__", $isTrans)
+    $hdr = $hdr.Replace("__ACTIVE_STATISTICS__", $isStat)
+    
+    $hdr = $hdr.Replace("__ACTIVE_LIGIKUU_PARENT__", $isLigi)
+    $hdr = $hdr.Replace("__ACTIVE_NBC__", $isNbc)
+    $hdr = $hdr.Replace("__ACTIVE_CHAMPIONSHIP__", $isChmp)
+    $hdr = $hdr.Replace("__ACTIVE_FIRSTLEAGUE__", $isFst)
+    $hdr = $hdr.Replace("__ACTIVE_WOMENSLEAGUE__", $isWmn)
+    
+    $hdr = $hdr.Replace("__ACTIVE_BOARD_PARENT__", $isBrd)
+    $hdr = $hdr.Replace("__ACTIVE_ABOUTBOARD__", $isAbout)
+    $hdr = $hdr.Replace("__ACTIVE_HISTORY__", "")
+    $hdr = $hdr.Replace("__ACTIVE_MEMBERS__", "")
+    $hdr = $hdr.Replace("__ACTIVE_SECRETARIAT__", "")
+    
+    $hdr = $hdr.Replace("__ACTIVE_CONTACT__", $isContact)
+    
+    return $hdr
+}
 
-def get_active_header(filename):
-    hdr = HEADER_TEMPLATE
+function Get-ActiveMobile($filename) {
+    $mob = $MOBILE_MENU_TEMPLATE
     
-    # helper to replace active states
-    def rep(placeholder, value):
-        nonlocal hdr
-        hdr = hdr.replace(placeholder, value)
-        
-    rep("__ACTIVE_HOME__", ' class="active"' if filename in active_home else '')
-    rep("__ACTIVE_NEWS_PARENT__", ' active' if filename in active_news else '')
-    rep("__ACTIVE_NEWS_LATEST__", ' class="active"' if filename == "news.html" else '')
-    rep("__ACTIVE_TRANSFERS_NEWS__", ' class="active"' if filename == "transfers.html" else '')
-    rep("__ACTIVE_INTERVIEWS__", ' class="active"' if filename == "interviews.html" else '')
-    rep("__ACTIVE_FEATURES__", ' class="active"' if filename == "features.html" else '')
-    rep("__ACTIVE_REPORTS__", ' class="active"' if filename == "reports.html" else '')
-    rep("__ACTIVE_VIDEOS__", ' class="active"' if filename == "videos.html" else '')
+    $isHome = ""; if ($active_home -contains $filename) { $isHome = ' class="active"' }
+    $isNews = ""; if ($active_news -contains $filename) { $isNews = ' class="active"' }
+    $isFix = ""; if ($filename -eq "fixtures.html") { $isFix = ' class="active"' }
+    $isCal = ""; if ($filename -eq "calendar.html") { $isCal = ' class="active"' }
+    $isRes = ""; if ($filename -eq "results.html") { $isRes = ' class="active"' }
+    $isStd = ""; if ($filename -eq "standings.html") { $isStd = ' class="active"' }
+    $isTeams = ""; if (@("teams.html", "team-details.html", "coach-details.html") -contains $filename) { $isTeams = ' class="active"' }
+    $isPlr = ""; if (@("players.html", "player-details.html") -contains $filename) { $isPlr = ' class="active"' }
+    $isTrans = ""; if ($filename -eq "transfers.html") { $isTrans = ' class="active"' }
+    $isStat = ""; if ($filename -eq "statistics.html") { $isStat = ' class="active"' }
+    $isLive = ""; if ($filename -eq "livescores.html") { $isLive = ' class="active"' }
+    $isVid = ""; if ($filename -eq "videos.html") { $isVid = ' class="active"' }
+    $isGal = ""; if ($filename -eq "gallery.html") { $isGal = ' class="active"' }
+    $isBrd = ""; if ($active_board -contains $filename) { $isBrd = ' class="active"' }
+    $isContact = ""; if ($active_contact -contains $filename) { $isContact = ' class="active"' }
     
-    rep("__ACTIVE_MATCHES_PARENT__", ' active' if filename in active_matches else '')
-    rep("__ACTIVE_FIXTURES__", ' class="active"' if filename == "fixtures.html" else '')
-    rep("__ACTIVE_CALENDAR__", ' class="active"' if filename == "calendar.html" else '')
-    rep("__ACTIVE_RESULTS__", ' class="active"' if filename == "results.html" else '')
-    rep("__ACTIVE_STANDINGS__", ' class="active"' if filename == "standings.html" else '')
-    rep("__ACTIVE_LIVESCORES__", ' class="active"' if filename == "livescores.html" else '')
+    $mob = $mob.Replace("__MOBILE_ACTIVE_HOME__", $isHome)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_NEWS__", $isNews)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_FIXTURES__", $isFix)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_CALENDAR__", $isCal)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_RESULTS__", $isRes)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_STANDINGS__", $isStd)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_TEAMS__", $isTeams)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_PLAYERS__", $isPlr)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_TRANSFERS__", $isTrans)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_STATISTICS__", $isStat)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_LIVESCORES__", $isLive)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_VIDEOS__", $isVid)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_GALLERY__", $isGal)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_ABOUT__", $isBrd)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_CONTACT__", $isContact)
     
-    rep("__ACTIVE_HUB_PARENT__", ' active' if filename in active_hub else '')
-    rep("__ACTIVE_TEAMS__", ' class="active"' if filename in ["teams.html", "team-details.html", "coach-details.html"] else '')
-    rep("__ACTIVE_PLAYERS__", ' class="active"' if filename in ["players.html", "player-details.html"] else '')
-    rep("__ACTIVE_TRANSFERS_HUB__", ' class="active"' if filename == "transfers.html" else '')
-    rep("__ACTIVE_STATISTICS__", ' class="active"' if filename == "statistics.html" else '')
-    
-    rep("__ACTIVE_LIGIKUU_PARENT__", ' active' if filename in active_ligikuu else '')
-    rep("__ACTIVE_NBC__", ' class="active"' if filename == "nbcpremierleague.html" else '')
-    rep("__ACTIVE_CHAMPIONSHIP__", ' class="active"' if filename == "championship.html" else '')
-    rep("__ACTIVE_FIRSTLEAGUE__", ' class="active"' if filename == "firstleague.html" else '')
-    rep("__ACTIVE_WOMENSLEAGUE__", ' class="active"' if filename == "womensleague.html" else '')
-    
-    rep("__ACTIVE_BOARD_PARENT__", ' active' if filename in active_board else '')
-    rep("__ACTIVE_ABOUTBOARD__", ' class="active"' if filename == "about.html" else '')
-    rep("__ACTIVE_HISTORY__", '')
-    rep("__ACTIVE_MEMBERS__", '')
-    rep("__ACTIVE_SECRETARIAT__", '')
-    rep("__ACTIVE_CONTACT__", ' class="active"' if filename in active_contact else '')
-    
-    return hdr
+    return $mob
+}
 
-def get_active_mobile(filename):
-    mob = MOBILE_MENU_TEMPLATE
+function Find-NestedDiv($content, $startTag) {
+    $startIdx = $content.IndexOf($startTag)
+    if ($startIdx -eq -1) { return -1, -1 }
     
-    def rep(placeholder, value):
-        nonlocal mob
-        mob = mob.replace(placeholder, value)
-        
-    rep("__MOBILE_ACTIVE_HOME__", ' class="active"' if filename in active_home else '')
-    rep("__MOBILE_ACTIVE_NEWS__", ' class="active"' if filename in active_news else '')
-    rep("__MOBILE_ACTIVE_FIXTURES__", ' class="active"' if filename == "fixtures.html" else '')
-    rep("__MOBILE_ACTIVE_CALENDAR__", ' class="active"' if filename == "calendar.html" else '')
-    rep("__MOBILE_ACTIVE_RESULTS__", ' class="active"' if filename == "results.html" else '')
-    rep("__MOBILE_ACTIVE_STANDINGS__", ' class="active"' if filename == "standings.html" else '')
-    rep("__MOBILE_ACTIVE_TEAMS__", ' class="active"' if filename in ["teams.html", "team-details.html", "coach-details.html"] else '')
-    rep("__MOBILE_ACTIVE_PLAYERS__", ' class="active"' if filename in ["players.html", "player-details.html"] else '')
-    rep("__MOBILE_ACTIVE_TRANSFERS__", ' class="active"' if filename == "transfers.html" else '')
-    rep("__MOBILE_ACTIVE_STATISTICS__", ' class="active"' if filename == "statistics.html" else '')
-    rep("__MOBILE_ACTIVE_LIVESCORES__", ' class="active"' if filename == "livescores.html" else '')
-    rep("__MOBILE_ACTIVE_VIDEOS__", ' class="active"' if filename == "videos.html" else '')
-    rep("__MOBILE_ACTIVE_GALLERY__", ' class="active"' if filename == "gallery.html" else '')
-    rep("__MOBILE_ACTIVE_ABOUT__", ' class="active"' if filename in active_board else '')
-    rep("__MOBILE_ACTIVE_CONTACT__", ' class="active"' if filename in active_contact else '')
-    
-    return mob
-
-def find_nested_div(content, start_tag):
-    start_idx = content.find(start_tag)
-    if start_idx == -1:
-        return -1, -1
-    
-    nesting_level = 0
-    idx = start_idx
-    while idx < len(content):
-        if content[idx:].lower().startswith("<div"):
-            # check if it is followed by a space or ">"
-            if idx + 4 < len(content) and content[idx+4] in (" ", ">"):
-                nesting_level += 1
-                idx += 4
-                continue
-        elif content[idx:].lower().startswith("</div>"):
-            nesting_level -= 1
-            if nesting_level == 0:
-                return start_idx, idx + 6
-            idx += 6
+    $nestingLevel = 0
+    $idx = $startIdx
+    while ($idx -lt $content.Length) {
+        if ($content.Substring($idx).StartsWith("<div", [System.StringComparison]::OrdinalIgnoreCase)) {
+            $nestingLevel++
+            $idx += 4
             continue
-        idx += 1
+        } elseif ($content.Substring($idx).StartsWith("</div>", [System.StringComparison]::OrdinalIgnoreCase)) {
+            $nestingLevel--
+            if ($nestingLevel -eq 0) {
+                return $startIdx, ($idx + 6)
+            }
+            $idx += 6
+            continue
+        }
+        $idx++
+    }
     return -1, -1
+}
 
-def remove_old_header(content):
-    # Try finding portal-header-container
-    p_start, p_end = find_nested_div(content, '<div class="portal-header-container">')
-    if p_start != -1:
-        return content[:p_start], content[p_end:]
-    
-    # Try finding top-header-wrapper + main-nav
-    # We find top-header-wrapper
-    t_start, t_end = find_nested_div(content, '<div class="top-header-wrapper">')
-    if t_start != -1:
-        # Check if there's main-nav next or within 1000 characters
-        # And look for the end of main-nav
-        nav_match = re.search(r'<nav class="main-nav[^"]*">', content[t_end:t_end+2000])
-        if nav_match:
-            nav_start = t_end + nav_match.start()
-            # find closing </nav> for this main-nav
-            nav_end = content.find("</nav>", nav_start)
-            if nav_end != -1:
-                return content[:t_start], content[nav_end+6:]
-        # If no main-nav found, just remove top-header-wrapper
-        return content[:t_start], content[t_end:]
-    
-    # If neither found, see if we can find top-header-wrapper manually
-    return None, None
+function Remove-OldHeader($content) {
+    $start, $end = Find-NestedDiv $content '<div class="portal-header-container">'
+    if ($start -ne -1) {
+        return $content.Substring(0, $start) + "`n" + (Get-ActiveHeader $filename) + "`n" + $content.Substring($end)
+    }
+    return $content
+}
 
-def remove_old_footer(content):
-    # Find footer
-    # Footer could open with <footer ...> and end with </footer>
-    footer_match = re.search(r'<footer[^>]*>', content, re.IGNORECASE)
-    if footer_match:
-        f_start = footer_match.start()
-        # Find closing </footer>
-        f_end = content.lower().find("</footer>", f_start)
-        if f_end != -1:
-            return content[:f_start], content[f_end+9:]
-    return None, None
-
-def remove_old_mobile_menu(content):
-    # Find full-screen-menu
-    m_start = content.find('<nav class="full-screen-menu"')
-    if m_start == -1:
-        m_start = content.find('<nav class="full-screen-menu')
-        
-    if m_start != -1:
-        # find closing </nav>
-        # since mobile menu is nested nav or div, let's track nesting
-        nesting = 0
-        idx = m_start
-        while idx < len(content):
-            if content[idx:].lower().startswith("<nav"):
-                if idx + 4 < len(content) and content[idx+4] in (" ", ">"):
-                    nesting += 1
-                    idx += 4
-                    continue
-            elif content[idx:].lower().startswith("</nav>"):
-                nesting -= 1
-                if nesting == 0:
-                    return content[:m_start], content[idx+6:]
-                idx += 6
-                continue
-            idx += 1
-    return None, None
-
-files = [f for f in os.listdir(workspace_dir) if f.endswith(".html")]
-
-# Include index.html in standardisation loop to apply responsive menu
-for filename in files:
+function Remove-OldFooter($content) {
+    # Match footer opening tag and closing </footer>
+    $footerStart = $content.IndexOf("<footer")
+    if ($footerStart -eq -1) { return $content }
+    $footerEnd = $content.IndexOf("</footer>", $footerStart)
+    if ($footerEnd -eq -1) { return $content }
     
-    filepath = os.path.join(workspace_dir, filename)
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
-        
-    print(f"Standardizing {filename}...")
-    
-    # 1. Remove old header
-    clean_prefix, clean_suffix = remove_old_header(content)
-    if clean_prefix is not None:
-        content = clean_prefix + "\n" + get_active_header(filename) + "\n" + clean_suffix
-    else:
-        # No header found! Insert it right after <body> tag
-        body_idx = content.lower().find("<body>")
-        if body_idx != -1:
-            content = content[:body_idx+6] + "\n" + get_active_header(filename) + "\n" + content[body_idx+6:]
-            
-    # 2. Remove old footer (if any) and insert standard footer
-    clean_prefix, clean_suffix = remove_old_footer(content)
-    if clean_prefix is not None:
-        content = clean_prefix + "\n" + FOOTER_TEMPLATE + "\n" + clean_suffix
-    else:
-        # No footer found, let's insert it before script.js or before mobile menu or before </body>
-        # In this case we'll handle it during mobile menu insert
-        pass
-        
-    # 3. Remove old mobile menu (if any)
-    clean_prefix, clean_suffix = remove_old_mobile_menu(content)
-    if clean_prefix is not None:
-        content = clean_prefix + "\n" + get_active_mobile(filename) + "\n" + clean_suffix
-    else:
-        # No mobile menu found! Let's insert it before script.js or before </body>
-        pass
-        
-    # Ensure standard mobile menu is placed correctly before script.js, and that script.js is imported
-    # Let's remove script.js import if we find it, and place it at the very bottom
-    script_pattern = r'<script src=["\']script\.js["\']></script>'
-    content = re.sub(script_pattern, "", content)
-    
-    # Remove any duplicate script.js imports
-    content = re.sub(r'<script src=["\']script\.js["\']>\s*</script>', "", content)
-    
-    # Check if mobile menu is in the content. If not, insert standard footer and mobile menu before </body>
-    if "full-screen-menu" not in content:
-        # Insert footer and mobile menu before </body>
-        body_close = content.lower().find("</body>")
-        if body_close != -1:
-            # check if footer is in content
-            ftr_insert = ""
-            if "site-footer" not in content:
-                ftr_insert = FOOTER_TEMPLATE + "\n"
-            content = content[:body_close] + "\n" + ftr_insert + get_active_mobile(filename) + "\n<script src=\"script.js\"></script>\n" + content[body_close:]
-    else:
-        # Just insert script.js before </body>
-        body_close = content.lower().find("</body>")
-        if body_close != -1:
-            # check if script.js is already right before </body>
-            content = content[:body_close] + "\n<script src=\"script.js\"></script>\n" + content[body_close:]
+    return $content.Substring(0, $footerStart) + "`n" + $FOOTER_TEMPLATE + "`n" + $content.Substring($footerEnd + 9)
+}
 
-    # Write the modified content back
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(content)
-        
-print("All files standardized!")
+function Remove-OldMobileMenu($content) {
+    $mStart = $content.IndexOf('<nav class="full-screen-menu"')
+    if ($mStart -eq -1) {
+        $mStart = $content.IndexOf('<nav class="full-screen-menu')
+    }
+    if ($mStart -eq -1) { return $content }
+    
+    $nesting = 0
+    $idx = $mStart
+    $mEnd = -1
+    while ($idx -lt $content.Length) {
+        if ($content.Substring($idx).StartsWith("<nav", [System.StringComparison]::OrdinalIgnoreCase)) {
+            $nesting++
+            $idx += 4
+            continue
+        } elseif ($content.Substring($idx).StartsWith("</nav>", [System.StringComparison]::OrdinalIgnoreCase)) {
+            $nesting--
+            if ($nesting -eq 0) {
+                $mEnd = $idx + 6
+                break
+            }
+            $idx += 6
+            continue
+        }
+        $idx++
+    }
+    
+    if ($mEnd -ne -1) {
+        return $content.Substring(0, $mStart) + "`n" + (Get-ActiveMobile $filename) + "`n" + $content.Substring($mEnd)
+    }
+    return $content
+}
+
+foreach ($file in $files) {
+    $filename = $file.Name
+    Write-Host "Standardizing $filename..."
+    
+    $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
+    
+    $content = Remove-OldHeader $content
+    $content = Remove-OldFooter $content
+    $content = Remove-OldMobileMenu $content
+    
+    # Remove existing script.js imports
+    $content = [System.Text.RegularExpressions.Regex]::Replace($content, '<script src=["'']script\.js["'']></script>', "")
+    $content = [System.Text.RegularExpressions.Regex]::Replace($content, '<script src=["'']script\.js["'']>\s*</script>', "")
+    
+    # Insert script.js before </body>
+    $bodyClose = $content.IndexOf("</body>")
+    if ($bodyClose -ne -1) {
+        $content = $content.Substring(0, $bodyClose) + "`n<script src=`"script.js`"></script>`n" + $content.Substring($bodyClose)
+    }
+    
+    [System.IO.File]::WriteAllText($file.FullName, $content, [System.Text.Encoding]::UTF8)
+}
+
+Write-Host "All files standardized successfully!"
