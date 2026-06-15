@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
 <head>
@@ -21,6 +21,7 @@
 
 <body>
 
+    
     
     
     
@@ -228,6 +229,15 @@
 
 
 
+
+
+    <!-- Mobile Only: Quick Actions Bar -->
+    <div class="mobile-quick-actions">
+        <a href="livescores.html" class="quick-action-btn">🔴 Live</a>
+        <a href="fixtures.html" class="quick-action-btn">📅 Fixtures</a>
+        <a href="standings.html" class="quick-action-btn">📊 Table</a>
+        <a href="news.html" class="quick-action-btn">📰 News</a>
+    </div>
 
     <!-- 2. Hero Section -->
     <header class="hero-section reveal-element">
@@ -1588,6 +1598,7 @@
     
     
     
+    
     <footer class="site-footer reveal-element">
         <div class="footer-bg-overlay"></div>
 
@@ -1648,14 +1659,6 @@
                 </div>
             </div>
 
-            <!-- Mobile Footer Navigation -->
-            <div class="mobile-footer-nav">
-                <a href="news.html">News</a>
-                <a href="fixtures.html">Fixtures</a>
-                <a href="standings.html">Standings</a>
-                <a href="contact.html">Contact</a>
-            </div>
-
             <!-- Bottom Legal Bar -->
             <div class="footer-bottom">
                 <div class="copy" data-translate-key="copyright">
@@ -1678,6 +1681,9 @@
 
 
 
+
+    <!-- Professional Sliding Mobile Menu -->
+    
     <!-- Professional Sliding Mobile Menu -->
     
     <!-- Professional Sliding Mobile Menu -->
@@ -1740,6 +1746,7 @@
 
 
 
+
     
 
 
@@ -1756,16 +1763,20 @@
 
 
 
+
+
+    <!-- Mobile Only: Bottom Navigation Bar -->
+    
+
+    <!-- Mobile Only: Bottom Navigation Bar -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html" class="bottom-nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="fixtures.html" class="bottom-nav-item"><i class="fa-solid fa-calendar-check"></i><span>Matches</span></a>
+        <a href="standings.html" class="bottom-nav-item"><i class="fa-solid fa-table-list"></i><span>Table</span></a>
+        <a href="news.html" class="bottom-nav-item"><i class="fa-solid fa-newspaper"></i><span>News</span></a>
+        <a href="https://fcms.ma.services/tan/login" target="_blank" class="bottom-nav-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </div>
 <script src="script.js"></script>
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('Service Worker registered successfully!', reg))
-                .catch(err => console.log('Service Worker registration failed:', err));
-        });
-    }
-</script>
 </body>
 
 </html>

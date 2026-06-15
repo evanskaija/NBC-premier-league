@@ -20,9 +20,10 @@ HEADER_TEMPLATE = """    <div class="portal-header-container">
             <div class="utility-section">
                 <!-- Language Selector -->
                 <div class="lang-selector-mini">
-                    <select>
-                        <option value="en">English</option>
-                        <option value="sw">Kiswahili</option>
+                    <i class="fa-solid fa-globe lang-icon" style="color: var(--primary); margin-right: 5px;"></i>
+                    <select style="background: transparent; border: none; color: var(--text-main); font-family: 'Outfit'; font-weight: 800; font-size: 0.8rem; cursor: pointer; outline: none; padding-right: 5px;">
+                        <option value="en">EN</option>
+                        <option value="sw">SW</option>
                     </select>
                 </div>
                 
@@ -279,26 +280,42 @@ MOBILE_MENU_TEMPLATE = """    <!-- Professional Sliding Mobile Menu -->
                 <h2>MENU</h2>
             </div>
 
-            <ul class="main-nav-links" id="mobile-nav-links">
-                <li><a href="index.html"__MOBILE_ACTIVE_HOME__><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="news.html"__MOBILE_ACTIVE_NEWS__><i class="fa-solid fa-newspaper"></i> News</a></li>
-                <li><a href="fixtures.html"__MOBILE_ACTIVE_FIXTURES__><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
-                <li><a href="results.html"__MOBILE_ACTIVE_RESULTS__><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
-                <li><a href="standings.html"__MOBILE_ACTIVE_STANDINGS__><i class="fa-solid fa-table-list"></i> Standings</a></li>
-                <li><a href="teams.html"__MOBILE_ACTIVE_TEAMS__><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
-                <li><a href="players.html"__MOBILE_ACTIVE_PLAYERS__><i class="fa-solid fa-user-group"></i> Players</a></li>
-                <li><a href="transfers.html"__MOBILE_ACTIVE_TRANSFERS__><i class="fa-solid fa-right-left"></i> Transfers</a></li>
-                <li><a href="statistics.html"__MOBILE_ACTIVE_STATISTICS__><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
-                <li><a href="livescores.html"__MOBILE_ACTIVE_LIVESCORES__><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
-                <li><a href="videos.html"__MOBILE_ACTIVE_VIDEOS__><i class="fa-solid fa-video"></i> Videos</a></li>
-                <li><a href="gallery.html"__MOBILE_ACTIVE_GALLERY__><i class="fa-solid fa-images"></i> Gallery</a></li>
-                <li><a href="about.html"__MOBILE_ACTIVE_ABOUT__><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
-                <li><a href="contact.html"__MOBILE_ACTIVE_CONTACT__><i class="fa-solid fa-envelope"></i> Contact</a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
-            </ul>
+            <!-- Grid Navigation for Mobile -->
+            <div class="mobile-menu-grid">
+                <a href="index.html"__MOBILE_ACTIVE_HOME__><i class="fa-solid fa-house"></i><span>Home</span></a>
+                <a href="news.html"__MOBILE_ACTIVE_NEWS__><i class="fa-solid fa-newspaper"></i><span>News</span></a>
+                <a href="fixtures.html"__MOBILE_ACTIVE_MATCHES__><i class="fa-solid fa-calendar-check"></i><span>Matches</span></a>
+                
+                <a href="calendar.html"__MOBILE_ACTIVE_CALENDAR__><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+                <a href="teams.html"__MOBILE_ACTIVE_HUB__><i class="fa-solid fa-users-viewfinder"></i><span>Hub</span></a>
+                <a href="nbcpremierleague.html"__MOBILE_ACTIVE_LIGIKUU__><i class="fa-solid fa-trophy"></i><span>Ligi Kuu</span></a>
+                
+                <a href="about.html"__MOBILE_ACTIVE_BOARD__><i class="fa-solid fa-circle-info"></i><span>Board</span></a>
+                <a href="contact.html"__MOBILE_ACTIVE_CONTACT__><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+                <a href="https://fcms.ma.services/tan/login" target="_blank"__MOBILE_ACTIVE_LOGIN__><i class="fa-solid fa-user"></i><span>Login</span></a>
+            </div>
+
+            <div class="mobile-menu-competitions">
+                <h3>Competitions</h3>
+                <div class="comp-divider" style="height: 1px; background: rgba(255, 255, 255, 0.08); margin: 10px 0;"></div>
+                <ul class="mobile-comp-links" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li><a href="nbcpremierleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/NBC.png" alt="NBC" class="comp-mini-icon" style="height: 20px; width: auto;"> NBC Premier League</a></li>
+                    <li><a href="championship.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/championship.png" alt="Championship" class="comp-mini-icon" style="height: 20px; width: auto;"> Championship</a></li>
+                    <li><a href="firstleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/Premier league.png" alt="First League" class="comp-mini-icon" style="height: 20px; width: auto;"> First League</a></li>
+                    <li><a href="womensleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/NBC.png" alt="Women" class="comp-mini-icon" style="height: 20px; width: auto;"> Women's League</a></li>
+                </ul>
+            </div>
         </div>
     </nav>"""
+
+BOTTOM_NAV_TEMPLATE = """    <!-- Mobile Only: Bottom Navigation Bar -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html"__BOTTOM_ACTIVE_HOME__><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="fixtures.html"__BOTTOM_ACTIVE_MATCHES__><i class="fa-solid fa-calendar-check"></i><span>Matches</span></a>
+        <a href="standings.html"__BOTTOM_ACTIVE_TABLE__><i class="fa-solid fa-table-list"></i><span>Table</span></a>
+        <a href="news.html"__BOTTOM_ACTIVE_NEWS__><i class="fa-solid fa-newspaper"></i><span>News</span></a>
+        <a href="https://fcms.ma.services/tan/login" target="_blank"__BOTTOM_ACTIVE_PROFILE__><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </div>"""
 
 
 active_news = ["news.html", "transfers.html", "interviews.html", "features.html", "reports.html", "videos.html"]
@@ -361,23 +378,32 @@ def get_active_mobile(filename):
         nonlocal mob
         mob = mob.replace(placeholder, value)
         
-    rep("__MOBILE_ACTIVE_HOME__", ' class="active"' if filename in active_home else '')
-    rep("__MOBILE_ACTIVE_NEWS__", ' class="active"' if filename in active_news else '')
-    rep("__MOBILE_ACTIVE_FIXTURES__", ' class="active"' if filename == "fixtures.html" else '')
-    rep("__MOBILE_ACTIVE_CALENDAR__", ' class="active"' if filename == "calendar.html" else '')
-    rep("__MOBILE_ACTIVE_RESULTS__", ' class="active"' if filename == "results.html" else '')
-    rep("__MOBILE_ACTIVE_STANDINGS__", ' class="active"' if filename == "standings.html" else '')
-    rep("__MOBILE_ACTIVE_TEAMS__", ' class="active"' if filename in ["teams.html", "team-details.html", "coach-details.html"] else '')
-    rep("__MOBILE_ACTIVE_PLAYERS__", ' class="active"' if filename in ["players.html", "player-details.html"] else '')
-    rep("__MOBILE_ACTIVE_TRANSFERS__", ' class="active"' if filename == "transfers.html" else '')
-    rep("__MOBILE_ACTIVE_STATISTICS__", ' class="active"' if filename == "statistics.html" else '')
-    rep("__MOBILE_ACTIVE_LIVESCORES__", ' class="active"' if filename == "livescores.html" else '')
-    rep("__MOBILE_ACTIVE_VIDEOS__", ' class="active"' if filename == "videos.html" else '')
-    rep("__MOBILE_ACTIVE_GALLERY__", ' class="active"' if filename == "gallery.html" else '')
-    rep("__MOBILE_ACTIVE_ABOUT__", ' class="active"' if filename in active_board else '')
-    rep("__MOBILE_ACTIVE_CONTACT__", ' class="active"' if filename in active_contact else '')
+    rep("__MOBILE_ACTIVE_HOME__", ' class="menu-grid-item active"' if filename in active_home else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_NEWS__", ' class="menu-grid-item active"' if filename in active_news else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_MATCHES__", ' class="menu-grid-item active"' if filename in active_matches else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_CALENDAR__", ' class="menu-grid-item active"' if filename == "calendar.html" else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_HUB__", ' class="menu-grid-item active"' if filename in active_hub else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_LIGIKUU__", ' class="menu-grid-item active"' if filename in active_ligikuu else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_BOARD__", ' class="menu-grid-item active"' if filename in active_board else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_CONTACT__", ' class="menu-grid-item active"' if filename in active_contact else ' class="menu-grid-item"')
+    rep("__MOBILE_ACTIVE_LOGIN__", ' class="menu-grid-item"')
     
     return mob
+
+def get_bottom_nav(filename):
+    nav = BOTTOM_NAV_TEMPLATE
+    nav = nav.replace("__BOTTOM_ACTIVE_HOME__", ' class="bottom-nav-item active"' if filename in active_home else ' class="bottom-nav-item"')
+    nav = nav.replace("__BOTTOM_ACTIVE_MATCHES__", ' class="bottom-nav-item active"' if filename in active_matches or filename == "calendar.html" else ' class="bottom-nav-item"')
+    nav = nav.replace("__BOTTOM_ACTIVE_TABLE__", ' class="bottom-nav-item active"' if filename == "standings.html" else ' class="bottom-nav-item"')
+    nav = nav.replace("__BOTTOM_ACTIVE_NEWS__", ' class="bottom-nav-item active"' if filename in active_news else ' class="bottom-nav-item"')
+    nav = nav.replace("__BOTTOM_ACTIVE_PROFILE__", ' class="bottom-nav-item"')
+    return nav
+
+def remove_old_bottom_nav(content):
+    p_start, p_end = find_nested_div(content, '<div class="mobile-bottom-nav">')
+    if p_start != -1:
+        return content[:p_start], content[p_end:]
+    return None, None
 
 def find_nested_div(content, start_tag):
     start_idx = content.find(start_tag)
@@ -499,9 +525,11 @@ for filename in files:
     clean_prefix, clean_suffix = remove_old_mobile_menu(content)
     if clean_prefix is not None:
         content = clean_prefix + "\n" + get_active_mobile(filename) + "\n" + clean_suffix
-    else:
-        # No mobile menu found! Let's insert it before script.js or before </body>
-        pass
+        
+    # 4. Remove old bottom nav (if any)
+    clean_prefix, clean_suffix = remove_old_bottom_nav(content)
+    if clean_prefix is not None:
+        content = clean_prefix + "\n" + clean_suffix
         
     # Ensure standard mobile menu is placed correctly before script.js, and that script.js is imported
     # Let's remove script.js import if we find it, and place it at the very bottom
@@ -511,22 +539,19 @@ for filename in files:
     # Remove any duplicate script.js imports
     content = re.sub(r'<script src=["\']script\.js["\']>\s*</script>', "", content)
     
-    # Check if mobile menu is in the content. If not, insert standard footer and mobile menu before </body>
-    if "full-screen-menu" not in content:
-        # Insert footer and mobile menu before </body>
-        body_close = content.lower().find("</body>")
-        if body_close != -1:
-            # check if footer is in content
-            ftr_insert = ""
-            if "site-footer" not in content:
-                ftr_insert = FOOTER_TEMPLATE + "\n"
-            content = content[:body_close] + "\n" + ftr_insert + get_active_mobile(filename) + "\n<script src=\"script.js\"></script>\n" + content[body_close:]
-    else:
-        # Just insert script.js before </body>
-        body_close = content.lower().find("</body>")
-        if body_close != -1:
-            # check if script.js is already right before </body>
-            content = content[:body_close] + "\n<script src=\"script.js\"></script>\n" + content[body_close:]
+    # Determine what to insert before </body>
+    body_close = content.lower().find("</body>")
+    if body_close != -1:
+        menu_insert = ""
+        if "full-screen-menu" not in content:
+            menu_insert = get_active_mobile(filename) + "\n"
+            
+        ftr_insert = ""
+        if "site-footer" not in content:
+            ftr_insert = FOOTER_TEMPLATE + "\n"
+            
+        # Append footer, mobile menu, bottom nav, and script.js
+        content = content[:body_close] + "\n" + ftr_insert + menu_insert + get_bottom_nav(filename) + "\n<script src=\"script.js\"></script>\n" + content[body_close:]
 
     # Write the modified content back
     with open(filepath, "w", encoding="utf-8") as f:

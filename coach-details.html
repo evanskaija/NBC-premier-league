@@ -284,6 +284,7 @@
     
     
     
+    
     <div class="portal-header-container">
         <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
         <div class="header-top-tier">
@@ -300,9 +301,10 @@
             <div class="utility-section">
                 <!-- Language Selector -->
                 <div class="lang-selector-mini">
-                    <select>
-                        <option value="en">English</option>
-                        <option value="sw">Kiswahili</option>
+                    <i class="fa-solid fa-globe lang-icon" style="color: var(--primary); margin-right: 5px;"></i>
+                    <select style="background: transparent; border: none; color: var(--text-main); font-family: 'Outfit'; font-weight: 800; font-size: 0.8rem; cursor: pointer; outline: none; padding-right: 5px;">
+                        <option value="en">EN</option>
+                        <option value="sw">SW</option>
                     </select>
                 </div>
                 
@@ -487,6 +489,7 @@
 
 
 
+
     <header class="coach-hero">
         <div class="hero-glow-ring"></div>
         <div class="container">
@@ -532,6 +535,7 @@
 
     
 
+    
     
     
     
@@ -627,6 +631,9 @@
 
 
 
+
+    <!-- Professional Sliding Mobile Menu -->
+    
     <!-- Professional Sliding Mobile Menu -->
     
     <!-- Professional Sliding Mobile Menu -->
@@ -659,26 +666,34 @@
                 <h2>MENU</h2>
             </div>
 
-            <ul class="main-nav-links" id="mobile-nav-links">
-                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
-                <li><a href="fixtures.html"><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
-                <li><a href="results.html"><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
-                <li><a href="standings.html"><i class="fa-solid fa-table-list"></i> Standings</a></li>
-                <li><a href="teams.html" class="active"><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
-                <li><a href="players.html"><i class="fa-solid fa-user-group"></i> Players</a></li>
-                <li><a href="transfers.html"><i class="fa-solid fa-right-left"></i> Transfers</a></li>
-                <li><a href="statistics.html"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
-                <li><a href="livescores.html"><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
-                <li><a href="videos.html"><i class="fa-solid fa-video"></i> Videos</a></li>
-                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
-                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
-                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
-            </ul>
+            <!-- Grid Navigation for Mobile -->
+            <div class="mobile-menu-grid">
+                <a href="index.html" class="menu-grid-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+                <a href="news.html" class="menu-grid-item"><i class="fa-solid fa-newspaper"></i><span>News</span></a>
+                <a href="fixtures.html" class="menu-grid-item"><i class="fa-solid fa-calendar-check"></i><span>Matches</span></a>
+                
+                <a href="calendar.html" class="menu-grid-item"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+                <a href="teams.html" class="menu-grid-item active"><i class="fa-solid fa-users-viewfinder"></i><span>Hub</span></a>
+                <a href="nbcpremierleague.html" class="menu-grid-item"><i class="fa-solid fa-trophy"></i><span>Ligi Kuu</span></a>
+                
+                <a href="about.html" class="menu-grid-item"><i class="fa-solid fa-circle-info"></i><span>Board</span></a>
+                <a href="contact.html" class="menu-grid-item"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+                <a href="https://fcms.ma.services/tan/login" target="_blank" class="menu-grid-item"><i class="fa-solid fa-user"></i><span>Login</span></a>
+            </div>
+
+            <div class="mobile-menu-competitions">
+                <h3>Competitions</h3>
+                <div class="comp-divider" style="height: 1px; background: rgba(255, 255, 255, 0.08); margin: 10px 0;"></div>
+                <ul class="mobile-comp-links" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li><a href="nbcpremierleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/NBC.png" alt="NBC" class="comp-mini-icon" style="height: 20px; width: auto;"> NBC Premier League</a></li>
+                    <li><a href="championship.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/championship.png" alt="Championship" class="comp-mini-icon" style="height: 20px; width: auto;"> Championship</a></li>
+                    <li><a href="firstleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/Premier league.png" alt="First League" class="comp-mini-icon" style="height: 20px; width: auto;"> First League</a></li>
+                    <li><a href="womensleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/NBC.png" alt="Women" class="comp-mini-icon" style="height: 20px; width: auto;"> Women's League</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+
 
 
 
@@ -887,6 +902,16 @@
 
 
 
+
+
+    <!-- Mobile Only: Bottom Navigation Bar -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="fixtures.html" class="bottom-nav-item"><i class="fa-solid fa-calendar-check"></i><span>Matches</span></a>
+        <a href="standings.html" class="bottom-nav-item"><i class="fa-solid fa-table-list"></i><span>Table</span></a>
+        <a href="news.html" class="bottom-nav-item"><i class="fa-solid fa-newspaper"></i><span>News</span></a>
+        <a href="https://fcms.ma.services/tan/login" target="_blank" class="bottom-nav-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </div>
 <script src="script.js"></script>
 </body>
 </html>

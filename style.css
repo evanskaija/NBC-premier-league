@@ -11133,16 +11133,35 @@ img {
    MOBILE RESPONSIVENESS OPTIMIZATIONS (MAX-WIDTH: 768PX)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* --- Spacing & Global Sizing Reduction --- */
+    /* --- Spacing & Global Sizing Reduction (Edge-to-Edge) --- */
     .section-padding {
-        padding: 40px 0 !important;
+        padding: 30px 0 !important;
     }
     
     .container {
-        padding: 0 15px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
-    /* Global Card padding compressions */
+    /* Remove Left/Right borders/margins on grid wrappers */
+    .live-matches-grid, 
+    .leagues-grid-v3, 
+    .transfer-grid-premium, 
+    .records-grid-v3, 
+    .news-small-list, 
+    .news-featured-layout {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Global Card padding compressions & Roundness */
     .glass-container, 
     .competition-card-premium, 
     .news-featured-card, 
@@ -11152,10 +11171,13 @@ img {
     .record-card-premium, 
     .newsletter-card-premium {
         padding: 15px !important;
-        border-radius: 12px !important;
+        border-radius: 16px !important; /* Premium rounded look */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
-    /* Gaps between cards reduction */
     .live-matches-grid, 
     .leagues-grid-v3, 
     .transfer-grid-premium, 
@@ -11166,14 +11188,15 @@ img {
 
     /* --- Typography Reductions --- */
     h1, .hero-section h1 {
-        font-size: 28px !important; /* Title reduction */
-        line-height: 1.25 !important;
+        font-size: 32px !important; /* Mobile Title */
+        line-height: 1.2 !important;
     }
     
     .section-header-pl h2, 
     h2, 
     .home-newsletter-section h2 {
-        font-size: 22px !important; /* Section Header reduction */
+        font-size: 24px !important; /* Section Header */
+        font-weight: 950 !important;
     }
     
     .competition-card-premium h3, 
@@ -11183,32 +11206,46 @@ img {
     .record-card-premium h4, 
     .quiz-cta-info h3, 
     .derby-title {
-        font-size: 15px !important; /* Card Header reduction */
+        font-size: 16px !important; /* Card Header */
     }
     
     body, p, .news-summary, .f-desc, .quiz-cta-info p {
-        font-size: 13px !important; /* Normal Text reduction */
+        font-size: 14px !important; /* Normal Text */
     }
     
-    small, .gb-team, .position, .cal-match-venue, .fixture-date, .mv-caption {
-        font-size: 11px !important; /* Small Text reduction */
+    small, .gb-team, .position, .cal-match-venue, .fixture-date, .mv-caption, .bottom-nav-item span {
+        font-size: 12px !important; /* Small Text */
     }
 
-    /* --- Header & Compact Layout --- */
+    /* --- Floating Sticky Rounded Header --- */
     body {
-        padding-top: 80px !important;
+        padding-top: 10px !important;
+        padding-bottom: 75px !important; /* Ensure space for Bottom Nav */
     }
     
     .portal-header-container {
-        top: 0 !important;
-        width: 100% !important;
-        border-radius: 0 !important;
+        position: fixed !important;
+        top: 12px !important;
+        left: 4% !important;
+        width: 92% !important;
+        height: 58px !important;
+        border-radius: 30px !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background: rgba(0, 8, 20, 0.75) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+        z-index: 1200 !important;
+        box-sizing: border-box !important;
     }
     
     .header-top-tier {
-        height: 60px !important;
-        border-radius: 0 !important;
-        padding: 0 15px !important;
+        height: 100% !important;
+        border-radius: 30px !important;
+        padding: 0 16px !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
     }
     
     .brand-section {
@@ -11216,21 +11253,23 @@ img {
     }
     
     .brand-section img {
-        height: 30px !important;
+        height: 28px !important;
+        max-height: 28px !important;
     }
     
     .utility-section {
         gap: 12px !important;
     }
     
-    /* Language Selector Compact */
+    /* Compact Language select */
     .lang-selector-mini {
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         padding: 4px 8px !important;
         border-radius: 20px;
         display: flex !important;
         align-items: center;
+        gap: 4px;
     }
     
     .lang-selector-mini select {
@@ -11238,63 +11277,190 @@ img {
     }
     
     #theme-toggle, .header-login-btn, .header-search-box {
-        display: none !important; /* Hide to maintain Logo | Globe | Hamburger */
+        display: none !important; /* Maintain Logo | Globe | Hamburger */
     }
 
-    /* --- 3x3 Full Screen Menu Grid --- */
+    .mobile-toggle-btn {
+        margin-left: 0 !important;
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    /* --- Mobile Quick Actions --- */
+    .mobile-quick-actions {
+        display: flex !important;
+        justify-content: center;
+        gap: 8px;
+        width: 92%;
+        margin: 85px auto 10px auto !important; /* Space below sticky header */
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        z-index: 100;
+    }
+    
+    .quick-action-btn {
+        flex: 1;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 30px;
+        padding: 8px 0 !important;
+        font-size: 0.72rem !important;
+        font-weight: 800;
+        text-decoration: none !important;
+        color: #ffffff !important;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .quick-action-btn:hover {
+        border-color: var(--primary) !important;
+        color: var(--primary) !important;
+        background: rgba(0, 180, 216, 0.08) !important;
+    }
+
+    /* --- Slide-down Rounded Menu Drawer --- */
+    .full-screen-menu {
+        position: fixed !important;
+        top: 80px !important; /* Below the floating header */
+        left: 4% !important;
+        width: 92% !important;
+        height: auto !important;
+        max-height: 80vh !important;
+        background: rgba(0, 8, 20, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+        overflow-y: auto !important;
+        z-index: 1100 !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        
+        /* Slide down animations */
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease !important;
+        transform: translateY(-30px) scale(0.96) !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        display: block !important;
+    }
+    
+    .full-screen-menu.active {
+        transform: translateY(0) scale(1) !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+    
     .menu-drawer {
-        width: 85% !important;
-        max-width: 320px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        background: transparent !important;
         padding: 20px !important;
+        box-shadow: none !important;
         display: flex;
         flex-direction: column;
         gap: 20px;
+        box-sizing: border-box !important;
     }
     
+    .menu-close-area {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.1rem !important;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+    
+    .menu-header {
+        margin-bottom: 0 !important;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .menu-header h2 {
+        font-size: 0.95rem !important;
+        letter-spacing: 1px;
+    }
+    
+    .menu-header img {
+        height: 24px !important;
+    }
+
+    /* 3-Row Grid Menu Layout */
     .mobile-menu-grid {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
         gap: 8px !important;
-        margin-top: 15px;
+        margin-top: 10px;
     }
     
     .menu-grid-item {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 10px;
-        padding: 12px 6px !important;
+        border-radius: 12px;
+        padding: 10px 4px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 6px !important;
+        gap: 5px !important;
         text-decoration: none !important;
         color: var(--text-main) !important;
         text-align: center;
-        transition: var(--transition);
+        transition: all 0.3s ease;
     }
     
     .menu-grid-item i {
-        font-size: 1.15rem !important;
+        font-size: 1.1rem !important;
         color: var(--primary);
+        transition: transform 0.3s ease;
     }
     
     .menu-grid-item span {
-        font-size: 0.72rem !important;
+        font-size: 0.7rem !important;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
     }
     
-    .menu-grid-item:hover, .menu-grid-item.active {
+    /* Highlight Active menu link */
+    .menu-grid-item.active {
         background: var(--primary-glow) !important;
         border-color: var(--primary) !important;
+        color: var(--primary) !important;
+        position: relative;
+    }
+    
+    .menu-grid-item.active::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        width: 4px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 6px var(--primary);
+    }
+    
+    .menu-grid-item:hover i {
+        transform: scale(1.1);
     }
 
     .mobile-menu-competitions {
-        margin-top: 10px;
+        margin-top: 5px;
     }
     
     .mobile-menu-competitions h3 {
-        font-size: 0.85rem !important;
+        font-size: 0.8rem !important;
         text-transform: uppercase;
         color: var(--text-muted);
         letter-spacing: 0.5px;
@@ -11331,16 +11497,14 @@ img {
         color: #000814 !important;
     }
     
-    /* Toggle Visibility based on tabs */
     .live-matches-grid .live-match-card {
-        display: none !important; /* Hide all by default on mobile */
+        display: none !important;
     }
     
-    /* These styles are applied when active tab is selected (via JS toggled classes) */
     .live-matches-grid.show-live .card-live,
     .live-matches-grid.show-upcoming .card-upcoming,
     .live-matches-grid.show-finished .card-finished {
-        display: flex !important; /* Show active tab card only */
+        display: flex !important;
     }
 
     /* --- Mobile Derby Countdown Card --- */
@@ -11426,7 +11590,7 @@ img {
         text-transform: uppercase;
     }
 
-    /* --- Competitions: 2 Cards Per Row --- */
+    /* --- Competitions Grid --- */
     .leagues-grid-v3 {
         grid-template-columns: repeat(2, 1fr) !important;
     }
@@ -11451,10 +11615,10 @@ img {
     
     .competition-card-premium .comp-meta-info, 
     .competition-card-premium .comp-explore-btn {
-        display: none !important; /* Hide full text on mobile */
+        display: none !important;
     }
 
-    /* --- News Section Vertical layout --- */
+    /* --- News Section --- */
     .news-featured-layout {
         display: flex !important;
         flex-direction: column !important;
@@ -11468,7 +11632,7 @@ img {
         margin-bottom: 8px !important;
     }
 
-    /* --- Horizontal Sliders: Awards, Fixtures, Records --- */
+    /* --- Horizontal Scroll Sliders --- */
     .awards-circular-grid, 
     .fixtures-carousel-wrapper, 
     .records-grid-v3 {
@@ -11505,14 +11669,13 @@ img {
         scroll-snap-align: center !important;
     }
     
-    /* Hide carousel buttons */
     .carousel-nav-buttons {
         display: none !important;
     }
 
-    /* --- League Table simplified --- */
+    /* --- Simplified League Table --- */
     .homepage-table-tabs {
-        display: none !important; /* Hide tabs on mobile homepage */
+        display: none !important;
     }
     
     .tab-content-panel {
@@ -11520,17 +11683,17 @@ img {
     }
     
     #tab-standings {
-        display: block !important; /* Show standings only */
+        display: block !important;
     }
 
-    /* --- Golden Boot widget compact --- */
+    /* --- Compact Golden Boot --- */
     .gb-player-row {
         padding: 8px 4px !important;
         gap: 8px !important;
     }
     
     .gb-avatar, .gb-progress {
-        display: none !important; /* Hide large elements */
+        display: none !important;
     }
     
     .gb-details {
@@ -11557,7 +11720,7 @@ img {
         text-transform: lowercase;
     }
 
-    /* --- Match Prediction compact --- */
+    /* --- Compact Prediction --- */
     .pw-bars {
         display: flex !important;
         flex-direction: row !important;
@@ -11599,7 +11762,7 @@ img {
         height: 30px !important;
     }
 
-    /* --- TikTok-style Trending Now --- */
+    /* --- TikTok-style Shorts --- */
     .moments-grid-shorts {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
@@ -11624,7 +11787,7 @@ img {
     }
     
     .mv-actions-sidebar .action-item:not(:first-child) {
-        display: none !important; /* Keep only Views icon */
+        display: none !important;
     }
     
     .mv-actions-sidebar .action-item .icon-circle {
@@ -11639,7 +11802,7 @@ img {
     }
     
     .mv-music-disk, .mv-follow, .mv-creator, .mv-audio-track, .m-badge-new {
-        display: none !important; /* Hide metadata */
+        display: none !important;
     }
     
     .mv-bottom-info {
@@ -11656,7 +11819,7 @@ img {
         line-height: 1.2 !important;
     }
 
-    /* --- Quiz Section: Hide cards, keep CTA --- */
+    /* --- Quiz Section --- */
     .quiz-grid-premium {
         display: none !important;
     }
@@ -11672,7 +11835,7 @@ img {
         width: 100% !important;
     }
 
-    /* --- Transfer Watch Compact strip --- */
+    /* --- Transfer watch rows --- */
     .transfer-card-modern {
         flex-direction: row !important;
         align-items: center !important;
@@ -11705,7 +11868,7 @@ img {
     }
     
     .team-crest-info span {
-        display: none !important; /* Crests only */
+        display: none !important;
     }
     
     .team-crest-info img {
@@ -11728,7 +11891,7 @@ img {
         display: none !important;
     }
 
-    /* --- Calendar: Hide filters --- */
+    /* --- Calendar preview --- */
     .cal-filters {
         display: none !important;
     }
@@ -11787,10 +11950,10 @@ img {
     }
     
     .site-footer .f-col.branding h4 {
-        display: flex !important; /* Show heading on mobile for accordion */
+        display: flex !important;
     }
     
-    /* Mobile quick navigation block */
+    /* Mobile footer quick links bar */
     .mobile-footer-nav {
         display: flex !important;
         justify-content: center;
@@ -11815,10 +11978,105 @@ img {
         color: var(--primary);
     }
     
-    /* Footer bottom copyright */
     .footer-bottom {
         flex-direction: column !important;
         gap: 10px !important;
         text-align: center;
+    }
+
+    /* --- Sticky Bottom Navigation Bar --- */
+    .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 60px !important;
+        background: rgba(0, 8, 20, 0.9) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        z-index: 1250 !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
+        box-sizing: border-box !important;
+    }
+    
+    .bottom-nav-item {
+        text-decoration: none !important;
+        color: var(--text-muted) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 3px !important;
+        flex: 1;
+        transition: all 0.2s ease;
+    }
+    
+    .bottom-nav-item i {
+        font-size: 1.1rem !important;
+    }
+    
+    .bottom-nav-item span {
+        font-size: 0.65rem !important;
+        font-weight: 700;
+    }
+    
+    .bottom-nav-item.active {
+        color: var(--primary) !important;
+    }
+
+    /* Light Mode adaptations for Floating Header & Bottom Nav */
+    [data-theme="light"] .portal-header-container {
+        background: rgba(255, 255, 255, 0.85) !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    [data-theme="light"] .mobile-bottom-nav {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border-top-color: rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+    
+    [data-theme="light"] .bottom-nav-item.active {
+        color: var(--primary-dark) !important;
+    }
+    
+    [data-theme="light"] .quick-action-btn {
+        background: #ffffff !important;
+        border-color: rgba(0, 0, 0, 0.08) !important;
+        color: #1f2937 !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02) !important;
+    }
+    
+    [data-theme="light"] .quick-action-btn:hover {
+        border-color: var(--primary-dark) !important;
+        color: var(--primary-dark) !important;
+        background: rgba(0, 180, 216, 0.05) !important;
+    }
+    
+    [data-theme="light"] .full-screen-menu {
+        background: rgba(255, 255, 255, 0.98) !important;
+        border-color: rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+    }
+    
+    [data-theme="light"] .menu-grid-item {
+        background: rgba(0, 0, 0, 0.02) !important;
+        border-color: rgba(0, 0, 0, 0.06) !important;
+        color: #1f2937 !important;
+    }
+    
+    [data-theme="light"] .menu-grid-item.active {
+        background: rgba(0, 180, 216, 0.08) !important;
+        border-color: var(--primary-dark) !important;
+        color: var(--primary-dark) !important;
+    }
+    
+    [data-theme="light"] .menu-close-area {
+        background: rgba(0, 0, 0, 0.04) !important;
+        color: #1f2937 !important;
     }
 }

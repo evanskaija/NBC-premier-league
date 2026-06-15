@@ -17,9 +17,10 @@ $HEADER_TEMPLATE = @"
             <div class="utility-section">
                 <!-- Language Selector -->
                 <div class="lang-selector-mini">
-                    <select>
-                        <option value="en">English</option>
-                        <option value="sw">Kiswahili</option>
+                    <i class="fa-solid fa-globe lang-icon" style="color: var(--primary); margin-right: 5px;"></i>
+                    <select style="background: transparent; border: none; color: var(--text-main); font-family: 'Outfit'; font-weight: 800; font-size: 0.8rem; cursor: pointer; outline: none; padding-right: 5px;">
+                        <option value="en">EN</option>
+                        <option value="sw">SW</option>
                     </select>
                 </div>
                 
@@ -280,26 +281,44 @@ $MOBILE_MENU_TEMPLATE = @"
                 <h2>MENU</h2>
             </div>
 
-            <ul class="main-nav-links" id="mobile-nav-links">
-                <li><a href="index.html"__MOBILE_ACTIVE_HOME__><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="news.html"__MOBILE_ACTIVE_NEWS__><i class="fa-solid fa-newspaper"></i> News</a></li>
-                <li><a href="fixtures.html"__MOBILE_ACTIVE_FIXTURES__><i class="fa-solid fa-calendar-days"></i> Fixtures</a></li>
-                <li><a href="results.html"__MOBILE_ACTIVE_RESULTS__><i class="fa-solid fa-square-poll-vertical"></i> Results</a></li>
-                <li><a href="standings.html"__MOBILE_ACTIVE_STANDINGS__><i class="fa-solid fa-table-list"></i> Standings</a></li>
-                <li><a href="teams.html"__MOBILE_ACTIVE_TEAMS__><i class="fa-solid fa-shield-halved"></i> Teams</a></li>
-                <li><a href="players.html"__MOBILE_ACTIVE_PLAYERS__><i class="fa-solid fa-user-group"></i> Players</a></li>
-                <li><a href="transfers.html"__MOBILE_ACTIVE_TRANSFERS__><i class="fa-solid fa-right-left"></i> Transfers</a></li>
-                <li><a href="statistics.html"__MOBILE_ACTIVE_STATISTICS__><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
-                <li><a href="livescores.html"__MOBILE_ACTIVE_LIVESCORES__><i class="fa-solid fa-satellite-dish"></i> Live Scores</a></li>
-                <li><a href="videos.html"__MOBILE_ACTIVE_VIDEOS__><i class="fa-solid fa-video"></i> Videos</a></li>
-                <li><a href="gallery.html"__MOBILE_ACTIVE_GALLERY__><i class="fa-solid fa-images"></i> Gallery</a></li>
-                <li><a href="about.html"__MOBILE_ACTIVE_ABOUT__><i class="fa-solid fa-circle-info"></i> About TFF</a></li>
-                <li><a href="contact.html"__MOBILE_ACTIVE_CONTACT__><i class="fa-solid fa-envelope"></i> Contact</a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i> Login</a></li>
-                <li><a href="#"><i class="fa-solid fa-user-plus"></i> Register</a></li>
-            </ul>
+            <!-- Grid Navigation for Mobile -->
+            <div class="mobile-menu-grid">
+                <a href="index.html"__MOBILE_ACTIVE_HOME__><i class="fa-solid fa-house"></i><span>Home</span></a>
+                <a href="news.html"__MOBILE_ACTIVE_NEWS__><i class="fa-solid fa-newspaper"></i><span>News</span></a>
+                <a href="fixtures.html"__MOBILE_ACTIVE_MATCHES__><i class="fa-solid fa-calendar-check"></i><span>Matches</span></a>
+                
+                <a href="calendar.html"__MOBILE_ACTIVE_CALENDAR__><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+                <a href="teams.html"__MOBILE_ACTIVE_HUB__><i class="fa-solid fa-users-viewfinder"></i><span>Hub</span></a>
+                <a href="nbcpremierleague.html"__MOBILE_ACTIVE_LIGIKUU__><i class="fa-solid fa-trophy"></i><span>Ligi Kuu</span></a>
+                
+                <a href="about.html"__MOBILE_ACTIVE_BOARD__><i class="fa-solid fa-circle-info"></i><span>Board</span></a>
+                <a href="contact.html"__MOBILE_ACTIVE_CONTACT__><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+                <a href="https://fcms.ma.services/tan/login" target="_blank"__MOBILE_ACTIVE_LOGIN__><i class="fa-solid fa-user"></i><span>Login</span></a>
+            </div>
+
+            <div class="mobile-menu-competitions">
+                <h3>Competitions</h3>
+                <div class="comp-divider" style="height: 1px; background: rgba(255, 255, 255, 0.08); margin: 10px 0;"></div>
+                <ul class="mobile-comp-links" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li><a href="nbcpremierleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/NBC.png" alt="NBC" class="comp-mini-icon" style="height: 20px; width: auto;"> NBC Premier League</a></li>
+                    <li><a href="championship.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/championship.png" alt="Championship" class="comp-mini-icon" style="height: 20px; width: auto;"> Championship</a></li>
+                    <li><a href="firstleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/Premier league.png" alt="First League" class="comp-mini-icon" style="height: 20px; width: auto;"> First League</a></li>
+                    <li><a href="womensleague.html" style="text-decoration: none; color: var(--text-main); font-weight: 750; font-size: 0.85rem; display: flex; align-items: center; gap: 10px;"><img src="images/NBC.png" alt="Women" class="comp-mini-icon" style="height: 20px; width: auto;"> Women's League</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+"@
+
+$BOTTOM_NAV_TEMPLATE = @"
+    <!-- Mobile Only: Bottom Navigation Bar -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html"__BOTTOM_ACTIVE_HOME__><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="fixtures.html"__BOTTOM_ACTIVE_MATCHES__><i class="fa-solid fa-calendar-check"></i><span>Matches</span></a>
+        <a href="standings.html"__BOTTOM_ACTIVE_TABLE__><i class="fa-solid fa-table-list"></i><span>Table</span></a>
+        <a href="news.html"__BOTTOM_ACTIVE_NEWS__><i class="fa-solid fa-newspaper"></i><span>News</span></a>
+        <a href="https://fcms.ma.services/tan/login" target="_blank"__BOTTOM_ACTIVE_PROFILE__><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </div>
 "@
 
 $active_news = @("news.html", "transfers.html", "interviews.html", "features.html", "reports.html", "videos.html")
@@ -433,39 +452,53 @@ function Get-ActiveHeader($filename) {
 function Get-ActiveMobile($filename) {
     $mob = $MOBILE_MENU_TEMPLATE
     
-    $isHome = ""; if ($active_home -contains $filename) { $isHome = ' class="active"' }
-    $isNews = ""; if ($active_news -contains $filename) { $isNews = ' class="active"' }
-    $isFix = ""; if ($filename -eq "fixtures.html") { $isFix = ' class="active"' }
-    $isCal = ""; if ($filename -eq "calendar.html") { $isCal = ' class="active"' }
-    $isRes = ""; if ($filename -eq "results.html") { $isRes = ' class="active"' }
-    $isStd = ""; if ($filename -eq "standings.html") { $isStd = ' class="active"' }
-    $isTeams = ""; if (@("teams.html", "team-details.html", "coach-details.html") -contains $filename) { $isTeams = ' class="active"' }
-    $isPlr = ""; if (@("players.html", "player-details.html") -contains $filename) { $isPlr = ' class="active"' }
-    $isTrans = ""; if ($filename -eq "transfers.html") { $isTrans = ' class="active"' }
-    $isStat = ""; if ($filename -eq "statistics.html") { $isStat = ' class="active"' }
-    $isLive = ""; if ($filename -eq "livescores.html") { $isLive = ' class="active"' }
-    $isVid = ""; if ($filename -eq "videos.html") { $isVid = ' class="active"' }
-    $isGal = ""; if ($filename -eq "gallery.html") { $isGal = ' class="active"' }
-    $isBrd = ""; if ($active_board -contains $filename) { $isBrd = ' class="active"' }
-    $isContact = ""; if ($active_contact -contains $filename) { $isContact = ' class="active"' }
+    $isHome = ' class="menu-grid-item"'; if ($active_home -contains $filename) { $isHome = ' class="menu-grid-item active"' }
+    $isNews = ' class="menu-grid-item"'; if ($active_news -contains $filename) { $isNews = ' class="menu-grid-item active"' }
+    $isMatches = ' class="menu-grid-item"'; if ($active_matches -contains $filename) { $isMatches = ' class="menu-grid-item active"' }
+    $isCal = ' class="menu-grid-item"'; if ($filename -eq "calendar.html") { $isCal = ' class="menu-grid-item active"' }
+    $isHub = ' class="menu-grid-item"'; if ($active_hub -contains $filename) { $isHub = ' class="menu-grid-item active"' }
+    $isLigi = ' class="menu-grid-item"'; if ($active_ligikuu -contains $filename) { $isLigi = ' class="menu-grid-item active"' }
+    $isBrd = ' class="menu-grid-item"'; if ($active_board -contains $filename) { $isBrd = ' class="menu-grid-item active"' }
+    $isContact = ' class="menu-grid-item"'; if ($active_contact -contains $filename) { $isContact = ' class="menu-grid-item active"' }
+    $isLogin = ' class="menu-grid-item"'
     
     $mob = $mob.Replace("__MOBILE_ACTIVE_HOME__", $isHome)
     $mob = $mob.Replace("__MOBILE_ACTIVE_NEWS__", $isNews)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_FIXTURES__", $isFix)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_MATCHES__", $isMatches)
     $mob = $mob.Replace("__MOBILE_ACTIVE_CALENDAR__", $isCal)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_RESULTS__", $isRes)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_STANDINGS__", $isStd)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_TEAMS__", $isTeams)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_PLAYERS__", $isPlr)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_TRANSFERS__", $isTrans)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_STATISTICS__", $isStat)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_LIVESCORES__", $isLive)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_VIDEOS__", $isVid)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_GALLERY__", $isGal)
-    $mob = $mob.Replace("__MOBILE_ACTIVE_ABOUT__", $isBrd)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_HUB__", $isHub)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_LIGIKUU__", $isLigi)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_BOARD__", $isBrd)
     $mob = $mob.Replace("__MOBILE_ACTIVE_CONTACT__", $isContact)
+    $mob = $mob.Replace("__MOBILE_ACTIVE_LOGIN__", $isLogin)
     
     return $mob
+}
+
+function Get-BottomNav($filename) {
+    $nav = $BOTTOM_NAV_TEMPLATE
+    
+    $isHome = ' class="bottom-nav-item"'; if ($active_home -contains $filename) { $isHome = ' class="bottom-nav-item active"' }
+    $isMatches = ' class="bottom-nav-item"'; if (($active_matches -contains $filename) -or ($filename -eq "calendar.html")) { $isMatches = ' class="bottom-nav-item active"' }
+    $isTable = ' class="bottom-nav-item"'; if ($filename -eq "standings.html") { $isTable = ' class="bottom-nav-item active"' }
+    $isNews = ' class="bottom-nav-item"'; if ($active_news -contains $filename) { $isNews = ' class="bottom-nav-item active"' }
+    $isProfile = ' class="bottom-nav-item"'
+    
+    $nav = $nav.Replace("__BOTTOM_ACTIVE_HOME__", $isHome)
+    $nav = $nav.Replace("__BOTTOM_ACTIVE_MATCHES__", $isMatches)
+    $nav = $nav.Replace("__BOTTOM_ACTIVE_TABLE__", $isTable)
+    $nav = $nav.Replace("__BOTTOM_ACTIVE_NEWS__", $isNews)
+    $nav = $nav.Replace("__BOTTOM_ACTIVE_PROFILE__", $isProfile)
+    
+    return $nav
+}
+
+function Remove-OldBottomNav($content) {
+    $start, $end = Find-NestedDiv $content '<div class="mobile-bottom-nav">'
+    if ($start -ne -1) {
+        return $content.Substring(0, $start) + $content.Substring($end)
+    }
+    return $content
 }
 
 function Find-NestedDiv($content, $startTag) {
@@ -552,15 +585,25 @@ foreach ($file in $files) {
     $content = Remove-OldHeader $content
     $content = Remove-OldFooter $content
     $content = Remove-OldMobileMenu $content
+    $content = Remove-OldBottomNav $content
     
     # Remove existing script.js imports
     $content = [System.Text.RegularExpressions.Regex]::Replace($content, '<script src=["'']script\.js["'']></script>', "")
     $content = [System.Text.RegularExpressions.Regex]::Replace($content, '<script src=["'']script\.js["'']>\s*</script>', "")
     
-    # Insert script.js before </body>
+    # Check if full-screen-menu is in content, if not insert it
+    $menuInsert = ""
+    if ($content.IndexOf("full-screen-menu") -eq -1) {
+        $menuInsert = (Get-ActiveMobile $filename) + "`n"
+    }
+    
+    # Check if bottom navigation is in content, if not insert it
+    $bottomNavInsert = (Get-BottomNav $filename) + "`n"
+    
+    # Insert menu, bottom nav, and script.js before </body>
     $bodyClose = $content.IndexOf("</body>")
     if ($bodyClose -ne -1) {
-        $content = $content.Substring(0, $bodyClose) + "`n<script src=`"script.js`"></script>`n" + $content.Substring($bodyClose)
+        $content = $content.Substring(0, $bodyClose) + "`n" + $menuInsert + $bottomNavInsert + "<script src=`"script.js`"></script>`n" + $content.Substring($bodyClose)
     }
     
     [System.IO.File]::WriteAllText($file.FullName, $content, [System.Text.Encoding]::UTF8)
