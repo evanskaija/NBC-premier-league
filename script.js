@@ -336,9 +336,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileToggleBtn && fullMenu && closeMenuBtn) {
         mobileToggleBtn.addEventListener('click', toggleMenu);
         closeMenuBtn.addEventListener('click', toggleMenu);
-
-        // Close menu when a link is clicked
-        const menuLinks = fullMenu.querySelectorAll('a');
+        // Close menu when a link is clicked (excluding mobile dropdown triggers)
+        const menuLinks = fullMenu.querySelectorAll('a:not(.mobile-dropdown-btn)');
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 fullMenu.classList.remove('active');
@@ -351,6 +350,34 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === fullMenu) {
                 toggleMenu();
             }
+        });
+
+        // Toggle collapsible mobile menu dropdown lists
+        const mobileDropdownBtns = fullMenu.querySelectorAll('.mobile-dropdown-btn');
+        mobileDropdownBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const targetId = btn.getAttribute('data-target');
+                const targetDropdown = document.getElementById(targetId);
+                
+                if (targetDropdown) {
+                    const isVisible = targetDropdown.style.display === 'block';
+                    
+                    // Close all mobile dropdowns in the drawer
+                    fullMenu.querySelectorAll('.mobile-dropdown-content').forEach(d => {
+                        d.style.display = 'none';
+                    });
+                    
+                    // Reset active states on all dropdown toggle buttons
+                    mobileDropdownBtns.forEach(b => b.classList.remove('active'));
+                    
+                    if (!isVisible) {
+                        targetDropdown.style.display = 'block';
+                        btn.classList.add('active');
+                    }
+                }
+            });
         });
     }
 

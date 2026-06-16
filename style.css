@@ -3530,6 +3530,15 @@ body {
     cursor: pointer;
 }
 
+.moment-vertical.clone-tiktok .moment-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 /* Play Icon Overlay when Paused */
 .moment-vertical::after {
     content: "\f04b";
@@ -11129,6 +11138,14 @@ img {
     color: #ffffff !important;
 }
 
+/* --- Mobile Only Elements (Hidden on Desktop) --- */
+.mobile-quick-actions,
+.mobile-derby-section,
+.mobile-bottom-nav,
+.mobile-only-btn-row {
+    display: none !important;
+}
+
 /* ==========================================================================
    MOBILE RESPONSIVENESS OPTIMIZATIONS (MAX-WIDTH: 768PX)
    ========================================================================== */
@@ -11186,6 +11203,31 @@ img {
         gap: 10px !important;
     }
 
+    /* Live Match Center mobile reductions */
+    .live-match-card {
+        padding: 12px 10px !important;
+    }
+    .match-team img {
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .match-team span {
+        font-size: 0.72rem !important;
+        font-weight: 800 !important;
+    }
+    .match-teams-row {
+        margin: 6px 0 !important;
+        gap: 6px !important;
+    }
+    .score-number {
+        font-size: 1.15rem !important;
+    }
+    .match-info-footer {
+        margin-top: 6px !important;
+        font-size: 0.65rem !important;
+        opacity: 0.8 !important;
+    }
+
     /* --- Typography Reductions --- */
     h1, .hero-section h1 {
         font-size: 32px !important; /* Mobile Title */
@@ -11219,7 +11261,7 @@ img {
 
     /* --- Floating Sticky Rounded Header --- */
     body {
-        padding-top: 10px !important;
+        padding-top: 85px !important;
         padding-bottom: 75px !important; /* Ensure space for Bottom Nav */
     }
     
@@ -11227,6 +11269,7 @@ img {
         position: fixed !important;
         top: 12px !important;
         left: 4% !important;
+        transform: translateX(0) !important;
         width: 92% !important;
         height: 58px !important;
         border-radius: 30px !important;
@@ -11261,29 +11304,24 @@ img {
         gap: 12px !important;
     }
     
-    /* Compact Language select */
-    .lang-selector-mini {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 4px 8px !important;
-        border-radius: 20px;
-        display: flex !important;
-        align-items: center;
-        gap: 4px;
-    }
-    
-    .lang-selector-mini select {
-        padding-right: 0 !important;
-    }
-    
-    #theme-toggle, .header-login-btn, .header-search-box {
-        display: none !important; /* Maintain Logo | Globe | Hamburger */
+    /* Hide desktop controls in the mobile header */
+    .portal-header-container .lang-selector-mini,
+    .portal-header-container #theme-toggle,
+    .header-login-btn,
+    .header-search-box {
+        display: none !important;
     }
 
     .mobile-toggle-btn {
         margin-left: 0 !important;
         width: 32px !important;
         height: 32px !important;
+        font-size: 1.25rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #ffffff !important;
+        cursor: pointer !important;
     }
 
     /* --- Mobile Quick Actions --- */
@@ -11292,7 +11330,7 @@ img {
         justify-content: center;
         gap: 8px;
         width: 92%;
-        margin: 85px auto 10px auto !important; /* Space below sticky header */
+        margin: 15px auto 10px auto !important; /* Space below sticky floating header */
         padding: 0 !important;
         box-sizing: border-box !important;
         z-index: 100;
@@ -11323,148 +11361,243 @@ img {
         background: rgba(0, 180, 216, 0.08) !important;
     }
 
-    /* --- Slide-down Rounded Menu Drawer --- */
+    /* --- Premium Sliding Mobile Menu Drawer (Matches Century Adventures Reference) --- */
     .full-screen-menu {
         position: fixed !important;
-        top: 80px !important; /* Below the floating header */
-        left: 4% !important;
-        width: 92% !important;
-        height: auto !important;
-        max-height: 80vh !important;
-        background: rgba(0, 8, 20, 0.95) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 24px !important;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
-        overflow-y: auto !important;
-        z-index: 1100 !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        
-        /* Slide down animations */
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease !important;
-        transform: translateY(-30px) scale(0.96) !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        z-index: 99999 !important;
         opacity: 0 !important;
+        visibility: hidden !important;
         pointer-events: none !important;
+        transition: opacity 0.3s ease, visibility 0.3s ease !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        max-height: unset !important;
+        transform: none !important;
         display: block !important;
     }
     
     .full-screen-menu.active {
-        transform: translateY(0) scale(1) !important;
         opacity: 1 !important;
+        visibility: visible !important;
         pointer-events: auto !important;
+        transform: none !important;
     }
     
     .menu-drawer {
-        width: 100% !important;
-        max-width: 100% !important;
-        background: transparent !important;
-        padding: 20px !important;
-        box-shadow: none !important;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        width: 80% !important;
+        max-width: 320px !important;
+        height: 100vh !important;
+        background: rgba(0, 8, 20, 0.96) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5) !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-top: none !important;
+        border-bottom: none !important;
+        border-right: none !important;
+        border-radius: 0 !important;
+        padding: 24px !important;
         box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        overflow-y: auto !important;
+        z-index: 100000 !important;
+        transform: translateX(100%) !important;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    
+    .full-screen-menu.active .menu-drawer {
+        transform: translateX(0) !important;
     }
     
     .menu-close-area {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        font-size: 1.1rem !important;
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 50%;
+        position: absolute !important;
+        top: 20px !important;
+        right: 20px !important;
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        color: #ffffff !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .menu-close-area:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        transform: rotate(90deg) !important;
     }
     
     .menu-header {
         margin-bottom: 0 !important;
-        align-items: center;
-        gap: 10px;
+        margin-top: 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
     }
     
     .menu-header h2 {
-        font-size: 0.95rem !important;
-        letter-spacing: 1px;
+        font-size: 1.1rem !important;
+        color: var(--primary) !important;
+        font-weight: 950 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
     }
     
     .menu-header img {
-        height: 24px !important;
+        height: 28px !important;
     }
 
-    /* 3-Row Grid Menu Layout */
+    /* Vertical List Menu Layout */
     .mobile-menu-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
-        margin-top: 10px;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        margin-top: 15px !important;
     }
     
     .menu-grid-item {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 12px;
-        padding: 10px 4px !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 10px 0 !important;
+        padding-left: 12px !important;
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
         align-items: center !important;
-        justify-content: center !important;
-        gap: 5px !important;
+        justify-content: flex-start !important;
+        gap: 12px !important;
         text-decoration: none !important;
-        color: var(--text-main) !important;
-        text-align: center;
-        transition: all 0.3s ease;
+        color: #ffffff !important;
+        font-size: 1.05rem !important;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: left;
+        border-left: 3px solid transparent !important;
+        box-sizing: border-box !important;
+        transition: all 0.3s ease !important;
+        width: 100% !important;
     }
     
     .menu-grid-item i {
-        font-size: 1.1rem !important;
-        color: var(--primary);
+        font-size: 1.15rem !important;
+        color: var(--primary) !important;
+        width: 20px !important;
+        text-align: center !important;
         transition: transform 0.3s ease;
     }
     
     .menu-grid-item span {
-        font-size: 0.7rem !important;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
+        font-size: 1.05rem !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
     }
     
-    /* Highlight Active menu link */
+    /* Highlight Active List Link (Left gold/cyan border) */
     .menu-grid-item.active {
-        background: var(--primary-glow) !important;
-        border-color: var(--primary) !important;
+        background: rgba(0, 180, 216, 0.08) !important;
+        border-left-color: var(--primary) !important;
         color: var(--primary) !important;
-        position: relative;
-    }
-    
-    .menu-grid-item.active::after {
-        content: '';
-        position: absolute;
-        bottom: 5px;
-        width: 4px;
-        height: 4px;
-        background: var(--primary);
-        border-radius: 50%;
-        box-shadow: 0 0 6px var(--primary);
+        border-radius: 4px !important;
     }
     
     .menu-grid-item:hover i {
-        transform: scale(1.1);
+        transform: scale(1.1) !important;
     }
 
-    .mobile-menu-competitions {
-        margin-top: 5px;
+    /* Indented Mobile Dropdowns in list */
+    .mobile-dropdown-content {
+        margin-left: 12px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        margin-top: 5px !important;
+        box-sizing: border-box !important;
     }
-    
-    .mobile-menu-competitions h3 {
-        font-size: 0.8rem !important;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        letter-spacing: 0.5px;
-        margin-bottom: 5px;
+
+    /* Light Theme Adjustments for Sidebar Drawer */
+    [data-theme="light"] .portal-header-container {
+        background: rgba(255, 255, 255, 0.85) !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    [data-theme="light"] .mobile-toggle-btn {
+        color: #1f2937 !important;
+    }
+
+    [data-theme="light"] .full-screen-menu {
+        background: rgba(0, 0, 0, 0.3) !important;
+    }
+
+    [data-theme="light"] .menu-drawer {
+        background: rgba(255, 255, 255, 0.98) !important;
+        border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    [data-theme="light"] .menu-close-area {
+        background: rgba(0, 0, 0, 0.04) !important;
+        border: 1px solid rgba(0, 0, 0, 0.06) !important;
+        color: #1f2937 !important;
+    }
+
+    [data-theme="light"] .menu-grid-item {
+        color: #1f2937 !important;
+    }
+
+    [data-theme="light"] .menu-grid-item.active {
+        background: rgba(0, 180, 216, 0.05) !important;
+        color: var(--primary-dark) !important;
+    }
+
+    [data-theme="light"] .mobile-dropdown-content {
+        background: rgba(0, 0, 0, 0.02) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+
+    /* Action Button (Matches Gold Book Now Button) */
+    .menu-action-btn {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        background: linear-gradient(135deg, var(--accent), #e6a100) !important;
+        color: #000814 !important;
+        padding: 12px 20px !important;
+        border-radius: 30px !important;
+        font-weight: 900 !important;
+        text-transform: uppercase !important;
+        font-size: 0.95rem !important;
+        letter-spacing: 0.5px !important;
+        text-decoration: none !important;
+        box-shadow: 0 4px 15px rgba(255, 183, 3, 0.25) !important;
+        transition: all 0.3s ease !important;
+        box-sizing: border-box !important;
+    }
+
+    .menu-action-btn:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(255, 183, 3, 0.4) !important;
     }
 
     /* --- Match Center Tabs --- */
@@ -11509,6 +11642,7 @@ img {
 
     /* --- Mobile Derby Countdown Card --- */
     .mobile-derby-section {
+        display: block !important;
         background: radial-gradient(circle at center, rgba(0, 180, 216, 0.05), transparent 70%);
         border-bottom: 1px solid var(--border-color);
     }
@@ -11547,29 +11681,29 @@ img {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
     }
     
     .derby-team img {
-        width: 45px;
-        height: 45px;
+        width: 36px !important;
+        height: 36px !important;
         border-radius: 50%;
         box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     
     .derby-team span {
-        font-size: 0.8rem;
+        font-size: 0.72rem !important;
         font-weight: 800;
         color: #ffffff;
     }
     
     .derby-vs {
-        font-size: 1rem;
+        font-size: 0.8rem !important;
         font-weight: 900;
         color: var(--primary);
         background: rgba(0, 180, 216, 0.1);
-        width: 32px;
-        height: 32px;
+        width: 26px !important;
+        height: 26px !important;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -11596,21 +11730,29 @@ img {
     }
     
     .competition-card-premium {
-        flex-direction: column !important;
+        flex-direction: row !important;
         align-items: center !important;
-        text-align: center !important;
+        text-align: left !important;
         gap: 8px !important;
+        padding: 6px 8px !important;
+        justify-content: flex-start !important;
     }
     
     .competition-card-premium .comp-logo-box {
-        width: 45px !important;
-        height: 45px !important;
+        width: 28px !important;
+        height: 28px !important;
         margin-right: 0 !important;
         margin-bottom: 0 !important;
+        flex-shrink: 0 !important;
     }
     
     .competition-card-premium .comp-logo-box img {
-        max-height: 36px !important;
+        max-height: 20px !important;
+    }
+    
+    .competition-card-premium h3 {
+        font-size: 11px !important;
+        margin: 0 !important;
     }
     
     .competition-card-premium .comp-meta-info, 
@@ -11659,9 +11801,35 @@ img {
     }
     
     .fixtures-carousel-card {
-        flex: 0 0 85% !important;
+        flex: 0 0 80% !important;
         scroll-snap-align: center !important;
         margin-right: 0 !important;
+        padding: 12px 10px !important;
+        gap: 6px !important;
+    }
+    .fixtures-carousel-card .fixture-comp {
+        font-size: 0.6rem !important;
+    }
+    .fixtures-carousel-card .fixture-date {
+        font-size: 0.65rem !important;
+    }
+    .fixtures-carousel-card .fixture-opponents {
+        margin-top: 4px !important;
+    }
+    .fixtures-carousel-card .fixture-team {
+        gap: 6px !important;
+    }
+    .fixtures-carousel-card .fixture-team img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .fixtures-carousel-card .fixture-team span {
+        font-size: 0.72rem !important;
+        font-weight: 800 !important;
+    }
+    .fixtures-carousel-card .fixture-vs {
+        padding: 2px 6px !important;
+        font-size: 0.6rem !important;
     }
     
     .record-card-premium {
@@ -11684,6 +11852,27 @@ img {
     
     #tab-standings {
         display: block !important;
+    }
+    
+    .simplified-table {
+        min-width: unset !important;
+        width: 100% !important;
+        display: table !important;
+        overflow-x: visible !important;
+    }
+    
+    .simplified-table th, .simplified-table td {
+        padding: 8px 6px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .simplified-table td.team {
+        gap: 6px !important;
+    }
+    
+    .simplified-table td.team img {
+        width: 20px !important;
+        height: 20px !important;
     }
 
     /* --- Compact Golden Boot --- */
@@ -11769,54 +11958,100 @@ img {
     }
     
     .moment-vertical.clone-tiktok {
-        height: 180px !important;
+        height: 300px !important;
         border-radius: 12px !important;
     }
     
     .mv-actions-sidebar {
-        top: 8px !important;
+        position: absolute !important;
         right: 8px !important;
+        bottom: 50px !important;
+        top: auto !important;
         left: auto !important;
-        bottom: auto !important;
-        flex-direction: row !important;
-        gap: 5px !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        z-index: 10 !important;
     }
     
     .mv-actions-sidebar .action-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
         margin: 0 !important;
     }
     
     .mv-actions-sidebar .action-item:not(:first-child) {
-        display: none !important;
+        display: flex !important;
     }
     
     .mv-actions-sidebar .action-item .icon-circle {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 0.55rem !important;
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.65rem !important;
         background: rgba(0, 0, 0, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        margin-bottom: 2px !important;
     }
     
     .mv-actions-sidebar .action-item span {
         font-size: 0.55rem !important;
+        font-weight: 700 !important;
     }
     
-    .mv-music-disk, .mv-follow, .mv-creator, .mv-audio-track, .m-badge-new {
+    .m-badge-new {
+        display: block !important;
+        position: absolute !important;
+        top: 8px !important;
+        left: 8px !important;
+        padding: 2px 6px !important;
+        font-size: 0.55rem !important;
+    }
+    
+    .mv-creator {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        margin-bottom: 4px !important;
+    }
+    
+    .mv-avatar-v2 {
+        display: block !important;
+        width: 18px !important;
+        height: 18px !important;
+        border-width: 1px !important;
+    }
+    
+    .mv-handle {
+        font-size: 0.6rem !important;
+        font-weight: 800 !important;
+    }
+    
+    .mv-audio-track {
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        font-size: 0.55rem !important;
+    }
+    
+    .mv-music-disk, .mv-follow {
         display: none !important;
     }
     
     .mv-bottom-info {
         padding: 8px !important;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.2) 100%) !important;
     }
     
     .mv-caption {
-        font-size: 0.72rem !important;
-        margin: 0 !important;
+        font-size: 0.65rem !important;
+        margin: 0 0 4px 0 !important;
         display: -webkit-box !important;
         -webkit-line-clamp: 2 !important;
         -webkit-box-orient: vertical !important;
         overflow: hidden !important;
         line-height: 1.2 !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
     }
 
     /* --- Quiz Section --- */
@@ -11898,6 +12133,34 @@ img {
     
     .cal-date-header {
         margin-top: 0 !important;
+    }
+    
+    .cal-matches-list {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
+        padding-bottom: 12px !important;
+        margin-left: -12px !important;
+        margin-right: -12px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        scroll-behavior: smooth;
+        scrollbar-width: none !important;
+    }
+    
+    .cal-matches-list::-webkit-scrollbar {
+        display: none !important;
+    }
+    
+    .cal-match-card {
+        flex: 0 0 85% !important;
+        scroll-snap-align: center !important;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        width: auto !important;
+        box-sizing: border-box !important;
     }
 
     /* --- Footer Expandable Accordions --- */
@@ -12078,5 +12341,9 @@ img {
     [data-theme="light"] .menu-close-area {
         background: rgba(0, 0, 0, 0.04) !important;
         color: #1f2937 !important;
+    }
+    
+    .mobile-only-btn-row {
+        display: block !important;
     }
 }
