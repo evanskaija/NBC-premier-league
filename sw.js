@@ -1,11 +1,12 @@
-const CACHE_NAME = 'tpl-hub-v1';
+const CACHE_NAME = 'tpl-hub-v2';
 const ASSETS = [
     './',
     './index.html',
     './style.css',
     './script.js',
     './manifest.json',
-    './images/Premier league.png'
+    './images/Premier league.png',
+    './images/NBC.png'
 ];
 
 self.addEventListener('install', event => {

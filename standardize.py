@@ -8,7 +8,8 @@ HEADER_TEMPLATE = """    <div class="portal-header-container">
         <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
         <div class="header-top-tier">
             <a href="index.html" class="brand-section">
-                <img src="images/Premier league.png" alt="Logo">
+                <img src="images/Premier league.png" alt="Logo" class="logo-desktop">
+                <img src="images/NBC.png" alt="NBC Logo" class="logo-mobile">
                 <span class="site-title">Tanzania Football Hub</span>
             </a>
 
