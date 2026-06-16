@@ -5,8 +5,7 @@ $HEADER_TEMPLATE = @"
         <!-- TOP TIER: PREMIUM LIGHT BRANDING -->
         <div class="header-top-tier">
             <a href="index.html" class="brand-section">
-                <img src="images/Premier league.png" alt="Logo" class="logo-desktop">
-                <img src="images/NBC.png" alt="NBC Logo" class="logo-mobile">
+                <img src="images/Premier league.png" alt="Logo">
                 <span class="site-title">Tanzania Football Hub</span>
             </a>
 
